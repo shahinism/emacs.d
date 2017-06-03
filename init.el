@@ -7,6 +7,7 @@
 (package-initialize)
 
 ;; use-package
+; https://github.com/jwiegley/use-package
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -15,6 +16,7 @@
 (setq use-package-always-ensure t)
 
 ;; evil-leader
+; https://github.com/cofi/evil-leader
 (use-package evil-leader
   :config
   (global-evil-leader-mode)
@@ -28,6 +30,18 @@
   "w-" 'split-window-below
   "wd" 'delete-window)
 
+;; default variables
+(setq-default
+ fill-column 80
+ visible-bell t
+ initial-scratch-message ""
+ inhibit-startup-message t)
+
+; https://emacs-doctor.com/emacs-strip-tease.html
+(scroll-bar-mode 0)
+(tool-bar-mode 0)
+(menu-bar-mode 0)
+
 ;; avy
 ; http://emacsredux.com/blog/2015/07/19/ace-jump-mode-is-dead-long-live-avy/
 (use-package avy
@@ -36,6 +50,7 @@
     "<SPC>" 'avy-goto-word-or-subword-1))
 
 ;; evil
+; https://github.com/emacs-evil/evil
 (use-package evil
   :config
   (evil-mode +1)
@@ -47,11 +62,14 @@
     "wk" 'evil-window-up))
 
 ;; magit
+; https://github.com/magit/magit/
 (use-package magit)
 ; to make Magit and Evil play well together
+; https://github.com/emacs-evil/evil-magit
 (use-package evil-magit)
 
 ;; company
+; http://company-mode.github.io/
 (use-package company
   :config
   (setq
@@ -60,6 +78,7 @@
   (global-company-mode +1))
 
 ;; smart-parens
+; https://github.com/Fuco1/smartparens
 (use-package smartparens
   :config
   (smartparens-global-mode 1))
