@@ -39,6 +39,8 @@
 
 ;; magit
 (use-package magit)
+; to make Magit and Evil play well together
+(use-package evil-magit)
 
 ;; custom-set-variables
 (custom-set-variables
@@ -46,7 +48,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (evil-leader magit use-package evil ace-jump-mode))))
+ '(package-selected-packages
+   (quote
+    (evil-magit evil-leader magit use-package evil ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
