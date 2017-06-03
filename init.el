@@ -51,6 +51,14 @@
 ; to make Magit and Evil play well together
 (use-package evil-magit)
 
+;; company
+(use-package company
+  :config
+  (setq
+   company-minimum-prefix-length 0
+   company-idle-delay 0)
+  (global-company-mode +1))
+
 ;; custom-set-variables
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -59,7 +67,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (evil-window ace-window avy evil-magit evil-leader magit use-package evil ace-jump-mode))))
+    (company evil-window ace-window avy evil-magit evil-leader magit use-package evil ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
