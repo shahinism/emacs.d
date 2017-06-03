@@ -25,10 +25,12 @@
   "ff" 'find-file
   "fs" 'save-buffer)
 
-;; acejump
-(use-package ace-jump-mode
+;; avy
+; http://emacsredux.com/blog/2015/07/19/ace-jump-mode-is-dead-long-live-avy/
+(use-package avy
   :config
-  (evil-leader/set-key "<SPC>" 'ace-jump-mode))
+  (evil-leader/set-key
+    "<SPC>" 'avy-goto-word-or-subword-1))
 
 ;; evil
 (use-package evil
@@ -50,7 +52,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (evil-magit evil-leader magit use-package evil ace-jump-mode))))
+    (avy evil-magit evil-leader magit use-package evil ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
