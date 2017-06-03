@@ -59,6 +59,11 @@
    company-idle-delay 0)
   (global-company-mode +1))
 
+;; smart-parens
+(use-package smartparens
+  :config
+  (smartparens-global-mode 1))
+
 ;; custom-set-variables
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -67,7 +72,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (company evil-window ace-window avy evil-magit evil-leader magit use-package evil ace-jump-mode))))
+    (smartparens company evil-window ace-window avy evil-magit evil-leader magit use-package evil ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
