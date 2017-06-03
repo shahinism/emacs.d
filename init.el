@@ -24,7 +24,7 @@
 
 ;; default-keybindings
 (evil-leader/set-key
-  "ff" 'find-file
+  ;;"ff" 'find-file
   "fs" 'save-buffer
   "w/" 'split-window-right
   "w-" 'split-window-below
@@ -35,7 +35,10 @@
  fill-column 80
  visible-bell t
  initial-scratch-message ""
- inhibit-startup-message t)
+ inhibit-startup-message t
+ ; http://ergoemacs.org/emacs/emacs_tabs_space_indentation_setup.html
+ indent-tabs-mode nil
+ tab-width 4)
 
 ; https://emacs-doctor.com/emacs-strip-tease.html
 (scroll-bar-mode 0)
@@ -83,6 +86,35 @@
   :config
   (smartparens-global-mode 1))
 
+;; ivy completion
+(use-package ivy
+  :config
+  (setq ;; https://github.com/abo-abo/swiper
+        ivy-use-virtual-buffers t
+	enable-recursive-minibuffers t
+	;; https://github.com/hlissner/.emacs.d/blob/master/modules/completion/ivy/config.el
+        ivy-height 12
+	ivy-do-completion-in-region nil
+	ivy-wrap t
+	ivy-fixed-height-minibuffer t
+	;; Don't use ^ as initial input
+        ivy-initial-inputs-alist nil
+        ;; highlight til EOL
+        ivy-format-function #'ivy-format-function-line
+        ;; disable magic slash on non-match
+        ivy-magic-slash-non-match-action nil)
+  (ivy-mode +1))
+
+(use-package counsel
+  :after ivy
+  :config
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+  (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+  (global-set-key (kbd "<f1> l") 'counsel-find-library)
+  (evil-leader/set-key
+   "ff" 'counsel-find-file))
+
 ;; custom-set-variables
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -91,7 +123,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (smartparens company evil-window ace-window avy evil-magit evil-leader magit use-package evil ace-jump-mode))))
+    (counsel ivy smartparens company evil-window ace-window avy evil-magit evil-leader magit use-package evil ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
