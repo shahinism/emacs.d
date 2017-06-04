@@ -17,6 +17,7 @@
 ;; load mymacs
 (require 'mymacs-packages)
 (require 'mymacs-evil)
+(require 'mymacs-defaults)
 (require 'mymacs-ui)
 (require 'mymacs-keybindings)
 (require 'mymacs-completions)
