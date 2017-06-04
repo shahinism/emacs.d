@@ -4,4 +4,5 @@
 (setq auto-save-file-name-transforms
     `((".*" ,temporary-file-directory t)))
 
+(save-place-local-mode 1)
 (provide 'mymacs-defaults)
