@@ -5,11 +5,15 @@
   (kill-buffer (current-buffer)))
 
 (evil-leader/set-key
-  ;;"ff" 'find-file
   "fs" 'save-buffer
   "w/" 'split-window-right
   "w-" 'split-window-below
   "wd" 'delete-window
-  "bd" 'kill-current-buffer)
+  "bd" 'kill-current-buffer
+  "ar" 'align-regexp)
+
+(use-package which-key
+  :config
+  (which-key-mode +1))
 
 (provide 'mymacs-keybindings)
