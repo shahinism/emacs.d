@@ -1,9 +1,7 @@
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/"))
-(when (< emacs-major-version 24)
-  ;; For important compatibility libraries like cl-lib
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+             '("melpa" . "https://melpa.org/packages/")
+             '("gnu" . "http://elpa.gnu.org/packages"))
 (package-initialize)
 
 ;; use-package
@@ -17,6 +15,13 @@
 
 ;; evil-leader
 ; https://github.com/cofi/evil-leader
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (use-package evil-leader
   :config
   (global-evil-leader-mode)
@@ -152,10 +157,16 @@
     "pt" 'neotree-toggle))
 
 ;; python
+(defun python-mode-defaults ()
+  "Default configuration for python mode"
+  (subword-mode +1)
+  (anaconda-mode 1)
+  (eldoc-mode 1)
+  (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
+
 (use-package anaconda-mode
   :config
-  (add-hook 'python-mode-hook 'anaconda-mode)
-  (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
+  (add-hook 'python-mode-hook 'python-mode-defaults))
 
 (use-package company-anaconda
   :after anaconda-mode)
