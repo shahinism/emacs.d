@@ -2,4 +2,5 @@
 * TODO indent with tab
 * TODO work on python support
 * TODO disable company mode whenever is not required (eg. magit mode)
-* TODO disable paire comlition with smartparens on single quote in elisp
+* DONE disable paire comlition with smartparens on single quote in elisp
+* TODO bind kill current buffer to bd

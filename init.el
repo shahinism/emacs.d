@@ -85,7 +85,8 @@
 ; https://github.com/Fuco1/smartparens
 (use-package smartparens
   :config
-  (smartparens-global-mode 1))
+  (smartparens-global-mode 1)
+  (require 'smartparens-config))
 
 ;; ivy completion
 (use-package ivy
@@ -152,7 +153,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (all-the-icons neotree counsel ivy smartparens company evil-window ace-window avy evil-magit evil-leader magit use-package evil ace-jump-mode))))
+    (smartparens-config all-the-icons neotree counsel ivy smartparens company evil-window ace-window avy evil-magit evil-leader magit use-package evil ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
