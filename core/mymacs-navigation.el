@@ -6,6 +6,29 @@
     "<SPC>" 'avy-goto-word-or-subword-1))
 
 ;; neotree
+; https://github.com/syl20bnr/spacemacs/blob/bd7ef98e4c35fd87538dd2a81356cc83f5fd02f3/layers/%2Bspacemacs/spacemacs-ui-visual/funcs.el#L52
+(defun mymacs/neotree-collapse ()
+  "Collapse a neotree node."
+  (interactive)
+  (let ((node (neo-buffer--get-filename-current-line)))
+    (when node
+      (when (file-directory-p node)
+        (neo-buffer--set-expand node nil)
+        (neo-buffer--refresh t))
+      (when neo-auto-indent-point
+        (neo-point-auto-indent)))))
+
+(defun mymacs/neotree-collapse-or-up ()
+  "Collapse an expanded directory node or go to the parent node."
+  (interactive)
+  (let ((node (neo-buffer--get-filename-current-line)))
+    (when node
+      (if (file-directory-p node)
+          (if (neo-buffer--expanded-node-p node)
+              (mymacs/neotree-collapse)
+            (neotree-select-up-node))
+        (neotree-select-up-node)))))
+
 (use-package all-the-icons)
 (use-package neotree
   :after all-the-icons
@@ -30,6 +53,11 @@
           "~$"
           "^#.*#$"))
   (evil-leader/set-key
-    "pt" 'neotree-toggle))
+    "ft" 'neotree-toggle)
+
+  (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
+  (evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-stretch-toggle)
+  (evil-define-key 'normal neotree-mode-map (kbd "l") 'neotree-enter)
+  (evil-define-key 'normal neotree-mode-map (kbd "h") 'mymacs/neotree-collapse-or-up))
 
 (provide 'mymacs-navigation)

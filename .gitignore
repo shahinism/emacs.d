@@ -61,6 +61,7 @@ flycheck_*.el
 
 # No recent file history
 recentf
+places
 
 # No anaconda-mode external resources
 anaconda-mode
