@@ -1,3 +1,6 @@
+;; smart tab behaviour
+(setq tab-always-indent 'complete)
+
 ;; company
 ; http://company-mode.github.io/
 (use-package company
@@ -18,19 +21,19 @@
 (use-package ivy
   :config
   (setq ;; https://github.com/abo-abo/swiper
-        ivy-use-virtual-buffers t
-	enable-recursive-minibuffers t
+   ivy-use-virtual-buffers t
+   enable-recursive-minibuffers t
 	;; https://github.com/hlissner/.emacs.d/blob/master/modules/completion/ivy/config.el
-        ivy-height 12
-	ivy-do-completion-in-region nil
-	ivy-wrap t
-	ivy-fixed-height-minibuffer t
-	;; Don't use ^ as initial input
-        ivy-initial-inputs-alist nil
-        ;; highlight til EOL
-        ivy-format-function #'ivy-format-function-line
-        ;; disable magic slash on non-match
-        ivy-magic-slash-non-match-action nil)
+   ivy-height 12
+   ivy-do-completion-in-region nil
+   ivy-wrap t
+   ivy-fixed-height-minibuffer t
+   ;; Don't use ^ as initial input
+   ivy-initial-inputs-alist nil
+   ;; highlight til EOL
+   ivy-format-function #'ivy-format-function-line
+   ;; disable magic slash on non-match
+   ivy-magic-slash-non-match-action nil)
   (ivy-mode +1))
 
 (use-package counsel
