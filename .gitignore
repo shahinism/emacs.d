@@ -61,4 +61,7 @@ flycheck_*.el
 
 # No recent file history
 recentf
+
+# No anaconda-mode external resources
+anaconda-mode
 # End of https://www.gitignore.io/api/elisp,emacs

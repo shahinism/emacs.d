@@ -145,6 +145,15 @@
   (evil-leader/set-key
     "pt" 'neotree-toggle))
 
+;; python
+(use-package anaconda-mode
+  :config
+  (add-hook 'python-mode-hook 'anaconda-mode)
+  (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
+
+(use-package company-anaconda
+  :after anaconda-mode)
+
 ;; custom-set-variables
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -153,7 +162,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (smartparens-config all-the-icons neotree counsel ivy smartparens company evil-window ace-window avy evil-magit evil-leader magit use-package evil ace-jump-mode))))
+    (company-anaconda anaconda-mode smartparens-config all-the-icons neotree counsel ivy smartparens company evil-window ace-window avy evil-magit evil-leader magit use-package evil ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
