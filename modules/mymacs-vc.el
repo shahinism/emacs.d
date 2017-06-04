@@ -7,3 +7,6 @@
 
 (provide 'mymacs-vc)
 
+;; gitignore mode
+(use-package gitignore-mode)
+(use-package gitconfig-mode)
