@@ -15,6 +15,10 @@
 (global-linum-mode 1)
 (global-hl-line-mode 1)
 
+;; enable undo-tree globally
+(global-undo-tree-mode)
+
+;; Colorize current changes
 (use-package volatile-highlights
   :config
   (volatile-highlights-mode t))
