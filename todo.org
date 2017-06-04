@@ -3,4 +3,4 @@
 * TODO work on python support
 * TODO disable company mode whenever is not required (eg. magit mode)
 * DONE disable paire comlition with smartparens on single quote in elisp
-* TODO bind kill current buffer to bd
+* DONE bind kill current buffer to bd
