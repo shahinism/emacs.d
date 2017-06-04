@@ -44,6 +44,7 @@
 (scroll-bar-mode 0)
 (tool-bar-mode 0)
 (menu-bar-mode 0)
+(linum-mode 1)
 
 ;; avy
 ; http://emacsredux.com/blog/2015/07/19/ace-jump-mode-is-dead-long-live-avy/
