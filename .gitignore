@@ -59,4 +59,6 @@ flycheck_*.el
 # directory configuration
 .dir-locals.el
 
+# No recent file history
+recentf
 # End of https://www.gitignore.io/api/elisp,emacs

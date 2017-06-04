@@ -113,7 +113,8 @@
   (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
   (global-set-key (kbd "<f1> l") 'counsel-find-library)
   (evil-leader/set-key
-   "ff" 'counsel-find-file))
+    "ff" 'counsel-find-file
+    "fr" 'counsel-recentf))
 
 ;; custom-set-variables
 (custom-set-variables
