@@ -13,5 +13,10 @@
 (tool-bar-mode 0)
 (menu-bar-mode 0)
 (global-linum-mode 1)
+(global-hl-line-mode 1)
+
+(use-package volatile-highlights
+  :config
+  (volatile-highlights-mode t))
 
 (provide 'mymacs-ui)
