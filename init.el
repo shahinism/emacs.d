@@ -25,6 +25,7 @@
 
 ;; load modules
 (require 'mymacs-vc)
+(require 'mymacs-programming)
 (require 'mymacs-python)
 
 ;; custom-set-variables
