@@ -11,6 +11,10 @@
   (add-hook 'python-mode-hook 'python-mode-defaults))
 
 (use-package company-anaconda
-  :after anaconda-mode)
+  :after
+  anaconda-mode
+  company
+  :config
+  (add-to-list 'company-backends 'company-anaconda))
 
 (provide 'mymacs-python)
