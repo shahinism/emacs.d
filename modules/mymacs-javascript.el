@@ -12,7 +12,9 @@
 
 ;; Tern
 (use-package tern
-  :init (add-hook 'js2-mode-hook #'tern-mode))
+  :init (add-hook 'js2-mode-hook #'tern-mode)
+  :config
+  (setq tern-command (append tern-command '("--no-port-file"))))
 
 (use-package company-tern
   :after
