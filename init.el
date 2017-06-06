@@ -38,7 +38,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (smart-mode-line rainbow-mode haml-mode company-web web-mode exec-path-from-shell coffee-mode rjsx-mode rsjx-mode company-tern tern xref-js2 js2-mode pip-requirements gitconfig-mode gitignore-mode which-key volatile-highlights company-anaconda anaconda-mode smartparens-config all-the-icons neotree counsel ivy smartparens company evil-window ace-window avy evil-magit evil-leader magit use-package evil))))
+    (beacon smart-mode-line rainbow-mode haml-mode company-web web-mode exec-path-from-shell coffee-mode rjsx-mode rsjx-mode company-tern tern xref-js2 js2-mode pip-requirements gitconfig-mode gitignore-mode which-key volatile-highlights company-anaconda anaconda-mode smartparens-config all-the-icons neotree counsel ivy smartparens company evil-window ace-window avy evil-magit evil-leader magit use-package evil))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
