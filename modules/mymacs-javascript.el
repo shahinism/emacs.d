@@ -1,11 +1,17 @@
 ;; js2-mode
+(defun mymacs/js2-mode-hook ()
+  (setq flycheck-checker 'javascript-standard))
+
 (use-package js2-mode
   :mode "\\.js$"
   :interpreter "node"
   :config
   (setq js2-skip-preprocessor-directives t
         js2-highlight-external-variables nil
-        js2-mode-show-parse-errors nil))
+        js2-mode-show-parse-errors nil
+        js2-mode-show-strict-warnings nil)
+
+  (add-hook 'js2-mode-hook 'mymacs/js2-mode-hook))
 
 ;; xref-js2
 (use-package xref-js2)
