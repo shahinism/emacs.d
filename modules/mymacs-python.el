@@ -4,17 +4,14 @@
   (setq python-indent-guess-indent-offset-verbose nil
         python-shell-interpreter "python"))
 
-(defun python-mode-defaults ()
-  "Default configuration for python mode"
-  (subword-mode +1)
-  (anaconda-mode 1)
-  (eldoc-mode 1)
-  (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
-
 ;; anaconda
 (use-package anaconda-mode
+  :after python
   :config
-  (add-hook 'python-mode-hook 'python-mode-defaults))
+  ;; trim eldoc to fit the frame
+  (setq anaconda-mode-eldoc-as-single-line t)
+  (add-hook 'python-mode-hook #'anaconda-mode)
+  (add-hook 'anaconda-mode-hook #'anaconda-eldoc-mode))
 
 (use-package company-anaconda
   :after
