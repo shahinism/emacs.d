@@ -33,4 +33,20 @@
   counsel
   projectile)
 
+;; flycheck
+(use-package flycheck
+  :init
+  (global-flycheck-mode)
+  :config
+  (add-hook 'prog-mode-hook 'flycheck-mode))
+
+(use-package flycheck-pos-tip
+  :after flycheck
+  :config
+  (setq flycheck-pos-tip-timeout 10
+        flycheck-display-errors-delay 0.5)
+  (flycheck-pos-tip-mode +1))
+
 (provide 'mymacs-programming)
+
+;;; mymacs-programming.el ends here
