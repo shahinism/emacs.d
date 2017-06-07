@@ -7,6 +7,7 @@
 ;; anaconda
 (use-package anaconda-mode
   :after python
+  :bind (("M-s" . anaconda-mode-find-definitions))
   :config
   ;; trim eldoc to fit the frame
   (setq anaconda-mode-eldoc-as-single-line t)
@@ -24,5 +25,17 @@
 ; https://github.com/Wilfred/pip-requirements.el
 (use-package pip-requirements
   :mode ("/requirements.txt$" . pip-requirements-mode))
+
+;; pyenv
+(use-package pyenv-mode
+  :config
+  (pyenv-mode 1))
+
+;; pyvenv
+(use-package pyvenv
+  :config
+  (evil-leader/set-key-for-mode 'python-mode
+    "pw" 'pyvenv-workon
+    "pd" 'pyvenv-deactivate))
 
 (provide 'mymacs-python)
