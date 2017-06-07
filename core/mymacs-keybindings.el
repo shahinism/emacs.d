@@ -12,6 +12,10 @@
   "bd" 'kill-current-buffer
   "ar" 'align-regexp)
 
+;; Font size
+(global-set-key (kbd "C-+") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
+
 (use-package which-key
   :config
   (which-key-mode +1))
