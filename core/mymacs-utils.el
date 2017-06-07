@@ -12,4 +12,6 @@
                     (t
                      (message "Compiled %s" short-name))))) targets)))
 
+(mymacs-compile)
+
 (provide 'mymacs-utils)
