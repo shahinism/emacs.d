@@ -47,6 +47,26 @@
 (use-package spaceline
   :config
   (require 'spaceline-config)
-  (spaceline-spacemacs-theme))
+  (spaceline-emacs-theme))
+
+;; zenburn theme
+(use-package zenburn-theme
+  :config
+  (load-theme 'zenburn t))
+
+;; set font
+(defun mymacs/check-font-exists (font)
+  "Check if FONT is installed on the system."
+  (if (find-font (font-spec :name font))
+      t
+    nil))
+
+(defun mymacs/set-font (font)
+  "Set FONT if it is installed or message otherwise."
+  (if (mymacs/check-font-exists font)
+      (set-frame-font font)
+    (message "Font % doesn't exists" font)))
+
+(mymacs/set-font "Hack-10")
 
 (provide 'mymacs-ui)
