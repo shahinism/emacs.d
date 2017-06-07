@@ -5,6 +5,6 @@
     `((".*" ,temporary-file-directory t)))
 
 ;; save place
-(save-place-local-mode 1)
+(save-place-mode 1)
 
 (provide 'mymacs-defaults)
