@@ -1,4 +1,5 @@
 (defun mymacs-compile ()
+  (interactive)
   (let ((targets (append (list (expand-file-name "init.el" user-emacs-directory))
                          (directory-files mymacs-core-dir t "^[^\.].+\.el$")
                          (directory-files mymacs-modules-dir t "^[^\.].+\.el$"))))
@@ -11,7 +12,5 @@
                      (message "Failed to compile %s" short-name))
                     (t
                      (message "Compiled %s" short-name))))) targets)))
-
-(mymacs-compile)
 
 (provide 'mymacs-utils)
