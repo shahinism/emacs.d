@@ -67,6 +67,6 @@
       (set-frame-font font)
     (message "Font % doesn't exists" font)))
 
-(mymacs/set-font "Hack-10")
+(mymacs/set-font mymacs-frame-font)
 
 (provide 'mymacs-ui)

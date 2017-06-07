@@ -10,6 +10,9 @@
 (defvar mymacs-modules-dir (expand-file-name "modules" user-emacs-directory)
   "Mymacs's modules directory")
 
+(defvar mymacs-frame-font "Hack-10"
+  "Default font to be used on mymacs frame")
+
 ;; add mymacs to load path
 (add-to-list 'load-path mymacs-core-dir)
 (add-to-list 'load-path mymacs-modules-dir)
