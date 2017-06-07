@@ -32,6 +32,10 @@
 (column-number-mode t)
 (size-indication-mode t)
 
+;; Editing
+(setq show-paren-delay 0)
+(show-paren-mode 1)
+
 ;; y/n answers
 (fset 'yes-or-no-p 'y-or-n-p)
 

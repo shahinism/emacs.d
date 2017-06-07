@@ -56,4 +56,8 @@
   (define-key evil-normal-state-map "gc" 'evilnc-comment-operator)
   )
 
+;; rainbow delimiter
+(use-package rainbow-delimiters
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 ;;; mymacs-programming.el ends here
