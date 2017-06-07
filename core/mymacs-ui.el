@@ -43,12 +43,10 @@
   :config
   (volatile-highlights-mode t))
 
-;; smart-mode-line
-(use-package smart-mode-line
+;; spaceline
+(use-package spaceline
   :config
-  (setq  sml/no-confirm-load-theme t
-         ; delegate theming to the currently active theme
-         sml/theme nil)
-  (add-hook 'after-init-hook #'sml/setup))
+  (require 'spaceline-config)
+  (spaceline-spacemacs-theme))
 
 (provide 'mymacs-ui)
