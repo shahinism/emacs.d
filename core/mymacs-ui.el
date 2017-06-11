@@ -65,12 +65,25 @@
       t
     nil))
 
-(defun mymacs/set-font (font)
+(defun mymacs/set-font (font &optional range)
   "Set FONT if it is installed or message otherwise."
-  (if (mymacs/check-font-exists font)
-      (set-frame-font font)
-    (message "Font % doesn't exists" font)))
+  (when window-system
+    (if (mymacs/check-font-exists font)
+        (if range
+            (set-fontset-font "fontset-default" range font)
+          (set-frame-font font)) 
+      (message "Font % doesn't exists" font))))
 
-(mymacs/set-font mymacs-frame-font)
+(defun mymacs-set-user-fonts ()
+  "Set user defined fonts from mymacs-frame-font."
+  (interactive)
+
+  (dolist (font mymacs-frame-font)
+    (if (stringp font)
+        (mymacs/set-font font))
+    (if (listp font)
+        (mymacs/set-font (nth 0 font) (nth 1 font)))))
+
+(mymacs-set-user-fonts)
 
 (provide 'mymacs-ui)

@@ -31,7 +31,10 @@
 (use-package counsel-projectile
   :after
   counsel
-  projectile)
+  projectile
+  :config
+  (evil-leader/set-key
+    "fp" 'counsel-projectile))
 
 ;; flycheck
 (use-package flycheck
