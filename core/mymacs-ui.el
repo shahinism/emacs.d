@@ -85,5 +85,9 @@
         (mymacs/set-font (nth 0 font) (nth 1 font)))))
 
 (mymacs-set-user-fonts)
+;; emojis
+(use-package emojify
+  :config
+  (add-hook 'after-init-hook #'global-emojify-mode))
 
 (provide 'mymacs-ui)

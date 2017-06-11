@@ -66,4 +66,8 @@ saveplace
 
 # No anaconda-mode external resources
 anaconda-mode
+
+# data files/directories
+emojis/
+projectile-bookmarks.eld
 # End of https://www.gitignore.io/api/elisp,emacs
