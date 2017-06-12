@@ -13,4 +13,6 @@
                     (t
                      (message "Compiled %s" short-name))))) targets)))
 
+(use-package fringe-helper)
+
 (provide 'mymacs-utils)

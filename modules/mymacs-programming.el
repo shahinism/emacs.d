@@ -41,6 +41,15 @@
   :init
   (global-flycheck-mode)
   :config
+  (setq flycheck-indication-mode 'right-fringe)
+  (fringe-helper-define 'flycheck-fringe-bitmap-double-arrow 'center
+                        "...X...."
+                        "..XX...."
+                        ".XXX...."
+                        "XXXX...."
+                        ".XXX...."
+                        "..XX...."
+                        "...X....")
   (add-hook 'prog-mode-hook 'flycheck-mode))
 
 (use-package flycheck-pos-tip

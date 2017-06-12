@@ -85,6 +85,7 @@
         (mymacs/set-font (nth 0 font) (nth 1 font)))))
 
 (mymacs-set-user-fonts)
+
 ;; emojis
 (use-package emojify
   :config

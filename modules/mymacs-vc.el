@@ -10,3 +10,8 @@
 ;; gitignore mode
 (use-package gitignore-mode)
 (use-package gitconfig-mode)
+
+;; git-gutter
+(use-package git-gutter
+  :config
+  (add-hook 'prog-mode-hook 'git-gutter-mode))
