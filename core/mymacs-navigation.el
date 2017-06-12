@@ -66,4 +66,12 @@
   :config
   (beacon-mode +1))
 
+;; iedit
+(use-package iedit
+  :config
+  (evil-leader/set-key "se" 'iedit-mode))
+
+(use-package evil-iedit-state
+  :after iedit)
+
 (provide 'mymacs-navigation)

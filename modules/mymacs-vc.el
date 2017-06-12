@@ -11,7 +11,8 @@
 (use-package gitignore-mode)
 (use-package gitconfig-mode)
 
+;; It slows down the navigation
 ;; git-gutter
-(use-package git-gutter
-  :config
-  (add-hook 'prog-mode-hook 'git-gutter-mode))
+;; (use-package git-gutter
+;;   :config
+;;   (add-hook 'prog-mode-hook 'git-gutter-mode))
