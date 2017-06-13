@@ -1,5 +1,11 @@
+(defun javascript-doc ()
+  "Dfine Javascript docs for helm-dash."
+  (interactive)
+  (setq-local helm-dash-docsets '("Javascript")))
+
 ;; js2-mode
 (defun mymacs/js2-mode-hook ()
+  (javascript-doc)
   (setq flycheck-checker 'javascript-standard))
 
 (use-package js2-mode

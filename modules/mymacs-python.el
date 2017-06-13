@@ -1,6 +1,12 @@
+(defun python-doc ()
+  "Dfine Python docs for helm-dash."
+  (interactive)
+  (setq-local helm-dash-docsets '("Python 3" "Python 2")))
+
 ;; python
 (use-package python
   :init
+  (add-hook 'python-mode-hook 'python-doc)
   (setq python-indent-guess-indent-offset-verbose nil
         python-shell-interpreter "python"))
 
