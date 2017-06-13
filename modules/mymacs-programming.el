@@ -21,20 +21,18 @@
       (neotree-find origin-buffer-file-name))))
 
 (use-package projectile
-  :after ivy
+  :after helm
   :config
   (evil-leader/set-key
-    "pt" 'neotree-find-project-root)
+    "pt" 'neotree-find-project-root))
 
-  (setq projectile-completion-system 'ivy))
-
-(use-package counsel-projectile
+(use-package helm-projectile
   :after
-  counsel
+  helm
   projectile
   :config
   (evil-leader/set-key
-    "fp" 'counsel-projectile))
+    "fp" 'helm-projectile))
 
 ;; flycheck
 (use-package flycheck
@@ -59,8 +57,6 @@
         flycheck-display-errors-delay 0.5)
   (flycheck-pos-tip-mode +1))
 
-(provide 'mymacs-programming)
-
 ;; evil-nerd commenter
 (use-package evil-nerd-commenter
   :config
@@ -72,4 +68,6 @@
 (use-package rainbow-delimiters
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+
+(provide 'mymacs-programming)
 ;;; mymacs-programming.el ends here
