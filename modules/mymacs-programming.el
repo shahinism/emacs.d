@@ -23,6 +23,8 @@
 (use-package projectile
   :after helm
   :config
+  (setq projectile-completion-system 'helm)
+
   (evil-leader/set-key
     "pt" 'neotree-find-project-root))
 
