@@ -5,14 +5,15 @@
 ; https://github.com/emacs-evil/evil-magit
 (use-package evil-magit)
 
-(provide 'mymacs-vc)
-
 ;; gitignore mode
 (use-package gitignore-mode)
 (use-package gitconfig-mode)
 
 ;; It slows down the navigation
 ;; git-gutter
-;; (use-package git-gutter
-;;   :config
-;;   (add-hook 'prog-mode-hook 'git-gutter-mode))
+(use-package git-gutter
+  :config
+  (global-git-gutter-mode t)
+  (git-gutter:linum-setup))
+
+(provide 'mymacs-vc)
