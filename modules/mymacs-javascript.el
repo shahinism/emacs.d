@@ -1,7 +1,7 @@
 (defun javascript-doc ()
   "Dfine Javascript docs for helm-dash."
   (interactive)
-  (setq-local helm-dash-docsets '("Javascript")))
+  (setq-local helm-dash-docsets '("JavaScript")))
 
 ;; js2-mode
 (defun mymacs/js2-mode-hook ()
