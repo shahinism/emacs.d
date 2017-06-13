@@ -44,4 +44,20 @@
     "pw" 'pyvenv-workon
     "pd" 'pyvenv-deactivate))
 
+;; Auto-formatting
+(defun python-format-buffer ()
+  "Format python buffer using yapify and isort."
+  (interactive)
+  (yapfify-buffer (point-min) (point-max))
+  (py-isort-buffer))
+
+; yapfify
+(use-package yapfify :defer t)
+
+; py-isort
+(use-package py-isort :defer t)
+
+(evil-leader/set-key-for-mode 'python-mode
+  "=" 'python-format-buffer)
+
 (provide 'mymacs-python)
