@@ -70,4 +70,5 @@ anaconda-mode
 # data files/directories
 emojis/
 projectile-bookmarks.eld
+irony/
 # End of https://www.gitignore.io/api/elisp,emacs
