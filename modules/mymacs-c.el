@@ -32,4 +32,10 @@
   (evil-leader/set-key-for-mode 'c-mode
     "cd" 'disaster))
 
+;; clang-format
+(use-package clang-format
+  :config
+  (evil-leader/set-key-for-mode 'c-mode
+    "=" 'clang-format-buffer))
+
 (provide 'mymacs-c)
