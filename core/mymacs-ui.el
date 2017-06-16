@@ -24,7 +24,6 @@
 (scroll-bar-mode 0)
 (tool-bar-mode 0)
 (menu-bar-mode 0)
-(global-linum-mode 1)
 (global-hl-line-mode 1)
 
 ;; mode line
@@ -90,5 +89,10 @@
 (use-package emojify
   :config
   (add-hook 'after-init-hook #'global-emojify-mode))
+
+;; nlinum
+(use-package nlinum
+  :config
+  (global-nlinum-mode 1))
 
 (provide 'mymacs-ui)
