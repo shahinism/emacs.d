@@ -4,6 +4,9 @@
 
 ;; json-mode
 (use-package json-mode
-  :mode "\\.json$")
+  :mode "\\.json$"
+  :config
+  (evil-leader/set-key-for-mode 'json-mode
+    "=" 'json-pretty-print-buffer))
 
 (provide 'mymacs-templates)

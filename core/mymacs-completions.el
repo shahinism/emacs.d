@@ -7,7 +7,9 @@
   :config
   (setq
    company-minimum-prefix-length 0
-   company-idle-delay 0)
+   company-idle-delay 0
+   company-tooltip-flip-when-above t)
+
   (global-company-mode +1))
 
 ;; smart-parens
