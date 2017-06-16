@@ -91,8 +91,8 @@
   (add-hook 'after-init-hook #'global-emojify-mode))
 
 ;; nlinum
-(use-package nlinum
-  :config
-  (global-nlinum-mode 1))
+;; (use-package nlinum
+;;   :config
+;;   (global-nlinum-mode -1))
 
 (provide 'mymacs-ui)
