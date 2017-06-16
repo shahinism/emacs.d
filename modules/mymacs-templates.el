@@ -9,4 +9,11 @@
   (evil-leader/set-key-for-mode 'json-mode
     "=" 'json-pretty-print-buffer))
 
+;; json-snatcher
+(use-package json-snatcher
+  :after json-mode
+  :config
+  (evil-leader/set-key-for-mode 'json-mode
+    "gp" 'jsons-print-path))
+
 (provide 'mymacs-templates)
