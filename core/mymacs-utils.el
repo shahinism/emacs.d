@@ -1,3 +1,4 @@
+;; fringe-helper
 (use-package fringe-helper)
 
 ;; compiler
