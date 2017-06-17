@@ -37,6 +37,7 @@
 (require 'mymacs-c)
 (require 'mymacs-docker)
 (require 'mymacs-templates)
+(require 'mymacs-latex)
 
 ;; custom-set-variables
 (custom-set-variables
@@ -46,7 +47,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (json-mode nlinum nlinum-mode yaml-mode dockerfile-mode clang-format disaster flycheck-irony company-irony irony evil-matchit py-isort yapfify company-quickhelp cargo toml-mode helm-dash counsel-dash esup evil-iedit-state iedit fringe-helper git-gutter company-racer racer flycheck-rust rust-mode rainbow-delimiters evil-nerd-commenter zenburn-theme spaceline spaceline-config pyvenv pyenv-mode flycheck-pos-tip flycheck counsel-projectile projectile beacon smart-mode-line rainbow-mode haml-mode company-web web-mode exec-path-from-shell coffee-mode rjsx-mode rsjx-mode company-tern tern xref-js2 js2-mode pip-requirements gitconfig-mode gitignore-mode which-key volatile-highlights company-anaconda anaconda-mode smartparens-config all-the-icons neotree counsel ivy smartparens company evil-window ace-window avy evil-magit evil-leader magit use-package evil))))
+    (company-auctex auctex json-mode nlinum nlinum-mode yaml-mode dockerfile-mode clang-format disaster flycheck-irony company-irony irony evil-matchit py-isort yapfify company-quickhelp cargo toml-mode helm-dash counsel-dash esup evil-iedit-state iedit fringe-helper git-gutter company-racer racer flycheck-rust rust-mode rainbow-delimiters evil-nerd-commenter zenburn-theme spaceline spaceline-config pyvenv pyenv-mode flycheck-pos-tip flycheck counsel-projectile projectile beacon smart-mode-line rainbow-mode haml-mode company-web web-mode exec-path-from-shell coffee-mode rjsx-mode rsjx-mode company-tern tern xref-js2 js2-mode pip-requirements gitconfig-mode gitignore-mode which-key volatile-highlights company-anaconda anaconda-mode smartparens-config all-the-icons neotree counsel ivy smartparens company evil-window ace-window avy evil-magit evil-leader magit use-package evil))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
