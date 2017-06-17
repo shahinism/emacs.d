@@ -14,6 +14,7 @@
   (setq TeX-auto-save t
         TeX-parse-self t
         TeX-save-query nil
+        TeX-PDF-mode t
         TeX-source-correlate-start-server nil
         LaTeX-fill-break-at-separators nil
         LaTeX-section-hook
@@ -29,5 +30,12 @@
   :after company
   :config
   (company-auctex-init))
+
+;; reftex
+(use-package reftex ; built-in
+  :commands (turn-on-reftex reftex-mode)
+  :init
+  (setq reftex-plug-into-AUCTeX t
+        reftex-toc-split-windows-fraction 0.2))
 
 (provide 'mymacs-latex)
