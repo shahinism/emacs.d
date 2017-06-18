@@ -3,20 +3,20 @@
    Following variables are not required anymore, since all the configuration
    will be placed in current file only.
 
-#+BEGIN_SRC emacs-lisp
-(defvar mymacs-core-dir (expand-file-name "core" user-emacs-directory)
-  "The core directory of mymacs tools")
+   #+BEGIN_SRC emacs-lisp
+     (defvar mymacs-core-dir (expand-file-name "core" user-emacs-directory)
+       "The core directory of mymacs tools")
 
-(defvar mymacs-modules-dir (expand-file-name "modules" user-emacs-directory)
-  "Mymacs's modules directory")
+     (defvar mymacs-modules-dir (expand-file-name "modules" user-emacs-directory)
+       "Mymacs's modules directory")
 
-(defvar mymacs-frame-font (list "Hack-10" (list "tahoma" '(#x600 . #x6ff)))
-  "Default font to be used on mymacs frame")
+     (defvar mymacs-frame-font (list "Hack-10" (list "tahoma" '(#x600 . #x6ff)))
+       "Default font to be used on mymacs frame")
 
-;; add mymacs to load path
-(add-to-list 'load-path mymacs-core-dir)
-(add-to-list 'load-path mymacs-modules-dir)
-#+END_SRC
+     ;; add mymacs to load path
+     (add-to-list 'load-path mymacs-core-dir)
+     (add-to-list 'load-path mymacs-modules-dir)
+   #+END_SRC
 
 * Package Manager
 ** Package Repositories:
@@ -46,10 +46,39 @@
      (require 'use-package)
      (setq use-package-always-ensure t)
    #+END_SRC
+* Evil
+** [[https://github.com/cofi/evil-leader][evil-leader]] 
+   Insert =evil-leader= package and define =<SPC>= button as leader key.
+   #+BEGIN_SRC emacs-lisp
+     (use-package evil-leader
+       :config
+       (global-evil-leader-mode)
+       (evil-leader/set-leader "<SPC>"))
+   #+END_SRC
+** [[https://github.com/emacs-evil/evil][evil]]
+   #+BEGIN_SRC emacs-lisp
+     (use-package evil
+       :config
+       (evil-mode +1)
+       (evil-leader/set-key
+         "gs" 'magit-status
+         "wh" 'evil-window-left
+         "wj" 'evil-window-down
+         "wl" 'evil-window-right
+         "wk" 'evil-window-up))
+   #+END_SRC
+*** Keybindings
+    | normal | evil | function          | status                                         |
+    |--------+------+-------------------+------------------------------------------------|
+    |        | gs   | magit-status      | TODO: Move this to magit configuration section |
+    |        | wh   | evil-window-left  |                                                |
+    |        | wj   | evil-window-down  |                                                |
+    |        | wl   | evil-window-right |                                                |
+    |        | wk   | evil-window-up    |                                                |
 
+* OLD
 #+BEGIN_SRC emacs-lisp
 ;; load mymacs
-(require 'mymacs-evil)
 (require 'mymacs-utils)
 (require 'mymacs-org)
 (require 'mymacs-defaults)
