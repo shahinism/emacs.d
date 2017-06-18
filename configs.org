@@ -1,0 +1,73 @@
+* Variables
+** TODO Remove this section:
+   Following variables are not required anymore, since all the configuration
+   will be placed in current file only.
+
+#+BEGIN_SRC emacs-lisp
+(defvar mymacs-core-dir (expand-file-name "core" user-emacs-directory)
+  "The core directory of mymacs tools")
+
+(defvar mymacs-modules-dir (expand-file-name "modules" user-emacs-directory)
+  "Mymacs's modules directory")
+
+(defvar mymacs-frame-font (list "Hack-10" (list "tahoma" '(#x600 . #x6ff)))
+  "Default font to be used on mymacs frame")
+
+;; add mymacs to load path
+(add-to-list 'load-path mymacs-core-dir)
+(add-to-list 'load-path mymacs-modules-dir)
+#+END_SRC
+
+* Package Manager
+** Package Repositories:
+   Add following package repositories and initialize package manager:
+   - [[http://melpa.org/][Melpa]]
+   - [[http://elpa.gnu.org][Gnu]]
+   - [[http://orgmode.org/elpa.html][Org]] (to get orgmode + all contribution packages)
+
+    #+BEGIN_SRC emacs-lisp
+      (require 'package)
+      (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+      (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages")) 
+      (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+      (package-initialize)
+    #+END_SRC
+** [[https://github.com/jwiegley/use-package][use-package]]
+   Ensure =use-package= is installed:
+   #+BEGIN_SRC emacs-lisp
+     (unless (package-installed-p 'use-package)
+       (package-refresh-contents)
+       (package-install 'use-package))
+   #+END_SRC
+   Ask =use-package= to ensure all required packages will be installed
+   automatically at startup time. This helps us to eliminate =:ensure t=
+   argument while inserting a new package:
+   #+BEGIN_SRC emacs-lisp
+     (require 'use-package)
+     (setq use-package-always-ensure t)
+   #+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+;; load mymacs
+(require 'mymacs-evil)
+(require 'mymacs-utils)
+(require 'mymacs-org)
+(require 'mymacs-defaults)
+(require 'mymacs-ui)
+(require 'mymacs-keybindings)
+(require 'mymacs-completions)
+(require 'mymacs-navigation)
+
+;; load modules
+(require 'mymacs-vc)
+(require 'mymacs-programming)
+(require 'mymacs-python)
+(require 'mymacs-javascript)
+(require 'mymacs-web)
+(require 'mymacs-rust)
+(require 'mymacs-c)
+(require 'mymacs-docker)
+(require 'mymacs-templates)
+(require 'mymacs-latex)
+(require 'mymacs-pdf)
+#+END_SRC
