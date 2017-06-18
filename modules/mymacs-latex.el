@@ -1,3 +1,7 @@
+;; disable flycheck in tex mode
+; https://emacs.stackexchange.com/questions/21042/disable-minor-mode-in-major-mode
+(setq flycheck-global-modes '(not LaTeX-mode latex-mode))
+
 ;; auctex
 ; https://github.com/jwiegley/use-package/issues/379
 (use-package tex
