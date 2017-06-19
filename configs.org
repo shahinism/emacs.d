@@ -187,78 +187,78 @@
       (fset 'yes-or-no-p 'y-or-n-p)
     #+END_SRC
     Enable visible-bell to save my ears:
-   #+BEGIN_SRC emacs-lisp
+    #+BEGIN_SRC emacs-lisp
      (setq-default visible-bell t)
-   #+END_SRC
-   Remove initial message from scratch buffer:
-   #+BEGIN_SRC emacs-lisp
+    #+END_SRC
+    Remove initial message from scratch buffer:
+    #+BEGIN_SRC emacs-lisp
      (setq-default initial-scratch-message "")
-   #+END_SRC
-   Remove startup message:
-   #+BEGIN_SRC emacs-lisp
+    #+END_SRC
+    Remove startup message:
+    #+BEGIN_SRC emacs-lisp
      (setq-default inhibit-startup-message t)
-   #+END_SRC
-*** Preventing indentation from using tabs: ([[http://ergoemacs.org/emacs/emacs_tabs_space_indentation_setup.html][Here]])
-   #+BEGIN_SRC emacs-lisp
+    #+END_SRC
+    Preventing indentation from using tabs: ([[http://ergoemacs.org/emacs/emacs_tabs_space_indentation_setup.html][Here]])
+    #+BEGIN_SRC emacs-lisp
      (setq-default indent-tabs-mode nil)
-   #+END_SRC
-*** Set default tab size to 4 spaces:
-   #+BEGIN_SRC emacs-lisp
-     (setq-default tab-width)
+    #+END_SRC
+    Set default tab size to 4 spaces:
+    #+BEGIN_SRC emacs-lisp
+     (setq-default tab-width 4)
    #+END_SRC
 *** Smooth Scrolling
-**** Move one line at a time using mouse cursor:
+    Move one line at a time using mouse cursor:
      #+BEGIN_SRC emacs-lisp
        (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
      #+END_SRC
-**** Do not accelerate scrolling on mouse cursor:
+    Do not accelerate scrolling on mouse cursor:
      #+BEGIN_SRC emacs-lisp
        (setq mouse-wheel-progressive-speed nil)
      #+END_SRC
-**** Scroll window under the mouse cursor:
+    Scroll window under the mouse cursor:
      #+BEGIN_SRC emacs-lisp
       (setq mouse-wheel-follow-mouse 't) 
      #+END_SRC
-**** Scroll one line at a time using keyboard:
+    Scroll one line at a time using keyboard:
      #+BEGIN_SRC emacs-lisp
       (setq scroll-step 1)
      #+END_SRC
 **** Nice Scrolling:
-***** Prevent jumping when scrolling through margins:
+     Prevent jumping when scrolling through margins:
      #+BEGIN_SRC emacs-lisp
       (setq scroll-margin 0)
      #+END_SRC
-***** Prevent recentering the pointer:
+     Prevent recentering the pointer:
      #+BEGIN_SRC emacs-lisp
       (setq scroll-conservatively 100000) 
      #+END_SRC
-***** Preseve pointer position on scrolls:
+     Preseve pointer position on scrolls:
      #+BEGIN_SRC emacs-lisp
       (setq scroll-preserve-screen-position 1) 
      #+END_SRC
 *** [[https://emacs-doctor.com/emacs-strip-tease.html][Strip Emacs UI]] 
-**** Remove Scrollbar:
+    Remove Scrollbar:
      #+BEGIN_SRC emacs-lisp
        (scroll-bar-mode 0)
      #+END_SRC
-**** Remove Toolbar:
+    Remove Toolbar:
      #+BEGIN_SRC emacs-lisp
        (tool-bar-mode 0)
      #+END_SRC
-**** Remove MenuBar:
+    Remove MenuBar:
      #+BEGIN_SRC emacs-lisp
        (menu-bar-mode 0)
      #+END_SRC
 *** Mode Line:
-**** Show line number in the mode-line:
+    Show line number in the mode-line:
     #+BEGIN_SRC emacs-lisp
       (line-number-mode t)
     #+END_SRC
-**** Show column number in the mode-line:
+    Show column number in the mode-line:
      #+BEGIN_SRC emacs-lisp
        (column-number-mode t)
      #+END_SRC
-**** Show file size in the mode-line:
+    Show file size in the mode-line:
      #+BEGIN_SRC emacs-lisp
        (size-indication-mode t)
      #+END_SRC
