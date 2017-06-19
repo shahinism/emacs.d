@@ -28,7 +28,7 @@
     #+BEGIN_SRC emacs-lisp
       (require 'package)
       (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-      (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages")) 
+      (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")) 
       (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
       (package-initialize)
     #+END_SRC
@@ -174,27 +174,27 @@
       (setq-default fill-column 80)
     #+END_SRC
     Enable current line highlighing:
-     #+BEGIN_SRC emacs-lisp
+    #+BEGIN_SRC emacs-lisp
        (global-hl-line-mode 1)
-     #+END_SRC
+    #+END_SRC
     Enable =show-paren-mode= and set it to show matching parens immediately:
-     #+BEGIN_SRC emacs-lisp
+    #+BEGIN_SRC emacs-lisp
        (setq show-paren-delay 0)
        (show-paren-mode 1)
-     #+END_SRC
+    #+END_SRC
     Enable =y-or-no-p= mode to save some typings:
     #+BEGIN_SRC emacs-lisp
       (fset 'yes-or-no-p 'y-or-n-p)
     #+END_SRC
-*** Enable visible-bell to save my ears:
+    Enable visible-bell to save my ears:
    #+BEGIN_SRC emacs-lisp
      (setq-default visible-bell t)
    #+END_SRC
-*** Remove initial message from scratch buffer:
+   Remove initial message from scratch buffer:
    #+BEGIN_SRC emacs-lisp
      (setq-default initial-scratch-message "")
    #+END_SRC
-*** Remove startup message:
+   Remove startup message:
    #+BEGIN_SRC emacs-lisp
      (setq-default inhibit-startup-message t)
    #+END_SRC
