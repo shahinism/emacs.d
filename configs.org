@@ -1,568 +1,583 @@
-* Variables
-** TODO Remove this section:
-   Following variables are not required anymore, since all the configuration
-   will be placed in current file only.
-
-   #+BEGIN_SRC emacs-lisp
-     (defvar mymacs-core-dir (expand-file-name "core" user-emacs-directory)
-       "The core directory of mymacs tools")
-
-     (defvar mymacs-modules-dir (expand-file-name "modules" user-emacs-directory)
-       "Mymacs's modules directory")
-
-     (defvar mymacs-frame-font (list "Hack-10" (list "tahoma" '(#x600 . #x6ff)))
-       "Default font to be used on mymacs frame")
-
-     ;; add mymacs to load path
-     (add-to-list 'load-path mymacs-core-dir)
-     (add-to-list 'load-path mymacs-modules-dir)
-   #+END_SRC
-
-* Package Manager
-** Package Repositories:
-   Add following package repositories and initialize package manager:
-   - [[http://melpa.org/][Melpa]]
-   - [[http://elpa.gnu.org][Gnu]]
-   - [[http://orgmode.org/elpa.html][Org]] (to get orgmode + all contribution packages)
+* Core
+** Variables
+*** TODO Remove this section:
+    Following variables are not required anymore, since all the configuration
+    will be placed in current file only.
 
     #+BEGIN_SRC emacs-lisp
-      (require 'package)
-      (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-      (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")) 
-      (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
-      (package-initialize)
+      (defvar mymacs-core-dir (expand-file-name "core" user-emacs-directory)
+        "The core directory of mymacs tools")
+
+      (defvar mymacs-modules-dir (expand-file-name "modules" user-emacs-directory)
+        "Mymacs's modules directory")
+
+      (defvar mymacs-frame-font (list "Hack-10" (list "tahoma" '(#x600 . #x6ff)))
+        "Default font to be used on mymacs frame")
+
+      ;; add mymacs to load path
+      (add-to-list 'load-path mymacs-core-dir)
+      (add-to-list 'load-path mymacs-modules-dir)
     #+END_SRC
-** [[https://github.com/jwiegley/use-package][use-package]]
-   Ensure =use-package= is installed:
-   #+BEGIN_SRC emacs-lisp
-     (unless (package-installed-p 'use-package)
-       (package-refresh-contents)
-       (package-install 'use-package))
-   #+END_SRC
-   Ask =use-package= to ensure all required packages will be installed
-   automatically at startup time. This helps us to eliminate =:ensure t=
-   argument while inserting a new package:
-   #+BEGIN_SRC emacs-lisp
-     (require 'use-package)
-     (setq use-package-always-ensure t)
-   #+END_SRC
-* Evil
-** [[https://github.com/cofi/evil-leader][evil-leader]] 
-   Insert =evil-leader= package and define =<SPC>= button as leader key.
-   #+BEGIN_SRC emacs-lisp
-     (use-package evil-leader
-       :config
-       (global-evil-leader-mode)
-       (evil-leader/set-leader "<SPC>"))
-   #+END_SRC
-** [[https://github.com/emacs-evil/evil][evil]]
-   #+BEGIN_SRC emacs-lisp
-     (use-package evil
-       :config
-       (evil-mode +1)
-       (evil-leader/set-key
-         "gs" 'magit-status
-         "wh" 'evil-window-left
-         "wj" 'evil-window-down
-         "wl" 'evil-window-right
-         "wk" 'evil-window-up))
-   #+END_SRC
-*** Keybindings
-    | normal | evil | function          | status                                         |
-    |--------+------+-------------------+------------------------------------------------|
-    |        | gs   | magit-status      | TODO: Move this to magit configuration section |
-    |        | wh   | evil-window-left  |                                                |
-    |        | wj   | evil-window-down  |                                                |
-    |        | wl   | evil-window-right |                                                |
-    |        | wk   | evil-window-up    |                                                |
-* Org
-** [[https://github.com/sabof/org-bullets][org-bullets]]
-   #+BEGIN_SRC emacs-lisp
-     (use-package org-bullets
-       :config
-       (add-hook 'org-mode-hook #'org-bullets-mode))
-   #+END_SRC
-** [[https://github.com/edwtjo/evil-org-mode][evil-org]] 
-   #+BEGIN_SRC emacs-lisp
-     (use-package evil-org
-       :config
-       (add-hook 'org-mode-hook (lambda () (evil-org-mode +1))))
-   #+END_SRC
 
-* Goodies
-  Here I'm going to define functions or packages that are useful/helpful in
-  configuration:
-** [[https://github.com/nschum/fringe-helper.el][fringe-helper]] 
-   This package will help to define custom fringe shapes for packages. Currently
-   used in following packages:
-   - Flycheck
-  #+BEGIN_SRC emacs-lisp
-    (use-package fringe-helper)
-  #+END_SRC
-** Compiler
-   This function will byte-compile all the packages developed for configuration.
-*** TODO Remove this if it is not required anymore.
+** Package Manager
+*** Package Repositories:
+    Add following package repositories and initialize package manager:
+    - [[http://melpa.org/][Melpa]]
+    - [[http://elpa.gnu.org][Gnu]]
+    - [[http://orgmode.org/elpa.html][Org]] (to get orgmode + all contribution packages)
+
+     #+BEGIN_SRC emacs-lisp
+       (require 'package)
+       (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+       (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")) 
+       (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+       (package-initialize)
+     #+END_SRC
+*** [[https://github.com/jwiegley/use-package][use-package]]
+    Ensure =use-package= is installed:
     #+BEGIN_SRC emacs-lisp
-      (defun mymacs-compile ()
+      (unless (package-installed-p 'use-package)
+        (package-refresh-contents)
+        (package-install 'use-package))
+    #+END_SRC
+    Ask =use-package= to ensure all required packages will be installed
+    automatically at startup time. This helps us to eliminate =:ensure t=
+    argument while inserting a new package:
+    #+BEGIN_SRC emacs-lisp
+      (require 'use-package)
+      (setq use-package-always-ensure t)
+    #+END_SRC
+** Evil
+*** [[https://github.com/cofi/evil-leader][evil-leader]] 
+    Insert =evil-leader= package and define =<SPC>= button as leader key.
+    #+BEGIN_SRC emacs-lisp
+      (use-package evil-leader
+        :config
+        (global-evil-leader-mode)
+        (evil-leader/set-leader "<SPC>"))
+    #+END_SRC
+*** [[https://github.com/emacs-evil/evil][evil]]
+    #+BEGIN_SRC emacs-lisp
+      (use-package evil
+        :config
+        (evil-mode +1)
+        (evil-leader/set-key
+          "gs" 'magit-status
+          "wh" 'evil-window-left
+          "wj" 'evil-window-down
+          "wl" 'evil-window-right
+          "wk" 'evil-window-up))
+    #+END_SRC
+**** Keybindings
+     | normal | evil | function          | status                                         |
+     |--------+------+-------------------+------------------------------------------------|
+     |        | gs   | magit-status      | TODO: Move this to magit configuration section |
+     |        | wh   | evil-window-left  |                                                |
+     |        | wj   | evil-window-down  |                                                |
+     |        | wl   | evil-window-right |                                                |
+     |        | wk   | evil-window-up    |                                                |
+** Org
+*** [[https://github.com/sabof/org-bullets][org-bullets]]
+    #+BEGIN_SRC emacs-lisp
+      (use-package org-bullets
+        :config
+        (add-hook 'org-mode-hook #'org-bullets-mode))
+    #+END_SRC
+*** [[https://github.com/edwtjo/evil-org-mode][evil-org]] 
+    #+BEGIN_SRC emacs-lisp
+      (use-package evil-org
+        :config
+        (add-hook 'org-mode-hook (lambda () (evil-org-mode +1))))
+    #+END_SRC
+
+** Goodies
+   Here I'm going to define functions or packages that are useful/helpful in
+   configuration:
+*** [[https://github.com/nschum/fringe-helper.el][fringe-helper]] 
+    This package will help to define custom fringe shapes for packages. Currently
+    used in following packages:
+    - Flycheck
+   #+BEGIN_SRC emacs-lisp
+     (use-package fringe-helper)
+   #+END_SRC
+*** Compiler
+    This function will byte-compile all the packages developed for configuration.
+**** TODO Remove this if it is not required anymore.
+     #+BEGIN_SRC emacs-lisp
+       (defun mymacs-compile ()
+         (interactive)
+         (let ((targets (append (list (expand-file-name "init.el" user-emacs-directory))
+                                (directory-files mymacs-core-dir t "^[^\.].+\.el$")
+                                (directory-files mymacs-modules-dir t "^[^\.].+\.el$"))))
+           (mapc (lambda (file)
+                   (let ((result (byte-compile-file file))
+                         (short-name (file-relative-name file user-emacs-directory)))
+                     (cond ((eq result 'no-byte-compile)
+                            (message "Ignored %s" short-name))
+                           ((null result)
+                            (message "Failed to compile %s" short-name))
+                           (t
+                            (message "Compiled %s" short-name))))) targets)))
+     #+END_SRC
+*** Open With
+    This function will open current buffer in configured external program
+    (system-wide preferred programs). I've used [[http://emacsredux.com/blog/2013/03/27/open-file-in-external-program/][this tip]] here.
+    #+BEGIN_SRC emacs-lisp
+      (defun mymacs-open-with (arg)
+        (interactive "P")
+        (when buffer-file-name
+          (shell-command (concat
+                          (cond
+                           ((and (not arg) (eq system-type 'darwin)) "open")
+                           ((and (not arg) (member system-type '(gnu gnu/linux gnu/kfreebsd))) "xdg-open")
+                           (t (read-shell-command "Open current file with: ")))
+                          " "
+                          (shell-quote-argument buffer-file-name)))))
+
+      (evil-leader/set-key "xo" 'mymacs-open-with)
+    #+END_SRC
+** Basic Configurations
+*** Defaults
+**** Directories
+     Move default backup and autosave directory to =/tmp/=
+***** Backup
+      #+BEGIN_SRC emacs-lisp
+        (setq backup-directory-alist
+            `((".*" . ,temporary-file-directory)))
+      #+END_SRC
+***** Auto Save
+      #+BEGIN_SRC emacs-lisp
+        (setq auto-save-file-name-transforms
+            `((".*" ,temporary-file-directory t)))
+      #+END_SRC
+**** Save Place
+     Remember my latest place when opening a new file.
+     #+BEGIN_SRC emacs-lisp
+       (save-place-mode 1)
+     #+END_SRC
+**** Undo Tree:
+     Enable =global-undo-tree=:
+     #+BEGIN_SRC emacs-lisp
+       (global-undo-tree-mode) 
+     #+END_SRC
+*** UI
+**** UI Defaults
+     Set maximum line length to 80 characters:
+     #+BEGIN_SRC emacs-lisp
+       (setq-default fill-column 80)
+     #+END_SRC
+     Enable current line highlighing:
+     #+BEGIN_SRC emacs-lisp
+        (global-hl-line-mode 1)
+     #+END_SRC
+     Enable =show-paren-mode= and set it to show matching parens immediately:
+     #+BEGIN_SRC emacs-lisp
+        (setq show-paren-delay 0)
+        (show-paren-mode 1)
+     #+END_SRC
+     Enable =y-or-no-p= mode to save some typings:
+     #+BEGIN_SRC emacs-lisp
+       (fset 'yes-or-no-p 'y-or-n-p)
+     #+END_SRC
+     Enable visible-bell to save my ears:
+     #+BEGIN_SRC emacs-lisp
+      (setq-default visible-bell t)
+     #+END_SRC
+     Remove initial message from scratch buffer:
+     #+BEGIN_SRC emacs-lisp
+      (setq-default initial-scratch-message "")
+     #+END_SRC
+     Remove startup message:
+     #+BEGIN_SRC emacs-lisp
+      (setq-default inhibit-startup-message t)
+     #+END_SRC
+     Preventing indentation from using tabs: ([[http://ergoemacs.org/emacs/emacs_tabs_space_indentation_setup.html][Here]])
+     #+BEGIN_SRC emacs-lisp
+      (setq-default indent-tabs-mode nil)
+     #+END_SRC
+     Set default tab size to 4 spaces:
+     #+BEGIN_SRC emacs-lisp
+      (setq-default tab-width 4)
+    #+END_SRC
+**** Smooth Scrolling
+     Move one line at a time using mouse cursor:
+      #+BEGIN_SRC emacs-lisp
+        (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
+      #+END_SRC
+     Do not accelerate scrolling on mouse cursor:
+      #+BEGIN_SRC emacs-lisp
+        (setq mouse-wheel-progressive-speed nil)
+      #+END_SRC
+     Scroll window under the mouse cursor:
+      #+BEGIN_SRC emacs-lisp
+       (setq mouse-wheel-follow-mouse 't) 
+      #+END_SRC
+     Scroll one line at a time using keyboard:
+      #+BEGIN_SRC emacs-lisp
+       (setq scroll-step 1)
+      #+END_SRC
+***** Nice Scrolling:
+      Prevent jumping when scrolling through margins:
+      #+BEGIN_SRC emacs-lisp
+       (setq scroll-margin 0)
+      #+END_SRC
+      Prevent recentering the pointer:
+      #+BEGIN_SRC emacs-lisp
+       (setq scroll-conservatively 100000) 
+      #+END_SRC
+      Preseve pointer position on scrolls:
+      #+BEGIN_SRC emacs-lisp
+       (setq scroll-preserve-screen-position 1) 
+      #+END_SRC
+**** [[https://emacs-doctor.com/emacs-strip-tease.html][Strip Emacs UI]] 
+     Remove Scrollbar:
+      #+BEGIN_SRC emacs-lisp
+        (scroll-bar-mode 0)
+      #+END_SRC
+     Remove Toolbar:
+      #+BEGIN_SRC emacs-lisp
+        (tool-bar-mode 0)
+      #+END_SRC
+     Remove MenuBar:
+      #+BEGIN_SRC emacs-lisp
+        (menu-bar-mode 0)
+      #+END_SRC
+**** Mode Line:
+     Show line number in the mode-line:
+     #+BEGIN_SRC emacs-lisp
+       (line-number-mode t)
+     #+END_SRC
+     Show column number in the mode-line:
+      #+BEGIN_SRC emacs-lisp
+        (column-number-mode t)
+      #+END_SRC
+     Show file size in the mode-line:
+      #+BEGIN_SRC emacs-lisp
+        (size-indication-mode t)
+      #+END_SRC
+**** [[http://pragmaticemacs.com/emacs/volatile-highlights/][Volatile Highlights]]
+     Flash current changes on a block of text:
+     #+BEGIN_SRC emacs-lisp
+       (use-package volatile-highlights
+         :config
+         (volatile-highlights-mode t))
+     #+END_SRC
+**** [[https://github.com/TheBB/spaceline][Space Line]]
+     Set a reach mode line like the one [[http://spacemacs.org][Spacemacs]] has:
+     #+BEGIN_SRC emacs-lisp
+       (use-package spaceline
+         :config
+         (require 'spaceline-config)
+         (spaceline-emacs-theme))
+     #+END_SRC
+**** Theme
+     Use [[https://github.com/bbatsov/zenburn-emacs][Zenburn]] theme:
+     #+BEGIN_SRC emacs-lisp
+       (use-package zenburn-theme
+         :config
+         (load-theme 'zenburn t))
+     #+END_SRC
+**** Font
+     Define a function to font if it is possible (We are in a windowing system
+     and the font is reachable):
+     #+BEGIN_SRC emacs-lisp
+       (defun mymacs/check-font-exists (font)
+         "Check if FONT is installed on the system."
+         (if (find-font (font-spec :name font))
+             t
+           nil))
+
+       (defun mymacs/set-font (font &optional range)
+         "Set FONT if it is installed or message otherwise."
+         (when window-system
+           (if (mymacs/check-font-exists font)
+               (if range
+                   (set-fontset-font "fontset-default" range font)
+                 (set-frame-font font)) 
+             (message "Font %s doesn't exists" font))))
+     #+END_SRC
+     Now iterate over user defined fonts and set them:
+     #+BEGIN_SRC emacs-lisp
+       (defun mymacs-set-user-fonts ()
+         "Set user defined fonts from mymacs-frame-font."
+         (interactive)
+
+         (dolist (font mymacs-frame-font)
+           (if (stringp font)
+               (mymacs/set-font font))
+           (if (listp font)
+               (mymacs/set-font (nth 0 font) (nth 1 font)))))
+
+       (mymacs-set-user-fonts)
+     #+END_SRC
+**** [[https://github.com/iqbalansari/emacs-emojify][Emojify]]
+     #+BEGIN_SRC emacs-lisp
+       (use-package emojify
+         :config
+         (add-hook 'after-init-hook #'global-emojify-mode))
+     #+END_SRC
+** Keybindings
+   Global keybindings will be defined here (if they are not related to an
+   specific external mode):
+*** Helper functions
+    Define an interactive function to kill current active buffer:
+    #+BEGIN_SRC emacs-lisp
+      (defun kill-current-buffer ()
+        "Kill current buffer"
         (interactive)
-        (let ((targets (append (list (expand-file-name "init.el" user-emacs-directory))
-                               (directory-files mymacs-core-dir t "^[^\.].+\.el$")
-                               (directory-files mymacs-modules-dir t "^[^\.].+\.el$"))))
-          (mapc (lambda (file)
-                  (let ((result (byte-compile-file file))
-                        (short-name (file-relative-name file user-emacs-directory)))
-                    (cond ((eq result 'no-byte-compile)
-                           (message "Ignored %s" short-name))
-                          ((null result)
-                           (message "Failed to compile %s" short-name))
-                          (t
-                           (message "Compiled %s" short-name))))) targets)))
+        (kill-buffer (current-buffer)))
     #+END_SRC
-** Open With
-   This function will open current buffer in configured external program
-   (system-wide preferred programs). I've used [[http://emacsredux.com/blog/2013/03/27/open-file-in-external-program/][this tip]] here.
+*** Bindings
+    #+BEGIN_SRC emacs-lisp
+      (evil-leader/set-key
+        "fs" 'save-buffer
+        "w/" 'split-window-right
+        "w-" 'split-window-below
+        "wd" 'delete-window
+        "bd" 'kill-current-buffer
+        "ar" 'align-regexp)
+
+      ;; Font size
+      (global-set-key (kbd "C-+") 'text-scale-increase)
+      (global-set-key (kbd "C--") 'text-scale-decrease)
+    #+END_SRC
+*** Help
+    | normal | evil | function            | status |
+    |--------+------+---------------------+--------|
+    |        | fs   | save-buffer         |        |
+    |        | w/   | split-window-right  |        |
+    |        | w-   | split-window-below  |        |
+    |        | wd   | delete-window       |        |
+    |        | bd   | kill-current-buffer |        |
+    |        | ar   | align-regexp        |        |
+    | C-+    |      | text-scale-increase |        |
+    | C--    |      | text-scale-decrease |        |
+    
+** Completions
+*** Defaults
+   Smart tab behaviour
    #+BEGIN_SRC emacs-lisp
-     (defun mymacs-open-with (arg)
-       (interactive "P")
-       (when buffer-file-name
-         (shell-command (concat
-                         (cond
-                          ((and (not arg) (eq system-type 'darwin)) "open")
-                          ((and (not arg) (member system-type '(gnu gnu/linux gnu/kfreebsd))) "xdg-open")
-                          (t (read-shell-command "Open current file with: ")))
-                         " "
-                         (shell-quote-argument buffer-file-name)))))
-
-     (evil-leader/set-key "xo" 'mymacs-open-with)
+     (setq tab-always-indent 'complete)
    #+END_SRC
-* Basic Configurations
-** Defaults
-*** Directories
-    Move default backup and autosave directory to =/tmp/=
-**** Backup
-     #+BEGIN_SRC emacs-lisp
-       (setq backup-directory-alist
-           `((".*" . ,temporary-file-directory)))
-     #+END_SRC
-**** Auto Save
-     #+BEGIN_SRC emacs-lisp
-       (setq auto-save-file-name-transforms
-           `((".*" ,temporary-file-directory t)))
-     #+END_SRC
-*** Save Place
-    Remember my latest place when opening a new file.
+*** [[http://company-mode.github.io/][Company]]
+    Install company and configure it to reflect without any delays:
     #+BEGIN_SRC emacs-lisp
-      (save-place-mode 1)
-    #+END_SRC
-*** Undo Tree:
-    Enable =global-undo-tree=:
-    #+BEGIN_SRC emacs-lisp
-      (global-undo-tree-mode) 
-    #+END_SRC
-** UI
-*** UI Defaults
-    Set maximum line length to 80 characters:
-    #+BEGIN_SRC emacs-lisp
-      (setq-default fill-column 80)
-    #+END_SRC
-    Enable current line highlighing:
-    #+BEGIN_SRC emacs-lisp
-       (global-hl-line-mode 1)
-    #+END_SRC
-    Enable =show-paren-mode= and set it to show matching parens immediately:
-    #+BEGIN_SRC emacs-lisp
-       (setq show-paren-delay 0)
-       (show-paren-mode 1)
-    #+END_SRC
-    Enable =y-or-no-p= mode to save some typings:
-    #+BEGIN_SRC emacs-lisp
-      (fset 'yes-or-no-p 'y-or-n-p)
-    #+END_SRC
-    Enable visible-bell to save my ears:
-    #+BEGIN_SRC emacs-lisp
-     (setq-default visible-bell t)
-    #+END_SRC
-    Remove initial message from scratch buffer:
-    #+BEGIN_SRC emacs-lisp
-     (setq-default initial-scratch-message "")
-    #+END_SRC
-    Remove startup message:
-    #+BEGIN_SRC emacs-lisp
-     (setq-default inhibit-startup-message t)
-    #+END_SRC
-    Preventing indentation from using tabs: ([[http://ergoemacs.org/emacs/emacs_tabs_space_indentation_setup.html][Here]])
-    #+BEGIN_SRC emacs-lisp
-     (setq-default indent-tabs-mode nil)
-    #+END_SRC
-    Set default tab size to 4 spaces:
-    #+BEGIN_SRC emacs-lisp
-     (setq-default tab-width 4)
-   #+END_SRC
-*** Smooth Scrolling
-    Move one line at a time using mouse cursor:
-     #+BEGIN_SRC emacs-lisp
-       (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
-     #+END_SRC
-    Do not accelerate scrolling on mouse cursor:
-     #+BEGIN_SRC emacs-lisp
-       (setq mouse-wheel-progressive-speed nil)
-     #+END_SRC
-    Scroll window under the mouse cursor:
-     #+BEGIN_SRC emacs-lisp
-      (setq mouse-wheel-follow-mouse 't) 
-     #+END_SRC
-    Scroll one line at a time using keyboard:
-     #+BEGIN_SRC emacs-lisp
-      (setq scroll-step 1)
-     #+END_SRC
-**** Nice Scrolling:
-     Prevent jumping when scrolling through margins:
-     #+BEGIN_SRC emacs-lisp
-      (setq scroll-margin 0)
-     #+END_SRC
-     Prevent recentering the pointer:
-     #+BEGIN_SRC emacs-lisp
-      (setq scroll-conservatively 100000) 
-     #+END_SRC
-     Preseve pointer position on scrolls:
-     #+BEGIN_SRC emacs-lisp
-      (setq scroll-preserve-screen-position 1) 
-     #+END_SRC
-*** [[https://emacs-doctor.com/emacs-strip-tease.html][Strip Emacs UI]] 
-    Remove Scrollbar:
-     #+BEGIN_SRC emacs-lisp
-       (scroll-bar-mode 0)
-     #+END_SRC
-    Remove Toolbar:
-     #+BEGIN_SRC emacs-lisp
-       (tool-bar-mode 0)
-     #+END_SRC
-    Remove MenuBar:
-     #+BEGIN_SRC emacs-lisp
-       (menu-bar-mode 0)
-     #+END_SRC
-*** Mode Line:
-    Show line number in the mode-line:
-    #+BEGIN_SRC emacs-lisp
-      (line-number-mode t)
-    #+END_SRC
-    Show column number in the mode-line:
-     #+BEGIN_SRC emacs-lisp
-       (column-number-mode t)
-     #+END_SRC
-    Show file size in the mode-line:
-     #+BEGIN_SRC emacs-lisp
-       (size-indication-mode t)
-     #+END_SRC
-*** [[http://pragmaticemacs.com/emacs/volatile-highlights/][Volatile Highlights]]
-    Flash current changes on a block of text:
-    #+BEGIN_SRC emacs-lisp
-      (use-package volatile-highlights
+      (use-package company
         :config
-        (volatile-highlights-mode t))
-    #+END_SRC
-*** [[https://github.com/TheBB/spaceline][Space Line]]
-    Set a reach mode line like the one [[http://spacemacs.org][Spacemacs]] has:
-    #+BEGIN_SRC emacs-lisp
-      (use-package spaceline
-        :config
-        (require 'spaceline-config)
-        (spaceline-emacs-theme))
-    #+END_SRC
-*** Theme
-    Use [[https://github.com/bbatsov/zenburn-emacs][Zenburn]] theme:
-    #+BEGIN_SRC emacs-lisp
-      (use-package zenburn-theme
-        :config
-        (load-theme 'zenburn t))
-    #+END_SRC
-*** Font
-    Define a function to font if it is possible (We are in a windowing system
-    and the font is reachable):
-    #+BEGIN_SRC emacs-lisp
-      (defun mymacs/check-font-exists (font)
-        "Check if FONT is installed on the system."
-        (if (find-font (font-spec :name font))
-            t
-          nil))
+        (setq
+         company-minimum-prefix-length 0
+         company-idle-delay 0
+         company-tooltip-flip-when-above t)
 
-      (defun mymacs/set-font (font &optional range)
-        "Set FONT if it is installed or message otherwise."
-        (when window-system
-          (if (mymacs/check-font-exists font)
-              (if range
-                  (set-fontset-font "fontset-default" range font)
-                (set-frame-font font)) 
-            (message "Font %s doesn't exists" font))))
+        (global-company-mode +1))
     #+END_SRC
-    Now iterate over user defined fonts and set them:
+*** [[https://github.com/Fuco1/smartparens][SmartParens]]
+    Install smart parens and enable it globally:
     #+BEGIN_SRC emacs-lisp
-      (defun mymacs-set-user-fonts ()
-        "Set user defined fonts from mymacs-frame-font."
+      (use-package smartparens
+        :config
+        (smartparens-global-mode 1)
+        (require 'smartparens-config))
+    #+END_SRC
+*** [[https://github.com/emacs-helm/helm/][Helm]]
+    Install and enable helm globally:
+    #+BEGIN_SRC emacs-lisp
+      (use-package helm
+        :demand t
+        :init
+        (setq helm-candidate-number-limit 50
+              helm-display-header-line nil
+              helm-ff-auto-update-initial-value nil
+              helm-find-files-doc-header nil
+              helm-split-window-in-side-p t
+              helm-buffers-fuzzy-matching t
+              helm-move-to-line-cycle-in-source t)
+
+        :config
+        (require 'helm-config)
+        (helm-mode 1)
+
+        (global-set-key (kbd "M-x") 'helm-M-x)
+        (global-set-key (kbd "M-y") 'helm-show-kill-ring)
+        (global-set-key (kbd "C-x b") 'helm-mini)
+        (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
+        (global-set-key (kbd "C-x C-f") 'helm-find-files)
+        (global-set-key (kbd "C-h f") 'helm-apropos)
+        (global-set-key (kbd "C-h r") 'helm-info-emacs)
+
+        (evil-leader/set-key
+          "ff" 'helm-find-files
+          "fr" 'helm-recentf
+          ;; Needs ag (silver-searcher) to be installed
+          "hp" 'helm-do-grep-ag
+          "hf" 'helm-occur
+          "hw" 'helm-wikipedia-suggest))
+    #+END_SRC
+**** Keybindings
+     | normal  | evil | functions              | status |
+     |---------+------+------------------------+--------|
+     | M-x     |      | helm-M-x               |        |
+     | M-y     |      | helm-show-kill-ring    |        |
+     | C-x b   |      | helm-mini              |        |
+     | C-x C-b |      | helm-buffers-list      |        |
+     | C-x C-f | ff   | helm-find-files        |        |
+     | C-h f   |      | helm-apropos           |        |
+     | C-h r   |      | helm-info-emacs        |        |
+     |         | fr   | helm-recentf           |        |
+     |         | hp   | helm-do-grep-ag        |        |
+     |         | hf   | helm-occur             |        |
+     |         | hw   | helm-wikipedia-suggest |        |
+**** Requirements
+     - [[https://github.com/ggreer/the_silver_searcher][ag (the-silver-searcher)]]
+*** [[https://github.com/areina/helm-dash][helm-dash]]
+    Access [[https://kapeli.com/dash][dash]] (Cross OS) documents through helm:
+    #+BEGIN_SRC emacs-lisp
+      (use-package helm-dash
+        :config
+        (evil-leader/set-key "hd" 'helm-dash-at-point))
+    #+END_SRC
+**** Keybindings
+     | normal | evil | functions          | status |
+     |--------+------+--------------------+--------|
+     |        | hd   | helm-dash-at-point |        | 
+*** [[https://github.com/expez/company-quickhelp][company-quickhelp]]
+    #+BEGIN_SRC emacs-lisp
+      (use-package helm-dash
+        :config
+        (evil-leader/set-key "hd" 'helm-dash-at-point))
+    #+END_SRC
+** Navigation
+*** [[http://emacsredux.com/blog/2015/07/19/ace-jump-mode-is-dead-long-live-avy/][Avy]]
+    #+BEGIN_SRC emacs-lisp
+      (use-package avy
+        :config
+        (evil-leader/set-key
+          "<SPC>" 'avy-goto-word-or-subword-1))
+    #+END_SRC
+**** Keybindings
+     | normal | evil  | functions                  | status |
+     |--------+-------+----------------------------+--------|
+     |        | <SPC> | avy-goto-word-or-subword-1 |        |
+*** [[https://www.emacswiki.org/emacs/NeoTree#toc12][Neotree]]
+    Define a function to collapse item in point in =neotree=. ([[https://github.com/syl20bnr/spacemacs/blob/bd7ef98e4c35fd87538dd2a81356cc83f5fd02f3/layers/%252Bspacemacs/spacemacs-ui-visual/funcs.el#L52][source]])
+    #+BEGIN_SRC emacs-lisp
+      (defun mymacs/neotree-collapse ()
+        "Collapse a neotree node."
         (interactive)
+        (let ((node (neo-buffer--get-filename-current-line)))
+          (when node
+            (when (file-directory-p node)
+              (neo-buffer--set-expand node nil)
+              (neo-buffer--refresh t))
+            (when neo-auto-indent-point
+              (neo-point-auto-indent)))))
 
-        (dolist (font mymacs-frame-font)
-          (if (stringp font)
-              (mymacs/set-font font))
-          (if (listp font)
-              (mymacs/set-font (nth 0 font) (nth 1 font)))))
-
-      (mymacs-set-user-fonts)
+      (defun mymacs/neotree-collapse-or-up ()
+        "Collapse an expanded directory node or go to the parent node."
+        (interactive)
+        (let ((node (neo-buffer--get-filename-current-line)))
+          (when node
+            (if (file-directory-p node)
+                (if (neo-buffer--expanded-node-p node)
+                    (mymacs/neotree-collapse)
+                  (neotree-select-up-node))
+              (neotree-select-up-node)))))
     #+END_SRC
-*** [[https://github.com/iqbalansari/emacs-emojify][Emojify]]
+    Install [[https://github.com/domtronn/all-the-icons.el][all-the-icons]] package to use icon fonts for files:
     #+BEGIN_SRC emacs-lisp
-      (use-package emojify
-        :config
-        (add-hook 'after-init-hook #'global-emojify-mode))
+      (use-package all-the-icons)
     #+END_SRC
-* Keybindings
-  Global keybindings will be defined here (if they are not related to an
-  specific external mode):
-** Helper functions
-   Define an interactive function to kill current active buffer:
-   #+BEGIN_SRC emacs-lisp
-     (defun kill-current-buffer ()
-       "Kill current buffer"
-       (interactive)
-       (kill-buffer (current-buffer)))
-   #+END_SRC
-** Bindings
-   #+BEGIN_SRC emacs-lisp
-     (evil-leader/set-key
-       "fs" 'save-buffer
-       "w/" 'split-window-right
-       "w-" 'split-window-below
-       "wd" 'delete-window
-       "bd" 'kill-current-buffer
-       "ar" 'align-regexp)
+    Install and config =neotree=:
+    #+BEGIN_SRC emacs-lisp
+      (use-package neotree
+        :after all-the-icons
+        :config
+        (setq
+         neo-theme (if (display-graphic-p) 'icons 'arrow)
+         neo-autorefresh nil
+         neo-mode-line-type 'none
+         neo-window-width 25
+         neo-banner-message nil
+         neo-show-hidden-files nil
+         neo-keymap-style 'concise
+         neo-hidden-regexp-list
+              '(;; vcs folders
+                "^\\.\\(git\\|hg\\|svn\\)$"
+                ;; compiled files
+                "\\.\\(pyc\\|o\\|elc\\|lock\\|css.map\\)$"
+                ;; generated files, caches or local pkgs
+                "^\\(node_modules\\|vendor\\|.\\(project\\|cask\\|yardoc\\|sass-cache\\)\\)$"
+                ;; org-mode folders
+                "^\\.\\(sync\\|export\\|attach\\)$"
+                "~$"
+                "^#.*#$"))
+        (evil-leader/set-key
+          "ft" 'neotree-toggle)
 
-     ;; Font size
-     (global-set-key (kbd "C-+") 'text-scale-increase)
-     (global-set-key (kbd "C--") 'text-scale-decrease)
-   #+END_SRC
-** Help
-   | normal | evil | function            | status |
-   |--------+------+---------------------+--------|
-   |        | fs   | save-buffer         |        |
-   |        | w/   | split-window-right  |        |
-   |        | w-   | split-window-below  |        |
-   |        | wd   | delete-window       |        |
-   |        | bd   | kill-current-buffer |        |
-   |        | ar   | align-regexp        |        |
-   | C-+    |      | text-scale-increase |        |
-   | C--    |      | text-scale-decrease |        |
-   
-* Completions
-** Defaults
-  Smart tab behaviour
-  #+BEGIN_SRC emacs-lisp
-    (setq tab-always-indent 'complete)
-  #+END_SRC
-** [[http://company-mode.github.io/][Company]]
-   Install company and configure it to reflect without any delays:
-   #+BEGIN_SRC emacs-lisp
-     (use-package company
-       :config
-       (setq
-        company-minimum-prefix-length 0
-        company-idle-delay 0
-        company-tooltip-flip-when-above t)
-
-       (global-company-mode +1))
-   #+END_SRC
-** [[https://github.com/Fuco1/smartparens][SmartParens]]
-   Install smart parens and enable it globally:
-   #+BEGIN_SRC emacs-lisp
-     (use-package smartparens
-       :config
-       (smartparens-global-mode 1)
-       (require 'smartparens-config))
-   #+END_SRC
-** [[https://github.com/emacs-helm/helm/][Helm]]
-   Install and enable helm globally:
-   #+BEGIN_SRC emacs-lisp
-     (use-package helm
-       :demand t
-       :init
-       (setq helm-candidate-number-limit 50
-             helm-display-header-line nil
-             helm-ff-auto-update-initial-value nil
-             helm-find-files-doc-header nil
-             helm-split-window-in-side-p t
-             helm-buffers-fuzzy-matching t
-             helm-move-to-line-cycle-in-source t)
-
-       :config
-       (require 'helm-config)
-       (helm-mode 1)
-
-       (global-set-key (kbd "M-x") 'helm-M-x)
-       (global-set-key (kbd "M-y") 'helm-show-kill-ring)
-       (global-set-key (kbd "C-x b") 'helm-mini)
-       (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
-       (global-set-key (kbd "C-x C-f") 'helm-find-files)
-       (global-set-key (kbd "C-h f") 'helm-apropos)
-       (global-set-key (kbd "C-h r") 'helm-info-emacs)
-
-       (evil-leader/set-key
-         "ff" 'helm-find-files
-         "fr" 'helm-recentf
-         ;; Needs ag (silver-searcher) to be installed
-         "hp" 'helm-do-grep-ag
-         "hf" 'helm-occur
-         "hw" 'helm-wikipedia-suggest))
-   #+END_SRC
-*** Keybindings
-    | normal  | evil | functions              | status |
-    |---------+------+------------------------+--------|
-    | M-x     |      | helm-M-x               |        |
-    | M-y     |      | helm-show-kill-ring    |        |
-    | C-x b   |      | helm-mini              |        |
-    | C-x C-b |      | helm-buffers-list      |        |
-    | C-x C-f | ff   | helm-find-files        |        |
-    | C-h f   |      | helm-apropos           |        |
-    | C-h r   |      | helm-info-emacs        |        |
-    |         | fr   | helm-recentf           |        |
-    |         | hp   | helm-do-grep-ag        |        |
-    |         | hf   | helm-occur             |        |
-    |         | hw   | helm-wikipedia-suggest |        |
-*** Requirements
-    - [[https://github.com/ggreer/the_silver_searcher][ag (the-silver-searcher)]]
-** [[https://github.com/areina/helm-dash][helm-dash]]
-   Access [[https://kapeli.com/dash][dash]] (Cross OS) documents through helm:
-   #+BEGIN_SRC emacs-lisp
-     (use-package helm-dash
-       :config
-       (evil-leader/set-key "hd" 'helm-dash-at-point))
-   #+END_SRC
-*** Keybindings
-    | normal | evil | functions          | status |
-    |--------+------+--------------------+--------|
-    |        | hd   | helm-dash-at-point |        | 
-** [[https://github.com/expez/company-quickhelp][company-quickhelp]]
-   #+BEGIN_SRC emacs-lisp
-     (use-package helm-dash
-       :config
-       (evil-leader/set-key "hd" 'helm-dash-at-point))
-   #+END_SRC
-* Navigation
-** [[http://emacsredux.com/blog/2015/07/19/ace-jump-mode-is-dead-long-live-avy/][Avy]]
-   #+BEGIN_SRC emacs-lisp
-     (use-package avy
-       :config
-       (evil-leader/set-key
-         "<SPC>" 'avy-goto-word-or-subword-1))
-   #+END_SRC
-*** Keybindings
-    | normal | evil  | functions                  | status |
-    |--------+-------+----------------------------+--------|
-    |        | <SPC> | avy-goto-word-or-subword-1 |        |
-** [[https://www.emacswiki.org/emacs/NeoTree#toc12][Neotree]]
-   Define a function to collapse item in point in =neotree=. ([[https://github.com/syl20bnr/spacemacs/blob/bd7ef98e4c35fd87538dd2a81356cc83f5fd02f3/layers/%252Bspacemacs/spacemacs-ui-visual/funcs.el#L52][source]])
-   #+BEGIN_SRC emacs-lisp
-     (defun mymacs/neotree-collapse ()
-       "Collapse a neotree node."
-       (interactive)
-       (let ((node (neo-buffer--get-filename-current-line)))
-         (when node
-           (when (file-directory-p node)
-             (neo-buffer--set-expand node nil)
-             (neo-buffer--refresh t))
-           (when neo-auto-indent-point
-             (neo-point-auto-indent)))))
-
-     (defun mymacs/neotree-collapse-or-up ()
-       "Collapse an expanded directory node or go to the parent node."
-       (interactive)
-       (let ((node (neo-buffer--get-filename-current-line)))
-         (when node
-           (if (file-directory-p node)
-               (if (neo-buffer--expanded-node-p node)
-                   (mymacs/neotree-collapse)
-                 (neotree-select-up-node))
-             (neotree-select-up-node)))))
-   #+END_SRC
-   Install [[https://github.com/domtronn/all-the-icons.el][all-the-icons]] package to use icon fonts for files:
-   #+BEGIN_SRC emacs-lisp
-     (use-package all-the-icons)
-   #+END_SRC
-   Install and config =neotree=:
-   #+BEGIN_SRC emacs-lisp
-     (use-package neotree
-       :after all-the-icons
-       :config
-       (setq
-        neo-theme (if (display-graphic-p) 'icons 'arrow)
-        neo-autorefresh nil
-        neo-mode-line-type 'none
-        neo-window-width 25
-        neo-banner-message nil
-        neo-show-hidden-files nil
-        neo-keymap-style 'concise
-        neo-hidden-regexp-list
-             '(;; vcs folders
-               "^\\.\\(git\\|hg\\|svn\\)$"
-               ;; compiled files
-               "\\.\\(pyc\\|o\\|elc\\|lock\\|css.map\\)$"
-               ;; generated files, caches or local pkgs
-               "^\\(node_modules\\|vendor\\|.\\(project\\|cask\\|yardoc\\|sass-cache\\)\\)$"
-               ;; org-mode folders
-               "^\\.\\(sync\\|export\\|attach\\)$"
-               "~$"
-               "^#.*#$"))
-       (evil-leader/set-key
-         "ft" 'neotree-toggle)
-
-       (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
-       (evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-stretch-toggle)
-       (evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
-       (evil-define-key 'normal neotree-mode-map (kbd "l") 'neotree-enter)
-       (evil-define-key 'normal neotree-mode-map (kbd "h") 'mymacs/neotree-collapse-or-up))
-   #+END_SRC
-*** Requirements
-    - *All the icons font:*
-      You can install them using =M-x all-the-icons-install-fonts RET= command.
-*** Keybindings
-    | normal | evil | functions                     | status |
-    |--------+------+-------------------------------+--------|
-    |        | ft   | neotree-toggle                |        |
-    | RET    |      | neotree-enter                 |        |
-    | TAB    |      | neotree-stretch-toggle        |        |
-    | q      |      | neotree-hide                  |        |
-    | l      |      | neotree-enter                 |        |
-    | h      |      | mymacs/neotree-collapse-or-up |        |
-** [[https://github.com/Malabarba/beacon][Beacon]]
-   #+BEGIN_SRC emacs-lisp
-     (use-package beacon
-       :config
-       (beacon-mode +1))
-   #+END_SRC
-** [[https://github.com/victorhge/iedit][IEdit]]
-   Install and config =iedit=:
-   #+BEGIN_SRC emacs-lisp
-     (use-package iedit
-       :config
-       (evil-leader/set-key "se" 'iedit-mode))
-   #+END_SRC
-*** Keybinding
-    | normal | evil | function   | status |
-    |--------+------+------------+--------|
-    |        | se   | iedit-mode |        |
-** [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
-   #+BEGIN_SRC emacs-lisp
-     (use-package evil-matchit
-       :config
-       (global-evil-matchit-mode 1))
-   #+END_SRC
-*** Keybindings
-    | normal | evil | function          | status |
-    |--------+------+-------------------+--------|
-    | %      |      | evilmi-jump-items |        |
+        (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
+        (evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-stretch-toggle)
+        (evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
+        (evil-define-key 'normal neotree-mode-map (kbd "l") 'neotree-enter)
+        (evil-define-key 'normal neotree-mode-map (kbd "h") 'mymacs/neotree-collapse-or-up))
+    #+END_SRC
+**** Requirements
+     - *All the icons font:*
+       You can install them using =M-x all-the-icons-install-fonts RET= command.
+**** Keybindings
+     | normal | evil | functions                     | status |
+     |--------+------+-------------------------------+--------|
+     |        | ft   | neotree-toggle                |        |
+     | RET    |      | neotree-enter                 |        |
+     | TAB    |      | neotree-stretch-toggle        |        |
+     | q      |      | neotree-hide                  |        |
+     | l      |      | neotree-enter                 |        |
+     | h      |      | mymacs/neotree-collapse-or-up |        |
+*** [[https://github.com/Malabarba/beacon][Beacon]]
+    #+BEGIN_SRC emacs-lisp
+      (use-package beacon
+        :config
+        (beacon-mode +1))
+    #+END_SRC
+*** [[https://github.com/victorhge/iedit][IEdit]]
+    Install and config =iedit=:
+    #+BEGIN_SRC emacs-lisp
+      (use-package iedit
+        :config
+        (evil-leader/set-key "se" 'iedit-mode))
+    #+END_SRC
+**** Keybinding
+     | normal | evil | function   | status |
+     |--------+------+------------+--------|
+     |        | se   | iedit-mode |        |
+*** [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
+    #+BEGIN_SRC emacs-lisp
+      (use-package evil-matchit
+        :config
+        (global-evil-matchit-mode 1))
+    #+END_SRC
+**** Keybindings
+     | normal | evil | function          | status |
+     |--------+------+-------------------+--------|
+     | %      |      | evilmi-jump-items |        |
+* Modules
+** Version Control
+*** [[https://github.com/magit/magit/][Magit]]
+    #+BEGIN_SRC emacs-lisp
+      (use-package magit)
+    #+END_SRC
+    Install [[https://github.com/emacs-evil/evil-magit][ evil-magit]] to make Magit and Evil play nice together
+    #+BEGIN_SRC
+      (use-package evil-magit)
+    #+END_SRC
+*** =.gitignore= and =.gitconfig=
+    #+BEGIN_SRC emacs-lisp
+      (use-package gitignore-mode)
+      (use-package gitconfig-mode)
+    #+END_SRC
 * OLD
 
 #+BEGIN_SRC emacs-lisp
 ;; load modules
-(require 'mymacs-vc)
 (require 'mymacs-programming)
 (require 'mymacs-python)
 (require 'mymacs-javascript)
