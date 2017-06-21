@@ -42,4 +42,13 @@
 (use-package haml-mode
   :mode "\\.haml$")
 
+;; web-beautify
+;; yarn global add js-beautify
+(use-package web-beautify
+  :config
+  (evil-leader/set-key-for-mode 'js2-mode "=" 'web-beautify-js)
+  (evil-leader/set-key-for-mode 'web-mode "=" 'web-beautify-html)
+  (evil-leader/set-key-for-mode 'css-mode "=" 'web-beautify-css))
+
+
 (provide 'mymacs-web)
