@@ -60,4 +60,10 @@
 (evil-leader/set-key-for-mode 'python-mode
   "=" 'python-format-buffer)
 
+;; flycheck-mypy
+(use-package flycheck-mypy
+  :config
+  (require 'flycheck-mypy)
+  (flycheck-add-next-checker 'python-flake8 'python-mypy))
+
 (provide 'mymacs-python)
