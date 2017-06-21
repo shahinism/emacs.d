@@ -566,7 +566,7 @@
       (use-package magit)
     #+END_SRC
     Install [[https://github.com/emacs-evil/evil-magit][ evil-magit]] to make Magit and Evil play nice together
-    #+BEGIN_SRC
+    #+BEGIN_SRC emacs-lisp
       (use-package evil-magit)
     #+END_SRC
 *** =.gitignore= and =.gitconfig=
