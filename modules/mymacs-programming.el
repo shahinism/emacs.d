@@ -63,8 +63,7 @@
 (use-package evil-nerd-commenter
   :config
   (global-evil-leader-mode)
-  (define-key evil-normal-state-map "gc" 'evilnc-comment-operator)
-  )
+  (define-key evil-normal-state-map "gc" 'evilnc-comment-operator))
 
 ;; rainbow delimiter
 (use-package rainbow-delimiters

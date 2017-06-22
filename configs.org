@@ -574,11 +574,102 @@
       (use-package gitignore-mode)
       (use-package gitconfig-mode)
     #+END_SRC
+** Programming General
+*** [[http://emacsredux.com/blog/2014/04/05/which-function-mode/][which-func]]
+    #+BEGIN_SRC emacs-lisp
+      (use-package which-func
+        :config
+        (setq which-func-unknown "n/a")
+        (which-function-mode))
+    #+END_SRC
+*** [[https://github.com/purcell/exec-path-from-shell][exec-path-from-shell]]
+    #+BEGIN_SRC emacs-lisp
+      (use-package exec-path-from-shell
+        :config
+        (when (memq window-system '(mac ns x))
+          (exec-path-from-shell-initialize)))
+    #+END_SRC
+*** [[https://github.com/bbatsov/projectile][Projectile]]
+    Add a helper function to help neo-tree to find project's root directory
+    using projectile:
+    #+BEGIN_SRC emacs-lisp
+      (defun neotree-find-project-root ()
+        (interactive)
+        (if (neo-global--window-exists-p)
+            (neotree-hide)
+          (let ((origin-buffer-file-name (buffer-file-name)))
+            (neotree-find (projectile-project-root))
+            (neotree-find origin-buffer-file-name))))
+    #+END_SRC
+    Install and config projectile:
+    #+BEGIN_SRC emacs-lisp
+      (use-package projectile
+        :after helm
+        :config
+        (setq projectile-completion-system 'helm)
+
+        (evil-leader/set-key
+          "pt" 'neotree-find-project-root))
+    #+END_SRC
+    Install and config [[https://github.com/bbatsov/helm-projectile][helm-projecctile]]:
+    #+BEGIN_SRC emacs-lisp
+      (use-package helm-projectile
+        :after
+        helm
+        projectile
+        :config
+        (evil-leader/set-key
+          "fp" 'helm-projectile))
+    #+END_SRC
+**** Keybindings
+     | normal | evil | function                  | status |
+     |--------+------+---------------------------+--------|
+     |        | pt   | neotree-find-project-root |        |
+     |        | fp   | helm-projectile           |        | 
+*** [[http://flycheck.org/][Flycheck]] 
+    Install flycheck and config its fringe indicators using =fringe-helper=:
+    #+BEGIN_SRC emacs-lisp
+      (use-package flycheck
+        :init
+        (global-flycheck-mode)
+        :config
+        (setq flycheck-indication-mode 'right-fringe)
+        (fringe-helper-define 'flycheck-fringe-bitmap-double-arrow 'center
+                              "...X...."
+                              "..XX...."
+                              ".XXX...."
+                              "XXXX...."
+                              ".XXX...."
+                              "..XX...."
+                              "...X....")
+        (add-hook 'prog-mode-hook 'flycheck-mode))
+    #+END_SRC
+*** [[https://github.com/flycheck/flycheck-pos-tip][flycheck-pos-tip]]
+    #+BEGIN_SRC emacs-lisp
+      (use-package flycheck-pos-tip
+        :after flycheck
+        :config
+        (setq flycheck-pos-tip-timeout 10
+              flycheck-display-errors-delay 0.5)
+        (flycheck-pos-tip-mode +1))
+    #+END_SRC
+*** [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]]
+    #+BEGIN_SRC emacs-lisp
+      (use-package evil-nerd-commenter
+        :config
+        (global-evil-leader-mode)
+        (define-key evil-normal-state-map "gc" 'evilnc-comment-operator))
+    #+END_SRC
+*** [[https://github.com/Fanael/rainbow-delimiters][rainbow-delimiters]]
+    #+BEGIN_SRC emacs-lisp
+      (use-package rainbow-delimiters
+        :config
+        (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+    #+END_SRC
 * OLD
 
 #+BEGIN_SRC emacs-lisp
 ;; load modules
-(require 'mymacs-programming)
 (require 'mymacs-python)
 (require 'mymacs-javascript)
 (require 'mymacs-web)
