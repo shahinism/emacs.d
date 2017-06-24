@@ -6,4 +6,7 @@
   (pdf-tools-install))
 
 
+;; ereader
+(use-package ereader)
+
 (provide 'mymacs-pdf)
