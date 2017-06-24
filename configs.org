@@ -666,6 +666,10 @@
         :config
         (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
     #+END_SRC
+** Clojure Script
+   #+BEGIN_SRC emacs-lisp
+     (use-package clojure-mode)
+   #+END_SRC
 * OLD
 
 #+BEGIN_SRC emacs-lisp
