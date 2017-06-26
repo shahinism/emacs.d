@@ -446,6 +446,23 @@
         :config
         (evil-leader/set-key "hd" 'helm-dash-at-point))
     #+END_SRC
+*** [[https://github.com/joaotavora/yasnippet][Yasnippet]]
+    Install and enable =yasnippet= in global mode:
+    #+BEGIN_SRC emacs-lisp
+      (use-package yasnippet
+        :config
+        (yas-global-mode 1)
+        ;; Enable company backend
+        (add-to-list 'company-backends '(company-yasnippet)))
+    #+END_SRC
+    Install =helm-c-yasnippet= to easily search in snippets. Using leader key
+    for this propuse wasn't effective enough in evil mode, so I'll set a global
+    keybinding for it:
+    #+BEGIN_SRC emacs-lisp
+      (use-package helm-c-yasnippet
+        :config
+        (global-set-key (kbd "C-c y") 'helm-yas-complete))
+    #+END_SRC
 ** Navigation
 *** [[http://emacsredux.com/blog/2015/07/19/ace-jump-mode-is-dead-long-live-avy/][Avy]]
     #+BEGIN_SRC emacs-lisp
