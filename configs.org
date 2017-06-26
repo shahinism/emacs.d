@@ -367,7 +367,13 @@
         (setq
          company-minimum-prefix-length 0
          company-idle-delay 0
-         company-tooltip-flip-when-above t)
+         company-dabbrev-downcase nil
+         company-dabbrev-ignore-case nil
+         company-dabbrev-code-other-buffers t
+         company-tooltip-flip-when-above t
+         company-frontends '(company-pseudo-tooltip-frontend company-echo-metadata-frontend)
+         company-backends '(company-capf)
+         company-global-modes '(not eshell-mode comint-mode erc-mode message-mode help-mode))
 
         (global-company-mode +1))
     #+END_SRC
