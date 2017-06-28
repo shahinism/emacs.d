@@ -61,9 +61,9 @@
   "=" 'python-format-buffer)
 
 ;; flycheck-mypy
-(use-package flycheck-mypy
-  :config
-  (require 'flycheck-mypy)
-  (flycheck-add-next-checker 'python-flake8 'python-mypy))
+;; (use-package flycheck-mypy
+;;   :config
+;;   (require 'flycheck-mypy)
+;;   (flycheck-add-next-checker 'python-flake8 'python-mypy))
 
 (provide 'mymacs-python)
