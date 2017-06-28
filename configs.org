@@ -77,6 +77,13 @@
      |        | wl   | evil-window-right |                                                |
      |        | wk   | evil-window-up    |                                                |
 ** Org
+*** [[http://orgmode.org][org-mode]]
+    #+BEGIN_SRC emacs-lisp
+      (evil-leader/set-key
+        "oa" 'org-agenda
+        "ol" 'org-store-link
+        "ob" 'org-iswitchb)
+    #+END_SRC
 *** [[https://github.com/sabof/org-bullets][org-bullets]]
     #+BEGIN_SRC emacs-lisp
       (use-package org-bullets
@@ -89,7 +96,12 @@
         :config
         (add-hook 'org-mode-hook (lambda () (evil-org-mode +1))))
     #+END_SRC
-
+*** Keybindings
+    | normal | evil | function       | status |
+    |--------+------+----------------+--------|
+    |        | oa   | org-agenda     |        |
+    |        | ol   | org-store-link |        |
+    |        | ob   | org-iswitchb   |        |
 ** Goodies
    Here I'm going to define functions or packages that are useful/helpful in
    configuration:
