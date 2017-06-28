@@ -724,6 +724,10 @@
    #+BEGIN_SRC emacs-lisp
      (use-package clojure-mode)
    #+END_SRC
+** Graphviz Dot
+   #+begin_src emacs-lisp :tangle yes
+     (use-package graphviz-dot-mode)
+   #+end_src
 * OLD
 
 #+BEGIN_SRC emacs-lisp
