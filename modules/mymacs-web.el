@@ -5,6 +5,7 @@
          "\\.erb$"
          "\\.jsp$"
          "\\.as[cp]x$"
+         "\\.xml$"
          "\\.mustache$"
          "\\.tsx$"
          "wp-content/themes/.+/.+\\.php$")
