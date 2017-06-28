@@ -83,6 +83,9 @@
         "oa" 'org-agenda
         "ol" 'org-store-link
         "ob" 'org-iswitchb)
+
+      (org-babel-do-load-languages 'org-babel-load-languages
+          '((sh . t)))
     #+END_SRC
 *** [[https://github.com/sabof/org-bullets][org-bullets]]
     #+BEGIN_SRC emacs-lisp
