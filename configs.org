@@ -86,7 +86,11 @@
 
       (org-babel-do-load-languages 'org-babel-load-languages
           '((sh . t)
-            (dot . t)))
+            (dot . t)
+            (python . t)
+            (gnuplot . t)
+            (org . t)
+            (latex . t)))
     #+END_SRC
 *** [[https://github.com/sabof/org-bullets][org-bullets]]
     #+BEGIN_SRC emacs-lisp
