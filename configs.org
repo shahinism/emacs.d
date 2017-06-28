@@ -85,7 +85,8 @@
         "ob" 'org-iswitchb)
 
       (org-babel-do-load-languages 'org-babel-load-languages
-          '((sh . t)))
+          '((sh . t)
+            (dot . t)))
     #+END_SRC
 *** [[https://github.com/sabof/org-bullets][org-bullets]]
     #+BEGIN_SRC emacs-lisp
@@ -98,6 +99,17 @@
       (use-package evil-org
         :config
         (add-hook 'org-mode-hook (lambda () (evil-org-mode +1))))
+    #+END_SRC
+*** [[https://github.com/marsmining/ox-twbs][ox-twbs]]
+    Exporting to html with bootstrap style:
+    #+BEGIN_SRC emacs-lisp
+      (use-package ox-twbs)
+    #+END_SRC
+*** Htmlize
+    To enable syntax highlighting:
+    #+BEGIN_SRC emacs-lisp
+      (use-package htmlize
+        :defer t)    
     #+END_SRC
 *** Keybindings
     | normal | evil | function       | status |
