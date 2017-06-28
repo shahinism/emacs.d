@@ -613,6 +613,16 @@
      | normal | evil | function          | status |
      |--------+------+-------------------+--------|
      | %      |      | evilmi-jump-items |        |
+** Spellcheck
+   #+BEGIN_SRC emacs-lisp
+     (use-package flyspell)
+   #+END_SRC
+   Install and config [[https://github.com/d12frosted/flyspell-correct][flyspell-correct]]
+   #+BEGIN_SRC emacs-lisp
+     (use-package flyspell-correct-helm
+       :config
+       (evil-leader/set-key "z=" #'flyspell-correct-previous-word-generic))
+   #+END_SRC
 * Modules
 ** Version Control
 *** [[https://github.com/magit/magit/][Magit]]
@@ -725,7 +735,7 @@
      (use-package clojure-mode)
    #+END_SRC
 ** Graphviz Dot
-   #+begin_src emacs-lisp :tangle yes
+   #+begin_src emacs-lisp
      (use-package graphviz-dot-mode)
    #+end_src
 * OLD
