@@ -1,9 +1,9 @@
 ;; pdf-tools
-(use-package pdf-tools
-  :defer t
-  :mode "\\.pdf$"
-  :init
-  (pdf-tools-install))
+;; (use-package pdf-tools
+;;   :defer t
+;;   :mode "\\.pdf$"
+;;   :init
+;;   (pdf-tools-install))
 
 
 ;; ereader
