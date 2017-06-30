@@ -88,6 +88,123 @@
      |        | wj   | evil-window-down  |                                                |
      |        | wl   | evil-window-right |                                                |
      |        | wk   | evil-window-up    |                                                |
+** Completions
+*** Defaults
+   Smart tab behaviour
+   #+BEGIN_SRC emacs-lisp
+     (setq tab-always-indent 'complete)
+   #+END_SRC
+*** [[http://company-mode.github.io/][Company]]
+    Install company and configure it to reflect without any delays:
+    #+BEGIN_SRC emacs-lisp
+      (use-package company
+        :config
+        (setq
+         company-minimum-prefix-length 0
+         company-idle-delay 0
+         company-dabbrev-downcase nil
+         company-dabbrev-ignore-case nil
+         company-dabbrev-code-other-buffers t
+         company-tooltip-flip-when-above t
+         company-frontends '(company-pseudo-tooltip-frontend company-echo-metadata-frontend)
+         company-backends '(company-capf)
+         company-global-modes '(not eshell-mode comint-mode erc-mode message-mode help-mode))
+
+        (global-company-mode +1))
+    #+END_SRC
+*** [[https://github.com/Fuco1/smartparens][SmartParens]]
+    Install smart parens and enable it globally:
+    #+BEGIN_SRC emacs-lisp
+      (use-package smartparens
+        :config
+        (smartparens-global-mode 1)
+        (require 'smartparens-config))
+    #+END_SRC
+*** [[https://github.com/emacs-helm/helm/][Helm]]
+    Install and enable helm globally:
+    #+BEGIN_SRC emacs-lisp
+      (use-package helm
+        :demand t
+        :init
+        (setq helm-candidate-number-limit 50
+              helm-display-header-line nil
+              helm-ff-auto-update-initial-value nil
+              helm-find-files-doc-header nil
+              helm-split-window-in-side-p t
+              helm-buffers-fuzzy-matching t
+              helm-move-to-line-cycle-in-source t)
+
+        :config
+        (require 'helm-config)
+        (helm-mode 1)
+
+        (global-set-key (kbd "M-x") 'helm-M-x)
+        (global-set-key (kbd "M-y") 'helm-show-kill-ring)
+        (global-set-key (kbd "C-x b") 'helm-mini)
+        (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
+        (global-set-key (kbd "C-x C-f") 'helm-find-files)
+        (global-set-key (kbd "C-h f") 'helm-apropos)
+        (global-set-key (kbd "C-h r") 'helm-info-emacs)
+
+        (evil-leader/set-key
+          "ff" 'helm-find-files
+          "fr" 'helm-recentf
+          ;; Needs ag (silver-searcher) to be installed
+          "hp" 'helm-do-grep-ag
+          "hf" 'helm-occur
+          "hw" 'helm-wikipedia-suggest))
+    #+END_SRC
+**** Keybindings
+     | normal  | evil | functions              | status |
+     |---------+------+------------------------+--------|
+     | M-x     |      | helm-M-x               |        |
+     | M-y     |      | helm-show-kill-ring    |        |
+     | C-x b   |      | helm-mini              |        |
+     | C-x C-b |      | helm-buffers-list      |        |
+     | C-x C-f | ff   | helm-find-files        |        |
+     | C-h f   |      | helm-apropos           |        |
+     | C-h r   |      | helm-info-emacs        |        |
+     |         | fr   | helm-recentf           |        |
+     |         | hp   | helm-do-grep-ag        |        |
+     |         | hf   | helm-occur             |        |
+     |         | hw   | helm-wikipedia-suggest |        |
+**** Requirements
+     - [[https://github.com/ggreer/the_silver_searcher][ag (the-silver-searcher)]]
+*** [[https://github.com/areina/helm-dash][helm-dash]]
+    Access [[https://kapeli.com/dash][dash]] (Cross OS) documents through helm:
+    #+BEGIN_SRC emacs-lisp
+      (use-package helm-dash
+        :config
+        (evil-leader/set-key "hd" 'helm-dash-at-point))
+    #+END_SRC
+**** Keybindings
+     | normal | evil | functions          | status |
+     |--------+------+--------------------+--------|
+     |        | hd   | helm-dash-at-point |        | 
+*** [[https://github.com/expez/company-quickhelp][company-quickhelp]]
+    #+BEGIN_SRC emacs-lisp
+      (use-package helm-dash
+        :config
+        (evil-leader/set-key "hd" 'helm-dash-at-point))
+    #+END_SRC
+*** [[https://github.com/joaotavora/yasnippet][Yasnippet]]
+    Install and enable =yasnippet= in global mode:
+    #+BEGIN_SRC emacs-lisp
+      (use-package yasnippet
+        :config
+        (yas-global-mode 1)
+        ;; Disabled it due to problems on company's normal work
+        ;; (add-to-list 'company-backends '(company-yasnippet)))
+        )
+    #+END_SRC
+    Install =helm-c-yasnippet= to easily search in snippets. Using leader key
+    for this propuse wasn't effective enough in evil mode, so I'll set a global
+    keybinding for it:
+    #+BEGIN_SRC emacs-lisp
+      (use-package helm-c-yasnippet
+        :config
+        (global-set-key (kbd "C-c y") 'helm-yas-complete))
+    #+END_SRC
 ** Org
 *** [[http://orgmode.org][org-mode]]
     #+BEGIN_SRC emacs-lisp
@@ -337,10 +454,28 @@
      #+BEGIN_SRC emacs-lisp
        (use-package telephone-line
          :config
+         (telephone-line-defsegment* mymacs-telephone-line-buffer-info ()
+           (when (and (eq 'python-mode major-mode)
+                      (bound-and-true-p pyvenv-virtual-env-name))
+             (telephone-line-raw (format "pyvenv: %s" pyvenv-virtual-env-name) t)))
+
+         (setq telephone-line-lhs
+               '((evil   . (telephone-line-evil-tag-segment))
+                 (accent . (telephone-line-major-mode-segment))
+                 (evil   . (telephone-line-buffer-segment))
+                 (nil    . (telephone-line-minor-mode-segment))))
+         
+         (setq telephone-line-rhs
+               '((nil    . (telephone-line-misc-info-segment))
+                 (evil   . (mymacs-telephone-line-buffer-info))
+                 (accent . (telephone-line-vc-segment
+                            telephone-line-erc-modified-channels-segment
+                            telephone-line-process-segment))
+                 (evil   . (telephone-line-airline-position-segment))))
+
          (require 'telephone-line)
          (require 'telephone-line-config)
-         (telephone-line-mode 1)
-         (telephone-line-evil-config))
+         (telephone-line-mode t))
      #+END_SRC
      [[https://github.com/ryuslash/mode-icons][mode-icons]]:
      #+BEGIN_SRC emacs-lisp
@@ -456,122 +591,6 @@
       (use-package which-key
         :config
         (which-key-mode +1))
-    #+END_SRC
-** Completions
-*** Defaults
-   Smart tab behaviour
-   #+BEGIN_SRC emacs-lisp
-     (setq tab-always-indent 'complete)
-   #+END_SRC
-*** [[http://company-mode.github.io/][Company]]
-    Install company and configure it to reflect without any delays:
-    #+BEGIN_SRC emacs-lisp
-      (use-package company
-        :config
-        (setq
-         company-minimum-prefix-length 0
-         company-idle-delay 0
-         company-dabbrev-downcase nil
-         company-dabbrev-ignore-case nil
-         company-dabbrev-code-other-buffers t
-         company-tooltip-flip-when-above t
-         company-frontends '(company-pseudo-tooltip-frontend company-echo-metadata-frontend)
-         company-backends '(company-capf)
-         company-global-modes '(not eshell-mode comint-mode erc-mode message-mode help-mode))
-
-        (global-company-mode +1))
-    #+END_SRC
-*** [[https://github.com/Fuco1/smartparens][SmartParens]]
-    Install smart parens and enable it globally:
-    #+BEGIN_SRC emacs-lisp
-      (use-package smartparens
-        :config
-        (smartparens-global-mode 1)
-        (require 'smartparens-config))
-    #+END_SRC
-*** [[https://github.com/emacs-helm/helm/][Helm]]
-    Install and enable helm globally:
-    #+BEGIN_SRC emacs-lisp
-      (use-package helm
-        :demand t
-        :init
-        (setq helm-candidate-number-limit 50
-              helm-display-header-line nil
-              helm-ff-auto-update-initial-value nil
-              helm-find-files-doc-header nil
-              helm-split-window-in-side-p t
-              helm-buffers-fuzzy-matching t
-              helm-move-to-line-cycle-in-source t)
-
-        :config
-        (require 'helm-config)
-        (helm-mode 1)
-
-        (global-set-key (kbd "M-x") 'helm-M-x)
-        (global-set-key (kbd "M-y") 'helm-show-kill-ring)
-        (global-set-key (kbd "C-x b") 'helm-mini)
-        (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
-        (global-set-key (kbd "C-x C-f") 'helm-find-files)
-        (global-set-key (kbd "C-h f") 'helm-apropos)
-        (global-set-key (kbd "C-h r") 'helm-info-emacs)
-
-        (evil-leader/set-key
-          "ff" 'helm-find-files
-          "fr" 'helm-recentf
-          ;; Needs ag (silver-searcher) to be installed
-          "hp" 'helm-do-grep-ag
-          "hf" 'helm-occur
-          "hw" 'helm-wikipedia-suggest))
-    #+END_SRC
-**** Keybindings
-     | normal  | evil | functions              | status |
-     |---------+------+------------------------+--------|
-     | M-x     |      | helm-M-x               |        |
-     | M-y     |      | helm-show-kill-ring    |        |
-     | C-x b   |      | helm-mini              |        |
-     | C-x C-b |      | helm-buffers-list      |        |
-     | C-x C-f | ff   | helm-find-files        |        |
-     | C-h f   |      | helm-apropos           |        |
-     | C-h r   |      | helm-info-emacs        |        |
-     |         | fr   | helm-recentf           |        |
-     |         | hp   | helm-do-grep-ag        |        |
-     |         | hf   | helm-occur             |        |
-     |         | hw   | helm-wikipedia-suggest |        |
-**** Requirements
-     - [[https://github.com/ggreer/the_silver_searcher][ag (the-silver-searcher)]]
-*** [[https://github.com/areina/helm-dash][helm-dash]]
-    Access [[https://kapeli.com/dash][dash]] (Cross OS) documents through helm:
-    #+BEGIN_SRC emacs-lisp
-      (use-package helm-dash
-        :config
-        (evil-leader/set-key "hd" 'helm-dash-at-point))
-    #+END_SRC
-**** Keybindings
-     | normal | evil | functions          | status |
-     |--------+------+--------------------+--------|
-     |        | hd   | helm-dash-at-point |        | 
-*** [[https://github.com/expez/company-quickhelp][company-quickhelp]]
-    #+BEGIN_SRC emacs-lisp
-      (use-package helm-dash
-        :config
-        (evil-leader/set-key "hd" 'helm-dash-at-point))
-    #+END_SRC
-*** [[https://github.com/joaotavora/yasnippet][Yasnippet]]
-    Install and enable =yasnippet= in global mode:
-    #+BEGIN_SRC emacs-lisp
-      (use-package yasnippet
-        :config
-        (yas-global-mode 1)
-        ;; Enable company backend
-        (add-to-list 'company-backends '(company-yasnippet)))
-    #+END_SRC
-    Install =helm-c-yasnippet= to easily search in snippets. Using leader key
-    for this propuse wasn't effective enough in evil mode, so I'll set a global
-    keybinding for it:
-    #+BEGIN_SRC emacs-lisp
-      (use-package helm-c-yasnippet
-        :config
-        (global-set-key (kbd "C-c y") 'helm-yas-complete))
     #+END_SRC
 ** Navigation
 *** [[http://emacsredux.com/blog/2015/07/19/ace-jump-mode-is-dead-long-live-avy/][Avy]]
@@ -823,16 +842,16 @@
 * OLD
 
 #+BEGIN_SRC emacs-lisp
-;; load modules
-(require 'mymacs-python)
-(require 'mymacs-javascript)
-(require 'mymacs-web)
-(require 'mymacs-rust)
-(require 'mymacs-c)
-(require 'mymacs-docker)
-(require 'mymacs-templates)
-(require 'mymacs-latex)
-(require 'mymacs-pdf)
+  ;; load modules
+  (require 'mymacs-python)
+  (require 'mymacs-javascript)
+  (require 'mymacs-web)
+  (require 'mymacs-rust)
+  (require 'mymacs-c)
+  (require 'mymacs-docker)
+  (require 'mymacs-templates)
+  (require 'mymacs-latex)
+  ;; (require 'mymacs-pdf)
 #+END_SRC
 * Miscellaneous
   Sync =el-get= recipe cache ([[https://github.com/dimitri/el-get/issues/2232][related issue]]):
