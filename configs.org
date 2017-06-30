@@ -31,6 +31,7 @@
        (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
        (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")) 
        (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+       ;; (package-refresh-contents)
        (package-initialize)
      #+END_SRC
 *** [[https://github.com/jwiegley/use-package][use-package]]
@@ -46,6 +47,17 @@
     #+BEGIN_SRC emacs-lisp
       (require 'use-package)
       (setq use-package-always-ensure t)
+    #+END_SRC
+*** [[https://github.com/dimitri/el-get][el-get]]
+    #+BEGIN_SRC emacs-lisp
+      (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+
+      (unless (require 'el-get nil 'noerror)
+        (package-install 'el-get)
+        (require 'el-get))
+
+      (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+      (el-get 'sync)   
     #+END_SRC
 ** Evil
 *** [[https://github.com/cofi/evil-leader][evil-leader]] 
@@ -92,6 +104,12 @@
             (org . t)
             (latex . t)))
     #+END_SRC
+**** Keybindings
+     | normal | evil | function       | status |
+     |--------+------+----------------+--------|
+     |        | oa   | org-agenda     |        |
+     |        | ol   | org-store-link |        |
+     |        | ob   | org-iswitchb   |        |
 *** [[https://github.com/sabof/org-bullets][org-bullets]]
     #+BEGIN_SRC emacs-lisp
       (use-package org-bullets
@@ -115,12 +133,10 @@
       (use-package htmlize
         :defer t)    
     #+END_SRC
-*** Keybindings
-    | normal | evil | function       | status |
-    |--------+------+----------------+--------|
-    |        | oa   | org-agenda     |        |
-    |        | ol   | org-store-link |        |
-    |        | ob   | org-iswitchb   |        |
+*** [[https://github.com/caiorss/org-wiki][org-wiki]]
+    #+BEGIN_SRC emacs-lisp
+    
+    #+END_SRC
 ** Goodies
    Here I'm going to define functions or packages that are useful/helpful in
    configuration:

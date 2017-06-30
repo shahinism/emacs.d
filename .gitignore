@@ -72,4 +72,5 @@ emojis/
 projectile-bookmarks.eld
 irony/
 configs.el
+el-get/
 # End of https://www.gitignore.io/api/elisp,emacs
