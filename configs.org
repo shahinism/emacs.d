@@ -417,7 +417,12 @@
     |        | ar   | align-regexp        |        |
     | C-+    |      | text-scale-increase |        |
     | C--    |      | text-scale-decrease |        |
-    
+*** which-key
+    #+BEGIN_SRC emacs-lisp
+      (use-package which-key
+        :config
+        (which-key-mode +1))
+    #+END_SRC
 ** Completions
 *** Defaults
    Smart tab behaviour
