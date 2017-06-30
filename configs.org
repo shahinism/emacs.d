@@ -795,6 +795,10 @@
    #+BEGIN_SRC emacs-lisp
      (use-package pig-mode)
    #+END_SRC
+** CSV
+   #+BEGIN_SRC emacs-lisp
+     (use-package csv-mode)
+   #+END_SRC
 * OLD
 
 #+BEGIN_SRC emacs-lisp
