@@ -106,6 +106,7 @@
 
       (setq org-confirm-babel-evaluate nil)
     #+END_SRC
+    Supported languages for =babel= are available from [[http://orgmode.org/worg/org-contrib/babel/languages.html][here]].
 **** Keybindings
      | normal | evil | function       | status |
      |--------+------+----------------+--------|
@@ -789,6 +790,11 @@
    #+begin_src emacs-lisp
      (use-package graphviz-dot-mode)
    #+end_src
+** Pig
+   Major mode for Pig, data flow language for Hadoop:
+   #+BEGIN_SRC emacs-lisp
+     (use-package pig-mode)
+   #+END_SRC
 * OLD
 
 #+BEGIN_SRC emacs-lisp
