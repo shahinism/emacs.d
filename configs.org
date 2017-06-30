@@ -57,7 +57,7 @@
         (require 'el-get))
 
       (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-      (el-get 'sync)   
+;;      (el-get 'sync)   
     #+END_SRC
 ** Evil
 *** [[https://github.com/cofi/evil-leader][evil-leader]] 
@@ -791,3 +791,8 @@
 (require 'mymacs-latex)
 (require 'mymacs-pdf)
 #+END_SRC
+* Miscellaneous
+  Sync =el-get= recipe cache ([[https://github.com/dimitri/el-get/issues/2232][related issue]]):
+  #+BEGIN_SRC emacs-lisp
+    (el-get 'sync) 
+  #+END_SRC
