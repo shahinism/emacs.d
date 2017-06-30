@@ -153,8 +153,20 @@
         "owb" 'org-wiki-switch
         "owx" 'org-wiki-close
         "owl" 'org-wiki-link
-        "ows" 'org-wiki-server-toggle)
+        "ows" 'org-wiki-server-toggle
+        "owe" 'org-wiki-export-html-sync)
     #+END_SRC
+**** Keybindings
+     | normal | evil | function                  | status |
+     |--------+------+---------------------------+--------|
+     |        | owh  | org-wiki-help             |        |
+     |        | owi  | org-wiki-index            |        |
+     |        | owo  | org-wiki-helm             |        |
+     |        | owb  | org-wiki-switch           |        |
+     |        | owx  | org-wiki-close            |        |
+     |        | owl  | org-wiki-link             |        |
+     |        | ows  | org-wiki-server-toggle    |        |
+     |        | owe  | org-wiki-export-html-sync |        |
 ** Goodies
    Here I'm going to define functions or packages that are useful/helpful in
    configuration:
