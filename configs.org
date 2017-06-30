@@ -333,6 +333,21 @@
       #+BEGIN_SRC emacs-lisp
         (size-indication-mode t)
       #+END_SRC
+     [[https://github.com/dbordak/telephone-line][Telephone line]]:
+     #+BEGIN_SRC emacs-lisp
+       (use-package telephone-line
+         :config
+         (require 'telephone-line)
+         (require 'telephone-line-config)
+         (telephone-line-mode 1)
+         (telephone-line-evil-config))
+     #+END_SRC
+     [[https://github.com/ryuslash/mode-icons][mode-icons]]:
+     #+BEGIN_SRC emacs-lisp
+       (use-package mode-icons
+         :config
+         (mode-icons-mode))
+     #+END_SRC
 **** [[http://pragmaticemacs.com/emacs/volatile-highlights/][Volatile Highlights]]
      Flash current changes on a block of text:
      #+BEGIN_SRC emacs-lisp
@@ -340,20 +355,26 @@
          :config
          (volatile-highlights-mode t))
      #+END_SRC
-**** [[https://github.com/TheBB/spaceline][Space Line]]
-     Set a reach mode line like the one [[http://spacemacs.org][Spacemacs]] has:
-     #+BEGIN_SRC emacs-lisp
-       (use-package spaceline
-         :config
-         (require 'spaceline-config)
-         (spaceline-emacs-theme))
-     #+END_SRC
+# **** [[https://github.com/TheBB/spaceline][Space Line]]
+#      Set a reach mode line like the one [[http://spacemacs.org][Spacemacs]] has:
+#      #+BEGIN_SRC emacs-lisp
+#        (use-package spaceline
+#          :config
+#          (require 'spaceline-config)
+#          (spaceline-helm-mode))
+#      #+END_SRC
 **** Theme
      Use [[https://github.com/bbatsov/zenburn-emacs][Zenburn]] theme:
      #+BEGIN_SRC emacs-lisp
-       (use-package zenburn-theme
+       ;; (use-package zenburn-theme
+       ;;   :config
+       ;;   (load-theme 'zenburn t))
+     #+END_SRC
+     Use [[https://github.com/kuanyui/moe-theme.el][moe-theme]]:
+     #+BEGIN_SRC emacs-lisp
+       (use-package moe-theme
          :config
-         (load-theme 'zenburn t))
+         (moe-light))     
      #+END_SRC
 **** Font
      Define a function to font if it is possible (We are in a windowing system
