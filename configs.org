@@ -331,6 +331,20 @@
 
       (evil-leader/set-key "xo" 'mymacs-open-with)
     #+END_SRC
+*** Undo Tree
+    #+BEGIN_SRC emacs-lisp
+      (use-package undo-tree
+        :diminish undo-tree-mode
+        :config
+        (progn
+          (global-undo-tree-mode)
+          (setq undo-tree-visualizer-timestamps t)
+          (setq undo-tree-visualizer-diff t))) 
+    #+END_SRC
+**** Keybindings
+     | normal | evil | function            | status |
+     |--------+------+---------------------+--------|
+     | C-x u  |      | undo-tree-visualize |        |
 ** Basic Configurations
 *** Defaults
 **** Directories
@@ -509,7 +523,7 @@
      #+BEGIN_SRC emacs-lisp
        (use-package moe-theme
          :config
-         (moe-light))     
+         (moe-dark))
      #+END_SRC
 **** Font
      Define a function to font if it is possible (We are in a windowing system
