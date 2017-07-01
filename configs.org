@@ -74,7 +74,6 @@
         :config
         (evil-mode +1)
         (evil-leader/set-key
-          "gs" 'magit-status
           "wh" 'evil-window-left
           "wj" 'evil-window-down
           "wl" 'evil-window-right
@@ -83,11 +82,16 @@
 **** Keybindings
      | normal | evil | function          | status                                         |
      |--------+------+-------------------+------------------------------------------------|
-     |        | gs   | magit-status      | TODO: Move this to magit configuration section |
      |        | wh   | evil-window-left  |                                                |
      |        | wj   | evil-window-down  |                                                |
      |        | wl   | evil-window-right |                                                |
      |        | wk   | evil-window-up    |                                                |
+*** which-key
+    #+BEGIN_SRC emacs-lisp
+      (use-package which-key
+       	:config
+       	(which-key-mode +1))
+    #+END_SRC
 ** Completions
 *** Defaults
    Smart tab behaviour
@@ -146,6 +150,7 @@
         (global-set-key (kbd "C-h f") 'helm-apropos)
         (global-set-key (kbd "C-h r") 'helm-info-emacs)
 
+        (which-key-declare-prefixes "SPC h" "Helm")
         (evil-leader/set-key
           "ff" 'helm-find-files
           "fr" 'helm-recentf
@@ -209,6 +214,8 @@
 ** Org
 *** [[http://orgmode.org][org-mode]]
     #+BEGIN_SRC emacs-lisp
+      (which-key-declare-prefixes "SPC o" "Org Mode")
+
       (evil-leader/set-key
         "oa" 'org-agenda
         "ol" 'org-store-link
@@ -265,6 +272,7 @@
       (setq org-wiki-server-host "127.0.0.1") ;; Listen only localhost 
       (setq org-wiki-server-port "8181")
       (require 'org-wiki)
+      (which-key-declare-prefixes "SPC ow" "Org Wiki")
       (evil-leader/set-key
         "owh" 'org-wiki-help
         "owi" 'org-wiki-index
@@ -578,13 +586,17 @@
     #+END_SRC
 *** Bindings
     #+BEGIN_SRC emacs-lisp
+      (which-key-declare-prefixes "SPC w" "Windows")
+      (which-key-declare-prefixes "SPC b" "Buffers")
+      (which-key-declare-prefixes "SPC t" "Text")
+      (which-key-declare-prefixes "SPC f" "Files")
       (evil-leader/set-key
         "fs" 'save-buffer
         "w/" 'split-window-right
         "w-" 'split-window-below
         "wd" 'delete-window
         "bd" 'kill-current-buffer
-        "ar" 'align-regexp)
+        "tr" 'align-regexp)
 
       ;; Font size
       (global-set-key (kbd "C-+") 'text-scale-increase)
@@ -601,12 +613,6 @@
     |        | ar   | align-regexp        |        |
     | C-+    |      | text-scale-increase |        |
     | C--    |      | text-scale-decrease |        |
-*** which-key
-    #+BEGIN_SRC emacs-lisp
-      (use-package which-key
-        :config
-        (which-key-mode +1))
-    #+END_SRC
 ** Navigation
 *** [[http://emacsredux.com/blog/2015/07/19/ace-jump-mode-is-dead-long-live-avy/][Avy]]
     #+BEGIN_SRC emacs-lisp
@@ -704,6 +710,7 @@
     #+BEGIN_SRC emacs-lisp
       (use-package iedit
         :config
+        (which-key-declare-prefixes "SPC s" "Search")
         (evil-leader/set-key "se" 'iedit-mode))
     #+END_SRC
 **** Keybinding
@@ -720,26 +727,23 @@
      | normal | evil | function          | status |
      |--------+------+-------------------+--------|
      | %      |      | evilmi-jump-items |        |
-** Spellcheck
-   #+BEGIN_SRC emacs-lisp
-     (use-package flyspell)
-   #+END_SRC
-   Install and config [[https://github.com/d12frosted/flyspell-correct][flyspell-correct]]
-   #+BEGIN_SRC emacs-lisp
-     (use-package flyspell-correct-helm
-       :config
-       (evil-leader/set-key "z=" #'flyspell-correct-previous-word-generic))
-   #+END_SRC
 * Modules
 ** Version Control
 *** [[https://github.com/magit/magit/][Magit]]
     #+BEGIN_SRC emacs-lisp
-      (use-package magit)
+      (use-package magit
+        :config
+        (which-key-declare-prefixes "SPC g" "Version Control")
+        (evil-leader/set-key "gs" 'magit-status))
     #+END_SRC
     Install [[https://github.com/emacs-evil/evil-magit][ evil-magit]] to make Magit and Evil play nice together
     #+BEGIN_SRC emacs-lisp
       (use-package evil-magit)
     #+END_SRC
+**** Keybindings
+     | normal | evil | function     | status |
+     |--------+------+--------------+--------|
+     |        | gs   | magit-status |        |
 *** =.gitignore= and =.gitconfig=
     #+BEGIN_SRC emacs-lisp
       (use-package gitignore-mode)
