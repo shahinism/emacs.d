@@ -183,9 +183,10 @@
      |        | hd   | helm-dash-at-point |        | 
 *** [[https://github.com/expez/company-quickhelp][company-quickhelp]]
     #+BEGIN_SRC emacs-lisp
-      (use-package helm-dash
+      (use-package company-quickhelp
         :config
-        (evil-leader/set-key "hd" 'helm-dash-at-point))
+        (setq company-quickhelp-delay 0)
+        (company-quickhelp-mode 1))
     #+END_SRC
 *** [[https://github.com/joaotavora/yasnippet][Yasnippet]]
     Install and enable =yasnippet= in global mode:
