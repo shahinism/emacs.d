@@ -858,11 +858,85 @@
    #+BEGIN_SRC emacs-lisp
      (use-package csv-mode)
    #+END_SRC
+** Python
+*** Documentation
+    Cofigure helm dash sources on Python mode:
+    #+BEGIN_SRC emacs-lisp
+      (defun python-doc ()
+        "Dfine Python docs for helm-dash."
+        (interactive)
+        (setq-local helm-dash-docsets '("Python 3" "Python 2")))
+    #+END_SRC
+*** Python
+    Configure original Python mode to not show warnings when indent guess fails:
+    #+BEGIN_SRC emacs-lisp
+      (use-package python
+        :init
+        (add-hook 'python-mode-hook 'python-doc)
+        (setq python-indent-guess-indent-offset-verbose nil
+              python-shell-interpreter "python"))
+    #+END_SRC
+*** [[https://github.com/proofit404/anaconda-mode][Anaconda mode]]
+    #+BEGIN_SRC emacs-lisp
+      (use-package anaconda-mode
+        :after python
+        :bind (("M-s" . anaconda-mode-find-definitions))
+        :config
+        ;; trim eldoc to fit the frame
+        (setq anaconda-mode-eldoc-as-single-line t)
+        (add-hook 'python-mode-hook #'anaconda-mode)
+        (add-hook 'anaconda-mode-hook #'anaconda-eldoc-mode))
+
+      (use-package company-anaconda
+        :after
+        anaconda-mode
+        company
+        :config
+        (add-to-list 'company-backends 'company-anaconda))
+    #+END_SRC
+*** Additional modes
+    Additional mode to help with Python ecosystem:
+**** [[https://github.com/Wilfred/pip-requirements.el][pip-requirements]]
+     #+BEGIN_SRC emacs-lisp
+        (use-package pip-requirements
+         :mode ("/requirements.txt$" . pip-requirements-mode))    
+     #+END_SRC
+**** pyenv-mode
+     #+BEGIN_SRC emacs-lisp
+       (use-package pyenv-mode
+         :config
+         (pyenv-mode 1))
+     #+END_SRC
+**** pyvenv-mode
+     #+BEGIN_SRC emacs-lisp
+       (use-package pyvenv
+         :config
+         (which-key-declare-prefixes-for-mode 'python-mode "SPC p" "Python")
+         (evil-leader/set-key-for-mode 'python-mode
+           "pw" 'pyvenv-workon
+           "pd" 'pyvenv-deactivate))
+     #+END_SRC
+**** Helper Function
+     #+BEGIN_SRC emacs-lisp
+       (defun python-format-buffer ()
+         "Format python buffer using yapify and isort."
+         (interactive)
+         (yapfify-buffer (point-min) (point-max))
+         (py-isort-buffer))
+
+       ; yapfify
+       (use-package yapfify :defer t)
+
+       ; py-isort
+       (use-package py-isort :defer t)
+
+       (evil-leader/set-key-for-mode 'python-mode
+         "=" 'python-format-buffer)
+     #+END_SRC
 * OLD
 
 #+BEGIN_SRC emacs-lisp
   ;; load modules
-  (require 'mymacs-python)
   (require 'mymacs-javascript)
   (require 'mymacs-web)
   (require 'mymacs-rust)
