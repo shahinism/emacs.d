@@ -366,6 +366,11 @@
      | normal | evil | function            | status |
      |--------+------+---------------------+--------|
      | C-x u  |      | undo-tree-visualize |        |
+*** Subword
+    Make cursor movement stop in between camelCase words:
+    #+BEGIN_SRC emacs-lisp
+      (global-subword-mode 1)
+    #+END_SRC
 ** Basic Configurations
 *** Defaults
 **** Directories
