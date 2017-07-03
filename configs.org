@@ -26,14 +26,14 @@
     - [[http://elpa.gnu.org][Gnu]]
     - [[http://orgmode.org/elpa.html][Org]] (to get orgmode + all contribution packages)
 
-     #+BEGIN_SRC emacs-lisp
-       (require 'package)
-       (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-       (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")) 
-       (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
-       ;; (package-refresh-contents)
-       (package-initialize)
-     #+END_SRC
+    #+BEGIN_SRC emacs-lisp
+      (require 'package)
+      (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+      (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")) 
+      (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+      ;; (package-refresh-contents)
+      (package-initialize)
+    #+END_SRC
 *** [[https://github.com/jwiegley/use-package][use-package]]
     Ensure =use-package= is installed:
     #+BEGIN_SRC emacs-lisp
@@ -230,6 +230,18 @@
             (latex . t)))
 
       (setq org-confirm-babel-evaluate nil)
+
+      ;; Some useful configs from http://ergoemacs.org/emacs/emacs_org_mode_customization.html
+      (progn
+        ;; org-mode setup
+        ;; when opening a org file, don't collapse headings
+        (setq org-startup-folded nil)
+        ;; wrap long lines. don't let it disappear to the right
+        (setq org-startup-truncated nil)
+        ;; when in a url link, enter key should open it
+        (setq org-return-follows-link t)
+        ;; make org-mode” syntax color embedded source code
+        (setq org-src-fontify-natively t))
     #+END_SRC
     Supported languages for =babel= are available from [[http://orgmode.org/worg/org-contrib/babel/languages.html][here]].
 **** Keybindings
@@ -933,6 +945,8 @@
        (evil-leader/set-key-for-mode 'python-mode
          "=" 'python-format-buffer)
      #+END_SRC
+** JavaScript
+
 * OLD
 
 #+BEGIN_SRC emacs-lisp
