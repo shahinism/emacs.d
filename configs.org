@@ -227,6 +227,7 @@
             (python . t)
             (gnuplot . t)
             (org . t)
+            (ditaa . t)
             (latex . t)))
 
       (setq org-confirm-babel-evaluate nil)
@@ -235,7 +236,7 @@
       (progn
         ;; org-mode setup
         ;; when opening a org file, don't collapse headings
-        (setq org-startup-folded nil)
+        ;; (setq org-startup-folded nil)
         ;; wrap long lines. don't let it disappear to the right
         (setq org-startup-truncated nil)
         ;; when in a url link, enter key should open it
@@ -951,12 +952,80 @@
          "=" 'python-format-buffer)
      #+END_SRC
 ** JavaScript
+*** Documentation
+    Configure helm dash sources on javascript mode:
+    #+BEGIN_SRC emacs-lisp
+      (defun javascript-doc ()
+        "Dfine Javascript docs for helm-dash."
+        (interactive)
+        (setq-local helm-dash-docsets '("JavaScript")))
+    #+END_SRC
+*** [[https://github.com/mooz/js2-mode/blob/master/js2-mode.el][js2-mode]]
+    #+BEGIN_SRC emacs-lisp
+      (defun mymacs/js2-mode-hook ()
+        (javascript-doc)
+        (setq flycheck-checker 'javascript-standard))
 
+      (use-package js2-mode
+        :mode "\\.js$"
+        :interpreter "node"
+        :config
+        (setq js2-skip-preprocessor-directives t
+              js2-highlight-external-variables nil
+              js2-mode-show-parse-errors nil
+              js2-mode-show-strict-warnings nil)
+
+        (add-hook 'js2-mode-hook 'mymacs/js2-mode-hook))
+
+      (use-package xref-js2)
+    #+END_SRC
+*** [[https://github.com/ternjs/tern][Tern]]
+    #+BEGIN_SRC emacs-lisp
+      (use-package tern
+        :init (add-hook 'js2-mode-hook #'tern-mode)
+        :config
+        (setq tern-command (append tern-command '("--no-port-file"))))
+
+      (use-package company-tern
+        :after
+        tern
+        company
+        :config
+        (add-to-list 'company-backends 'company-tern))
+    #+END_SRC
+    My current =~/.tern-config= file contains following configuration:
+    #+BEGIN_SRC json
+      {
+          "libs" : [
+              "browser"
+          ],
+          "loadEagerly": [ "js/*.js", "*.js" ],
+          "plugins" : {
+              "commonjs" : {},
+              "node" : {},
+              "requirejs" : {},
+              "node_resolve" : {},
+          "es_modules": {}
+          }
+      }
+    #+END_SRC
+*** [[https://github.com/felipeochoa/rjsx-mode][rjsx-mode]]
+    To support =jsx= files:
+    #+BEGIN_SRC emacs-lisp
+      (use-package rjsx-mode
+        :mode "\\.jsx$"
+        :mode "components/.+\\.js$")
+    #+END_SRC
+*** Coffee mode
+    #+BEGIN_SRC emacs-lisp
+      (use-package coffee-mode
+        :mode "\\.coffee$"
+        :init (setq coffee-indent-like-python-mode t))
+    #+END_SRC
 * OLD
 
 #+BEGIN_SRC emacs-lisp
   ;; load modules
-  (require 'mymacs-javascript)
   (require 'mymacs-web)
   (require 'mymacs-rust)
   (require 'mymacs-c)
