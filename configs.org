@@ -1016,7 +1016,20 @@
     #+BEGIN_SRC emacs-lisp
       (use-package rjsx-mode
         :mode "\\.jsx$"
-        :mode "components/.+\\.js$")
+        :mode "components/.+\\.js$"
+        :init
+        ;; auto-detect JSX file
+        ;; source: https://github.com/hlissner/.emacs.d/blob/master/modules/lang/javascript/config.el
+        (push (cons (lambda ()
+                      (and buffer-file-name
+                           (equal (file-name-extension buffer-file-name) "js")
+                           (re-search-forward "\\(^\\s-*import React\\|\\( from \\|require(\\)[\"']react\\)"
+                                              magic-mode-regexp-match-limit t)
+                           (progn
+                             (goto-char (match-beginning 1))
+                             (not (sp-point-in-string-or-comment)))))
+                    'rjsx-mode)
+              magic-mode-alist))
     #+END_SRC
 *** Coffee mode
     #+BEGIN_SRC emacs-lisp
