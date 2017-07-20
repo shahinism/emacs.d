@@ -876,6 +876,10 @@
    #+BEGIN_SRC emacs-lisp
      (use-package csv-mode)
    #+END_SRC
+** Markdown
+   #+BEGIN_SRC emacs-lisp
+     (use-package markdown-mode)   
+   #+END_SRC
 ** Python
 *** Documentation
     Cofigure helm dash sources on Python mode:
