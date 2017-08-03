@@ -13,6 +13,7 @@
  '(custom-safe-themes
    (quote
     ("f67652440b66223b66a4d3e9c0ddeddbf4a6560182fa38693bdc4d940ce43a2e" "0eef522d30756a80b28333f05c7eed5721f2ba9b3eaaff244ea4c6f6a1b8ac62" default)))
+ '(org-agenda-files (quote ("~/Work/Dropbox/notes/org/journal.org")))
  '(package-selected-packages
    (quote
     (markdown-mode org-plus-contrib dumb-jump company-quickhelp esup doom-themes yapfify yaml-mode xref-js2 which-key web-mode web-beautify volatile-highlights use-package toml-mode telephone-line smartparens rjsx-mode rainbow-mode rainbow-delimiters racer pyvenv pyenv-mode py-isort pip-requirements pig-mode pdf-tools ox-twbs org-bullets neotree moe-theme mode-icons json-mode iedit htmlize helm-projectile helm-dash helm-c-yasnippet haml-mode graphviz-dot-mode gitignore-mode gitconfig-mode fringe-helper flyspell-correct-helm flycheck-rust flycheck-pos-tip flycheck-irony exec-path-from-shell evil-org evil-nerd-commenter evil-matchit evil-magit evil-leader ereader emojify dockerfile-mode disaster csv-mode company-web company-tern company-irony company-auctex company-anaconda coffee-mode clojure-mode clang-format cargo beacon avy all-the-icons))))

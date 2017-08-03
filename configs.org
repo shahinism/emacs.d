@@ -878,7 +878,7 @@
    #+END_SRC
 ** Markdown
    #+BEGIN_SRC emacs-lisp
-     (use-package markdown-mode)   
+     (use-package markdown-mode)
    #+END_SRC
 ** Python
 *** Documentation
@@ -922,12 +922,6 @@
      #+BEGIN_SRC emacs-lisp
         (use-package pip-requirements
          :mode ("/requirements.txt$" . pip-requirements-mode))    
-     #+END_SRC
-**** pyenv-mode
-     #+BEGIN_SRC emacs-lisp
-       (use-package pyenv-mode
-         :config
-         (pyenv-mode 1))
      #+END_SRC
 **** pyvenv-mode
      #+BEGIN_SRC emacs-lisp
