@@ -17,4 +17,9 @@
     "wl" 'evil-window-right
     "wk" 'evil-window-up))
 
+;; which-key
+(use-package which-key
+  :config
+  (which-key-mode +1))
+
 (provide 'mymacs-evil)

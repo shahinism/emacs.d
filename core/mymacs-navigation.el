@@ -69,6 +69,7 @@
 ;; iedit
 (use-package iedit
   :config
+  (which-key-declare-prefixes "SPC s" "Search")
   (evil-leader/set-key "se" 'iedit-mode))
 
 (use-package evil-iedit-state

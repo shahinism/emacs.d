@@ -50,6 +50,7 @@
   (evil-leader/set-key-for-mode 'js2-mode "=" 'web-beautify-js)
   (evil-leader/set-key-for-mode 'web-mode "=" 'web-beautify-html)
   (evil-leader/set-key-for-mode 'css-mode "=" 'web-beautify-css))
+;; It is configurable using .jsbeautifyrc file
 
 
 (provide 'mymacs-web)

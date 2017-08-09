@@ -4,13 +4,17 @@
   (interactive)
   (kill-buffer (current-buffer)))
 
+(which-key-declare-prefixes "SPC w" "Windows")
+(which-key-declare-prefixes "SPC b" "Buffers")
+(which-key-declare-prefixes "SPC t" "Text")
+(which-key-declare-prefixes "SPC f" "Files")
 (evil-leader/set-key
   "fs" 'save-buffer
   "w/" 'split-window-right
   "w-" 'split-window-below
   "wd" 'delete-window
   "bd" 'kill-current-buffer
-  "ar" 'align-regexp)
+  "tr" 'align-regexp)
 
 ;; Font size
 (global-set-key (kbd "C-+") 'text-scale-increase)

@@ -39,23 +39,63 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; enable undo-tree globally
+(use-package undo-tree
+  :diminish undo-tree-mode
+  :config
+  (progn
+    (global-undo-tree-mode)
+    (setq undo-tree-visualizer-timestamps t)
+    (setq undo-tree-visualizer-diff t))) 
+
 (global-undo-tree-mode)
+
+(global-subword-mode 1)
 
 ;; Colorize current changes
 (use-package volatile-highlights
   :config
   (volatile-highlights-mode t))
 
-;; spaceline
-(use-package spaceline
+;; mode-line
+(line-number-mode t)
+(column-number-mode t)
+(size-indication-mode t)
+(use-package telephone-line
   :config
-  (require 'spaceline-config)
-  (spaceline-emacs-theme))
+  (telephone-line-defsegment* mymacs-telephone-line-buffer-info ()
+    (when (and (eq 'python-mode major-mode)
+               (bound-and-true-p pyvenv-virtual-env-name))
+      (telephone-line-raw (format "pyvenv: %s" pyvenv-virtual-env-name) t)))
 
-;; zenburn theme
-(use-package zenburn-theme
+  (setq telephone-line-lhs
+        '((evil   . (telephone-line-evil-tag-segment))
+          (accent . (telephone-line-major-mode-segment))
+          (evil   . (telephone-line-buffer-segment))
+          (nil    . (telephone-line-minor-mode-segment))))
+  
+  (setq telephone-line-rhs
+        '((nil    . (telephone-line-misc-info-segment))
+          (evil   . (mymacs-telephone-line-buffer-info))
+          (accent . (telephone-line-vc-segment
+                     telephone-line-erc-modified-channels-segment
+                     telephone-line-process-segment))
+          (evil   . (telephone-line-airline-position-segment))))
+
+  (require 'telephone-line)
+  (require 'telephone-line-config)
+  (telephone-line-mode t))
+
+;; (use-package mode-icons
+;;   :config
+;;   (mode-icons-mode))
+
+;; Theme
+;; (use-package zenburn-theme
+;;   :config
+;;   (load-theme 'zenburn t))
+(use-package moe-theme
   :config
-  (load-theme 'zenburn t))
+  (moe-dark))
 
 ;; set font
 (defun mymacs/check-font-exists (font)
@@ -90,9 +130,9 @@
   :config
   (add-hook 'after-init-hook #'global-emojify-mode))
 
-;; nlinum
-;; (use-package nlinum
-;;   :config
-;;   (global-nlinum-mode -1))
+;; ;; nlinum
+;; ;; (use-package nlinum
+;; ;;   :config
+;; ;;   (global-nlinum-mode -1))
 
 (provide 'mymacs-ui)

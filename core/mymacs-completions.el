@@ -2,18 +2,23 @@
 (setq tab-always-indent 'complete)
 
 ;; company
-; http://company-mode.github.io/
+                                        ; http://company-mode.github.io/
 (use-package company
   :config
   (setq
    company-minimum-prefix-length 0
    company-idle-delay 0
-   company-tooltip-flip-when-above t)
+   company-dabbrev-downcase nil
+   company-dabbrev-ignore-case nil
+   company-dabbrev-code-other-buffers t
+   company-tooltip-flip-when-above t
+   company-frontends '(company-pseudo-tooltip-frontend company-echo-metadata-frontend)
+   company-backends '(company-capf)
+   company-global-modes '(not eshell-mode comint-mode erc-mode message-mode help-mode))
 
   (global-company-mode +1))
-
 ;; smart-parens
-; https://github.com/Fuco1/smartparens
+                                        ; https://github.com/Fuco1/smartparens
 (use-package smartparens
   :config
   (smartparens-global-mode 1)
@@ -43,6 +48,7 @@
   (global-set-key (kbd "C-h f") 'helm-apropos)
   (global-set-key (kbd "C-h r") 'helm-info-emacs)
 
+  (which-key-declare-prefixes "SPC h" "Helm")
   (evil-leader/set-key
     "ff" 'helm-find-files
     "fr" 'helm-recentf
@@ -61,5 +67,19 @@
   :config
   (setq company-quickhelp-delay 0)
   (company-quickhelp-mode 1))
+
+;; yasnippet
+(use-package yasnippet
+  :config
+  (yas-global-mode 1)
+  ;; Disabled it due to problems on company's normal work
+  ;; (add-to-list 'company-backends '(company-yasnippet)))
+  )
+
+(use-package helm-c-yasnippet
+  :config
+  (global-set-key (kbd "C-c y") 'helm-yas-complete))
+
+
 
 (provide 'mymacs-completions)
