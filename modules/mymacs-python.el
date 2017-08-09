@@ -32,14 +32,10 @@
 (use-package pip-requirements
   :mode ("/requirements.txt$" . pip-requirements-mode))
 
-;; pyenv
-(use-package pyenv-mode
-  :config
-  (pyenv-mode 1))
-
 ;; pyvenv
 (use-package pyvenv
   :config
+  (which-key-declare-prefixes-for-mode 'python-mode "SPC p" "Python")
   (evil-leader/set-key-for-mode 'python-mode
     "pw" 'pyvenv-workon
     "pd" 'pyvenv-deactivate))

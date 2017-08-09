@@ -865,7 +865,7 @@
    #+END_SRC
 ** Graphviz Dot
    #+begin_src emacs-lisp
-     (use-package graphviz-dot-mode)
+use-package graphviz-dot-mode)
    #+end_src
 ** Pig
    Major mode for Pig, data flow language for Hadoop:
