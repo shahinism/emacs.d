@@ -63,7 +63,12 @@
     "jvt" 'js2r-var-to-this))
 
 ;; xref-js2
-(use-package xref-js2)
+(use-package xref-js2
+  :bind (("M-s" . xref-find-definitions)
+         ("M-r" . xref-find-references))
+  :config
+  (add-hook 'js2-mode-hook (lambda ()
+                             (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t))))
 
 ;; Tern
 (use-package tern
