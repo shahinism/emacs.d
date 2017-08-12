@@ -29,3 +29,4 @@
 
 (evil-leader/set-key "xo" 'mymacs-open-with)
 
+(provide 'mymacs-goodies)
