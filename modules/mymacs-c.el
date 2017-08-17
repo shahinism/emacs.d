@@ -1,3 +1,8 @@
+(defun c-doc ()
+  "Dfine c docs for helm-dash."
+  (interactive)
+  (setq-local helm-dash-docsets '("C")))
+
 ;; cc-mode
 (use-package cc-mode
   :commands (c-mode c++-mode objc-mode java-mode)
@@ -11,7 +16,8 @@
   (add-hook 'c-mode-hook 'irony-mode)
   (add-hook 'objc-mode-hook 'irony-mode)
 
-  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
+  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+  (add-hook 'irony-mode-hook 'c-doc))
 
 (use-package company-irony
   :after irony

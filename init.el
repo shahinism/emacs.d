@@ -54,6 +54,7 @@
  '(custom-safe-themes
    (quote
     ("67e998c3c23fe24ed0fb92b9de75011b92f35d3e89344157ae0d544d50a63a72" "4cbec5d41c8ca9742e7c31cc13d8d4d5a18bd3a0961c18eb56d69972bbcf3071" default)))
+ '(org-agenda-files (quote ("~/Work/Dropbox/notes/org/journal.org")))
  '(package-selected-packages
    (quote
     (evil-iedit-state zenburn-theme spaceline yapfify yaml-mode xref-js2 which-key web-mode web-beautify volatile-highlights use-package toml-mode telephone-line smartparens rjsx-mode rainbow-mode rainbow-delimiters racer pyvenv pyenv-mode py-isort pip-requirements pig-mode pdf-tools ox-twbs org-bullets nginx-mode neotree moe-theme mode-icons markdown-mode json-mode js2-refactor indium iedit htmlize helm-projectile helm-dash helm-c-yasnippet haml-mode graphviz-dot-mode gitignore-mode gitconfig-mode fringe-helper flyspell-correct-helm flycheck-rust flycheck-pos-tip flycheck-irony exec-path-from-shell evil-org evil-nerd-commenter evil-matchit evil-magit evil-leader esup ereader emojify doom-themes dockerfile-mode disaster csv-mode company-web company-tern company-quickhelp company-irony company-auctex company-anaconda coffee-mode clojure-mode clang-format cargo beacon avy))))
