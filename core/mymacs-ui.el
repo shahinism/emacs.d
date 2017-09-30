@@ -93,9 +93,11 @@
 ;; (use-package zenburn-theme
 ;;   :config
 ;;   (load-theme 'zenburn t))
-(use-package moe-theme
-  :config
-  (moe-dark))
+
+;; (use-package moe-theme
+;;   :config
+;;   (moe-dark))
+(use-package darktooth-theme)
 
 ;; set font
 (defun mymacs/check-font-exists (font)
@@ -130,9 +132,9 @@
   :config
   (add-hook 'after-init-hook #'global-emojify-mode))
 
-;; ;; nlinum
-;; ;; (use-package nlinum
-;; ;;   :config
-;; ;;   (global-nlinum-mode -1))
+;; nlinum
+;; (use-package nlinum
+;;   :config
+;;   (global-nlinum-mode -1))
 
 (provide 'mymacs-ui)
