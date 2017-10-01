@@ -6,7 +6,7 @@
     "<SPC>" 'avy-goto-word-or-subword-1))
 
 ;; neotree
-; https://github.com/syl20bnr/spacemacs/blob/bd7ef98e4c35fd87538dd2a81356cc83f5fd02f3/layers/%2Bspacemacs/spacemacs-ui-visual/funcs.el#L52
+; https://github.com/syl20bnr/mymacs/blob/bd7ef98e4c35fd87538dd2a81356cc83f5fd02f3/layers/%2Bmymacs/mymacs-ui-visual/funcs.el#L52
 (defun mymacs/neotree-collapse ()
   "Collapse a neotree node."
   (interactive)
@@ -79,5 +79,72 @@
 (use-package evil-matchit
   :config
   (global-evil-matchit-mode 1))
+
+;; gtags
+;; from https://github.com/tuhdo/spacemacs/blob/fc8cd1d45bba0601c67601e5e6712b1763ed455b/contrib/gtags/packages.el
+(defun mymacs/gtags-define-keys-for-mode (mode)
+  "Define key bindings for specific MODE"
+  (when (fboundp mode)
+
+    (let ((hook (intern (concat (symbol-name mode) "-hook"))))
+      (message "hook is %s" hook)
+      (add-hook hook 'helm-gtags-mode)
+      (unless (member mode '(c-mode
+                             c++-mode
+                             lisp-mode
+                             emacs-lisp-mode
+                             python-mode
+                             ruby-mode))
+        (add-hook hook (lambda ()
+                         (ggtags-mode 1)
+                         (eldoc-mode 1)
+                         (setq-local eldoc-documentation-function #'ggtags-eldoc-function)))))
+
+    (evil-leader/set-key-for-mode mode
+      "mgc" 'helm-gtags-create-tags
+      "mgd" 'helm-gtags-find-tag
+      "mgf" 'helm-gtags-select-path
+      "mgg" 'helm-gtags-dwim
+      "mgi" 'helm-gtags-tags-in-this-function
+      "mgl" 'helm-gtags-parse-file
+      "mgn" 'helm-gtags-next-history
+      "mgp" 'helm-gtags-previous-history
+      "mgr" 'helm-gtags-find-rtag
+      "mgR" 'helm-gtags-resume
+      "mgs" 'helm-gtags-select
+      "mgS" 'helm-gtags-show-stack
+      "mgu" 'helm-gtags-update-tags)))
+
+(use-package ggtags
+  :defer t)
+
+(use-package helm-gtags
+  :after ggtags
+  :config
+  (setq helm-gtags-ignore-case t
+        helm-gtags-auto-update t
+        helm-gtags-use-input-at-cursor t
+        helm-gtags-pulse-at-cursor t)
+
+  (progn
+    ;; if anyone uses helm-gtags, they would want to use these key bindings
+    (define-key helm-gtags-mode-map (kbd "M-s") 'helm-gtags-dwim)
+    (define-key helm-gtags-mode-map (kbd "C-x 4 .") 'helm-gtags-find-tag-other-window)
+    (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
+    (define-key helm-gtags-mode-map (kbd "M-*") 'helm-gtags-pop-stack))
+  :init
+  (add-hook 'dired-mode-hook 'helm-gtags-mode)
+  (add-hook 'eshell-mode-hook 'helm-gtags-mode)
+  (add-hook 'c-mode-hook 'helm-gtags-mode)
+  (add-hook 'c++-mode-hook 'helm-gtags-mode)
+  (add-hook 'asm-mode-hook 'helm-gtags-mode)
+  ;; modes that do not have a layer, define here
+  (mymacs/gtags-define-keys-for-mode 'tcl-mode)
+  (mymacs/gtags-define-keys-for-mode 'java-mode)
+  (mymacs/gtags-define-keys-for-mode 'vhdl-mode)
+  (mymacs/gtags-define-keys-for-mode 'shell-script-mode)
+  (mymacs/gtags-define-keys-for-mode 'awk-mode)
+  (mymacs/gtags-define-keys-for-mode 'asm-mode)
+  (mymacs/gtags-define-keys-for-mode 'dired-mode))
 
 (provide 'mymacs-navigation)

@@ -44,4 +44,6 @@
   (evil-leader/set-key-for-mode 'c-mode
     "=" 'clang-format-buffer))
 
+(mymacs/gtags-define-keys-for-mode 'c-mode)
+
 (provide 'mymacs-c)
