@@ -74,3 +74,6 @@ irony/
 configs.el
 el-get/
 # End of https://www.gitignore.io/api/elisp,emacs
+
+# Session files
+session*
