@@ -65,8 +65,10 @@
 ;; xref-js2
 (use-package xref-js2
   :config
-  (define-key js2-mode-map (kbd "M-s") 'xref-find-definitions)
-  (define-key js2-mode-map (kbd "M-r") 'xref-find-references)
+
+  (evil-leader/set-key-for-mode 'js2-mode
+    "sd" 'xref-find-definitions
+    "sr" 'xref-find-references)
 
   (add-hook 'js2-mode-hook (lambda ()
                              (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t))))

@@ -38,7 +38,7 @@
     '((swiper . ivy--regex-plus)
       (counsel-ag . ivy--regex-plus)
       (counsel-grep-or-swiper . ivy--regex-plus)
-      (t . ivy--regex-fuzzy)))
+      (t . ivy--regex-plus)))
   )
 
 (use-package counsel
@@ -106,7 +106,5 @@
 (use-package helm-c-yasnippet
   :config
   (global-set-key (kbd "C-c y") 'helm-yas-complete))
-
-
 
 (provide 'mymacs-completions)

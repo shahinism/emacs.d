@@ -16,7 +16,8 @@
   :config
   ;; trim eldoc to fit the frame
 
-  (define-key python-mode-map (kbd "M-s") 'anaconda-mode-find-definitions)
+  (evil-leader/set-key-for-mode 'python-mode
+    "sd" 'anaconda-mode-find-definitions)
 
   (setq anaconda-mode-eldoc-as-single-line t)
   (add-hook 'python-mode-hook #'anaconda-mode)

@@ -6,7 +6,13 @@
 ;; cc-mode
 (use-package cc-mode
   :commands (c-mode c++-mode objc-mode java-mode)
-  :mode ("\\.mm" . objc-mode))
+  :mode ("\\.mm" . objc-mode)
+  :init
+  ;; Enable gtags
+  (add-hook 'c-mode-local-vars-hook #'mymacs/ggtags-mode-enable)
+  (add-hook 'c++-mode-local-vars-hook #'mymacs/ggtags-mode-enable)
+  (mymacs/gtags-define-keys-for-mode 'c-mode)
+)
 
 ;; irony
 (use-package irony
@@ -43,8 +49,6 @@
   :config
   (evil-leader/set-key-for-mode 'c-mode
     "=" 'clang-format-buffer))
-
-(mymacs/gtags-define-keys-for-mode 'c-mode)
 
 ;; function-args
 ;; https://github.com/abo-abo/function-args

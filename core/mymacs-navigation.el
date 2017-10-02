@@ -82,6 +82,12 @@
 
 ;; gtags
 ;; from https://github.com/tuhdo/spacemacs/blob/fc8cd1d45bba0601c67601e5e6712b1763ed455b/contrib/gtags/packages.el
+(defun mymacs/helm-gtags-mode-enable ()
+  "Enable ggtags and eldoc"
+  (message "enabling ggtags")
+  (helm-gtags-mode 1)
+  (eldoc-mode 1))
+
 (defun mymacs/gtags-define-keys-for-mode (mode)
   "Define key bindings for specific MODE"
   (when (fboundp mode)
@@ -96,15 +102,15 @@
                              python-mode
                              ruby-mode))
         (add-hook hook (lambda ()
-                         (ggtags-mode 1)
+                         (helm-gtags-mode 1)
                          (eldoc-mode 1)
                          (setq-local eldoc-documentation-function #'ggtags-eldoc-function)))))
 
     (evil-leader/set-key-for-mode mode
+      "ss" 'helm-gtags-dwim
       "mgc" 'helm-gtags-create-tags
       "mgd" 'helm-gtags-find-tag
       "mgf" 'helm-gtags-select-path
-      "mgg" 'helm-gtags-dwim
       "mgi" 'helm-gtags-tags-in-this-function
       "mgl" 'helm-gtags-parse-file
       "mgn" 'helm-gtags-next-history
@@ -126,12 +132,6 @@
         helm-gtags-use-input-at-cursor t
         helm-gtags-pulse-at-cursor t)
 
-  (progn
-    ;; if anyone uses helm-gtags, they would want to use these key bindings
-    (define-key helm-gtags-mode-map (kbd "M-s") 'helm-gtags-dwim)
-    (define-key helm-gtags-mode-map (kbd "C-x 4 .") 'helm-gtags-find-tag-other-window)
-    (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
-    (define-key helm-gtags-mode-map (kbd "M-*") 'helm-gtags-pop-stack))
   :init
   (add-hook 'dired-mode-hook 'helm-gtags-mode)
   (add-hook 'eshell-mode-hook 'helm-gtags-mode)
@@ -145,6 +145,15 @@
   (mymacs/gtags-define-keys-for-mode 'shell-script-mode)
   (mymacs/gtags-define-keys-for-mode 'awk-mode)
   (mymacs/gtags-define-keys-for-mode 'asm-mode)
-  (mymacs/gtags-define-keys-for-mode 'dired-mode))
+  (mymacs/gtags-define-keys-for-mode 'dired-mode)
+
+  (with-eval-after-load 'helm-gtags
+    (define-key helm-gtags-mode-map (kbd "M-t") 'helm-gtags-find-tag)
+    (define-key helm-gtags-mode-map (kbd "M-r") 'helm-gtags-find-rtag)
+    (define-key helm-gtags-mode-map (kbd "M-s") 'helm-gtags-find-symbol)
+    (define-key helm-gtags-mode-map (kbd "M-g M-p") 'helm-gtags-parse-file)
+    (define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
+    (define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)
+    (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)))
 
 (provide 'mymacs-navigation)
