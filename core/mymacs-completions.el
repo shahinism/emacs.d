@@ -25,6 +25,38 @@
   (smartparens-global-mode 1)
   (require 'smartparens-config))
 
+(use-package ivy
+  :demand t
+  ;; :diminish ivy-mode
+  :init
+  (setq ivy-use-virtual-buffers t)
+  (setq enable-recursive-minibuffers t)
+  ;; full file names - useful when multiple files have same names
+  (setq ivy-virtual-abbreviate 'full)
+  ;; fuzzy everywhere except when searching for something
+  (setq ivy-re-builders-alist
+    '((swiper . ivy--regex-plus)
+      (counsel-ag . ivy--regex-plus)
+      (counsel-grep-or-swiper . ivy--regex-plus)
+      (t . ivy--regex-fuzzy)))
+  )
+
+(use-package counsel
+  :after ivy
+  :init
+  (global-set-key (kbd "M-y") 'counsel-mark-ring)
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+  (global-set-key (kbd "C-h f") 'counsel-apropos)
+
+  (which-key-declare-prefixes "SPC h" "Ivy")
+  (evil-leader/set-key
+    "ff" 'counsel-find-file
+    "fr" 'counsel-recentf
+    ;; Needs ag (silver-searcher) to be installed
+    "ia" 'counsel-ag
+    "io" 'counsel-ag-occur))
+
 ;; helm
 (use-package helm
   :demand t
@@ -41,21 +73,12 @@
   (require 'helm-config)
   (helm-mode 1)
 
-  (global-set-key (kbd "M-x") 'helm-M-x)
-  (global-set-key (kbd "M-y") 'helm-show-kill-ring)
   (global-set-key (kbd "C-x b") 'helm-mini)
   (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
-  (global-set-key (kbd "C-x C-f") 'helm-find-files)
-  (global-set-key (kbd "C-h f") 'helm-apropos)
   (global-set-key (kbd "C-h r") 'helm-info-emacs)
 
   (which-key-declare-prefixes "SPC h" "Helm")
   (evil-leader/set-key
-    "ff" 'helm-find-files
-    "fr" 'helm-recentf
-    ;; Needs ag (silver-searcher) to be installed
-    "hp" 'helm-do-grep-ag
-    "hf" 'helm-occur
     "hw" 'helm-wikipedia-suggest))
 
 ;; helm-dash
