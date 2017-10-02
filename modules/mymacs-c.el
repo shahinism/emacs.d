@@ -46,4 +46,11 @@
 
 (mymacs/gtags-define-keys-for-mode 'c-mode)
 
+;; function-args
+;; https://github.com/abo-abo/function-args
+(use-package function-args
+  :init
+  (fa-config-default)
+  (setq fa-insert-method 'name-space-parens))
+
 (provide 'mymacs-c)
