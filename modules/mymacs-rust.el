@@ -8,6 +8,7 @@
   :mode "\\.rs$"
   :init
   (add-hook 'rust-mode-hook #'flycheck-mode)
+  (add-hook 'rust-mode-hook 'rust-doc)
   (evil-leader/set-key-for-mode 'rust-mode
     "=" 'rust-format-buffer))
 
