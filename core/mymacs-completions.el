@@ -85,7 +85,7 @@
 (use-package helm-dash
   :config
   (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program "/usr/bin/firefox")
+        browse-url-generic-program mymacs-default-browser)
   (setq helm-dash-browser-func 'browse-url-generic)
   (evil-leader/set-key "hd" 'helm-dash-at-point))
 

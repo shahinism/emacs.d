@@ -5,13 +5,16 @@
 ;; (package-initialize)
 
 (defvar mymacs-core-dir (expand-file-name "core" user-emacs-directory)
-    "The core directory of mymacs tools")
+    "The core directory of mymacs tools.")
 
 (defvar mymacs-modules-dir (expand-file-name "modules" user-emacs-directory)
-    "Mymacs's modules directory")
+    "Mymacs's modules directory.")
 
 (defvar mymacs-frame-font (list "Hack-10" (list "tahoma" '(#x600 . #x6ff)))
-    "Default font to be used on mymacs frame")
+    "Default font to be used on mymacs frame.")
+
+(defvar mymacs-default-browser "/usr/bin/firefox-developer"
+  "Default browser to be used when opening web pages.")
 
 ;; add mymacs to load path
 (add-to-list 'load-path mymacs-core-dir)
