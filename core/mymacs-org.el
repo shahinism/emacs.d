@@ -1,9 +1,31 @@
 (which-key-declare-prefixes "SPC o" "Org Mode")
 
+(setq org-default-notes-file "~/Work/Dropbox/notes/notes.org")
 (evil-leader/set-key
   "oa" 'org-agenda
   "ol" 'org-store-link
-  "ob" 'org-iswitchb)
+  "ob" 'org-iswitchb
+  "oc" 'org-capture)
+
+(defvar my/org-basic-task-template "* TODO %^{Task}
+Captured %<%Y-%m-%d %H:%M>
+%?
+
+%i
+" "Basic task data.")
+
+(setq org-capture-templates
+      `(("t" "Tasks" entry
+         (file+headline "~/personal/organizer.org" "Inbox")
+         ,my/org-basic-task-template)))
+
+(setq org-agenda-files
+      (delq nil
+            (mapcar (lambda (x) (and (file-exists-p x) x))
+                    `("~/Personal/orgnizer.org"
+                      "~/Personal/people.org"
+                      "~/Personal/buisiness.org"
+                      "~/Personal/learning.org"))))
 
 (org-babel-do-load-languages 'org-babel-load-languages
                              '((sh . t)
