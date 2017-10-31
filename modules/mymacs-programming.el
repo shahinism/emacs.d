@@ -70,5 +70,13 @@
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
+;; wakatime
+(use-package wakatime-mode
+  :config
+  (setq wakatime-api-key mymacs-wakatime-api)
+  (setq wakatime-cli-path "/home/shahin/.pyenv/versions/3.6.1/bin/wakatime")
+  (global-wakatime-mode))
+
+
 (provide 'mymacs-programming)
 ;;; mymacs-programming.el ends here
