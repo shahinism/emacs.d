@@ -4,6 +4,9 @@
 ;; You may delete these explanatory comments.
 ;; (package-initialize)
 
+(defvar mymacs-secrets-dir (expand-file-name "secret" user-emacs-directory)
+    "The secret directory of mymacs (not available on git).")
+
 (defvar mymacs-core-dir (expand-file-name "core" user-emacs-directory)
     "The core directory of mymacs tools.")
 
@@ -17,8 +20,12 @@
   "Default browser to be used when opening web pages.")
 
 ;; add mymacs to load path
+(add-to-list 'load-path mymacs-secrets-dir)
 (add-to-list 'load-path mymacs-core-dir)
 (add-to-list 'load-path mymacs-modules-dir)
+
+;; Secret variables
+(require 'secret-variables)
 
 ;; load mymacs
 (require 'mymacs-packages)
@@ -55,7 +62,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (zenburn-theme yapfify yaml-mode xref-js2 which-key web-mode web-beautify volatile-highlights use-package toml-mode telephone-line spaceline smartparens rjsx-mode rainbow-mode rainbow-delimiters racer pyvenv pyenv-mode py-isort pip-requirements pig-mode php-mode pdf-tools ox-twbs org-bullets nhexl-mode nginx-mode neotree moe-theme mode-icons markdown-mode json-mode js2-refactor indium htmlize helm-projectile helm-gtags helm-dash helm-c-yasnippet haml-mode graphviz-dot-mode gitignore-mode gitconfig-mode ggtags function-args fringe-helper flyspell-correct-helm flycheck-rust flycheck-pos-tip flycheck-irony exec-path-from-shell evil-org evil-nerd-commenter evil-matchit evil-magit evil-leader evil-iedit-state esup ereader emojify doom-themes dockerfile-mode disaster darktooth-theme csv-mode counsel company-web company-tern company-quickhelp company-irony company-auctex company-anaconda coffee-mode clojure-mode clang-format cargo beacon avy))))
+    (wakatime-mode zenburn-theme yapfify yaml-mode xref-js2 which-key web-mode web-beautify volatile-highlights use-package toml-mode telephone-line spaceline smartparens rjsx-mode rainbow-mode rainbow-delimiters racer pyvenv pyenv-mode py-isort pip-requirements pig-mode php-mode pdf-tools ox-twbs org-bullets nhexl-mode nginx-mode neotree moe-theme mode-icons markdown-mode json-mode js2-refactor indium htmlize helm-projectile helm-gtags helm-dash helm-c-yasnippet haml-mode graphviz-dot-mode gitignore-mode gitconfig-mode ggtags function-args fringe-helper flyspell-correct-helm flycheck-rust flycheck-pos-tip flycheck-irony exec-path-from-shell evil-org evil-nerd-commenter evil-matchit evil-magit evil-leader evil-iedit-state esup ereader emojify doom-themes dockerfile-mode disaster darktooth-theme csv-mode counsel company-web company-tern company-quickhelp company-irony company-auctex company-anaconda coffee-mode clojure-mode clang-format cargo beacon avy))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
