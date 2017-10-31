@@ -78,3 +78,7 @@ el-get/
 # Session files
 session*
 semanticdb
+bookmarks
+
+# Secret modules directory
+secret
