@@ -12,11 +12,10 @@
    company-dabbrev-downcase nil
    company-dabbrev-ignore-case nil
    company-dabbrev-code-other-buffers t
-   company-tooltip-flip-when-above t
-   company-frontends '(company-pseudo-tooltip-frontend company-echo-metadata-frontend)
+   company-tooltip-flip-when-above nil
+   company-frontends '(company-pseudo-tooltip-frontend)
    company-backends '(company-capf)
    company-global-modes '(not eshell-mode comint-mode erc-mode message-mode help-mode))
-
   (global-company-mode +1))
 ;; smart-parens
                                         ; https://github.com/Fuco1/smartparens
