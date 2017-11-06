@@ -8,7 +8,7 @@
   :config
   (setq
    company-minimum-prefix-length 2
-   company-idle-delay 0
+   company-idle-delay 0.2  ; Hoping to fix cursor jump while typing fast
    company-dabbrev-downcase nil
    company-dabbrev-ignore-case nil
    company-dabbrev-code-other-buffers t
