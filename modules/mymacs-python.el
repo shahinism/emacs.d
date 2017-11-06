@@ -28,7 +28,8 @@
   anaconda-mode
   company
   :config
-  (add-to-list 'company-backends 'company-anaconda))
+
+  (add-to-list 'company-backends '(company-anaconda :with company-capf)))
 
 ;; pip-requirements
 ; https://github.com/Wilfred/pip-requirements.el
