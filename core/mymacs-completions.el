@@ -8,7 +8,7 @@
   :config
   (setq
    company-minimum-prefix-length 2
-   company-idle-delay 0.2  ; Hoping to fix cursor jump while typing fast
+   company-idle-delay 0
    company-dabbrev-downcase nil
    company-dabbrev-ignore-case nil
    company-dabbrev-code-other-buffers t
@@ -91,7 +91,7 @@
 ;; company-quickhelp
 (use-package company-quickhelp
   :config
-  (setq company-quickhelp-delay 0)
+  (setq company-quickhelp-delay 1)  ; Hoping to fix cursor jump while typing fast
   (company-quickhelp-mode 1))
 
 ;; yasnippet
