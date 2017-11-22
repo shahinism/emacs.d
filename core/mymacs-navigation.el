@@ -156,4 +156,11 @@
     (define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)
     (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)))
 
+
+;; imenu-list
+;; https://github.com/bmag/imenu-list
+(use-package imenu-list
+  :config
+  (global-set-key (kbd "C-'") #'imenu-list-smart-toggle))
+
 (provide 'mymacs-navigation)
