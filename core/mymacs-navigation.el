@@ -161,6 +161,8 @@
 ;; https://github.com/bmag/imenu-list
 (use-package imenu-list
   :config
+  (setq imenu-list-focus-after-activation t
+        imenu-list-auto-resize t)
   (global-set-key (kbd "C-'") #'imenu-list-smart-toggle))
 
 (provide 'mymacs-navigation)
