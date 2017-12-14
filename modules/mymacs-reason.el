@@ -1,27 +1,21 @@
+;; Arch linux installation:
+
+;; # Official package's `opam init` failes, but opam-git from AUR works fine
+;; pacaur -S ocaml opam-git
+;; opam init
+;; opam switch create 4.04.0
+;; eval $(opam env)
+;; opam install merlin
+;; # Install `nvm` if you havent already: https://github.com/creationix/nvm#install-script
+;; # Install latest version of node. There are installation problems witn node v8 and npm v4
+;; # Install reason: https://reasonml.github.io/guide/editor-tools/global-installation
+;; # Install bs-platform  (requires ocaml)
+;; npm install -g bs-platform
+
 (use-package reason-mode
   :quelpa (reason-mode :repo "reasonml-editor/reason-mode" :fetcher github :stable t)
   :config
-  (defun shell-cmd (cmd)
-  "Returns the stdout output of a shell command or nil if the command returned
-   an error"
-  (car (ignore-errors (apply 'process-lines (split-string cmd)))))
-
-  (let* ((refmt-bin (or (shell-cmd "refmt ----where")
-                        (shell-cmd "which refmt")))
-         (merlin-bin (or (shell-cmd "ocamlmerlin ----where")
-                         (shell-cmd "which ocamlmerlin")))
-         (merlin-base-dir (when merlin-bin
-                            (replace-regexp-in-string "bin/ocamlmerlin$" "" merlin-bin))))
-    ;; Add npm merlin.el to the emacs load path and tell emacs where to find ocamlmerlin
-    (when merlin-bin
-      (add-to-list 'load-path (concat merlin-base-dir "share/emacs/site-lisp/"))
-      (setq merlin-command merlin-bin))
-
-    (when refmt-bin
-      (setq refmt-command refmt-bin)))
-
-  (add-hook 'reason-mode-hook (lambda ()
-                                (add-hook 'before-save-hook 'refmt-before-save)
-                                (merlin-mode))))
+  (defun shell-cmd (cmd))
+  )
 
 (provide 'mymacs-reason)
