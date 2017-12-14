@@ -4,6 +4,8 @@
   (setq-local helm-dash-docsets '("JavaScript")))
 
 ;; js2-mode
+
+;; requires: standard
 (defun mymacs/js2-mode-hook ()
   (javascript-doc)
   (setq flycheck-checker 'javascript-standard))
@@ -63,6 +65,7 @@
     "jvt" 'js2r-var-to-this))
 
 ;; xref-js2
+;; requires: ag (http://geoff.greer.fm/ag/)
 (use-package xref-js2
   :config
 
@@ -74,11 +77,35 @@
                              (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t))))
 
 ;; Tern
+;; requires: tern
+
+;; My ~/.tern-config
+;; {
+;;   "ecmaVersion": 6,
+;;   "libs": [
+;;     "browser"
+;;   ],
+;;   "plugins": {
+;;     "es_modules": {},
+;;     "node": {},
+;;     "doc_comment": {
+;;       "fullDocs": true,
+;;       "strong": true
+;;     },
+;;     "commonjs": {},
+;;     "node": {},
+;;     "requirejs": {
+;;       "baseURL": "./"
+;;     },
+;;     "node_resolve": {}
+;;   }
+;; }
 (use-package tern
   :init (add-hook 'js2-mode-hook #'tern-mode)
   :config
   (setq tern-command (append tern-command '("--no-port-file"))))
 
+;; https://github.com/proofit404/company-tern
 (use-package company-tern
   :after
   tern
@@ -87,6 +114,7 @@
   (add-to-list 'company-backends 'company-tern))
 
 ;; rjsx
+;; https://github.com/felipeochoa/rjsx-mode
 (use-package rjsx-mode
   :mode "\\.jsx$"
   :mode "components/.+\\.js$")
