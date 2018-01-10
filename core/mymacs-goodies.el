@@ -29,4 +29,11 @@
 
 (evil-leader/set-key "xo" 'mymacs-open-with)
 
+;; https://github.com/mrkkrp/fix-word
+(use-package fix-word
+  :config
+  (global-set-key (kbd "M-u") #'fix-word-upcase)
+  (global-set-key (kbd "M-l") #'fix-word-downcase)
+  (global-set-key (kbd "M-c") #'fix-word-capitalize))
+
 (provide 'mymacs-goodies)
