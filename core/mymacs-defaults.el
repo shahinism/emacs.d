@@ -1,3 +1,6 @@
+;; server mode
+(server-mode)
+
 ;; store backups and autosaves into /tmp/ directory
 (setq backup-directory-alist
     `((".*" . ,temporary-file-directory)))
