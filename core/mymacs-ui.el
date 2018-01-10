@@ -137,4 +137,11 @@
 ;;   :config
 ;;   (global-nlinum-mode -1))
 
+;; show indent
+;; https://github.com/DarthFennec/highlight-indent-guides
+(use-package highlight-indent-guides
+  :config
+  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+  (setq highlight-indent-guides-method 'character))
+
 (provide 'mymacs-ui)
