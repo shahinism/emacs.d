@@ -61,11 +61,6 @@
   (evil-define-key 'normal neotree-mode-map (kbd "l") 'neotree-enter)
   (evil-define-key 'normal neotree-mode-map (kbd "h") 'mymacs/neotree-collapse-or-up))
 
-;; beacon
-(use-package beacon
-  :config
-  (beacon-mode +1))
-
 ;; iedit
 (use-package iedit
   :config

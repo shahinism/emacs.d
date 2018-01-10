@@ -26,12 +26,7 @@
 (menu-bar-mode 0)
 (global-hl-line-mode 1)
 
-;; mode line
-(line-number-mode t)
-(column-number-mode t)
-(size-indication-mode t)
-
-;; Editing
+;;; Editing
 (setq show-paren-delay 0)
 (show-paren-mode 1)
 
@@ -48,46 +43,12 @@
     (setq undo-tree-visualizer-diff t))) 
 
 (global-undo-tree-mode)
-
 (global-subword-mode 1)
-
-;; Colorize current changes
-(use-package volatile-highlights
-  :config
-  (volatile-highlights-mode t))
 
 ;; mode-line
 (line-number-mode t)
 (column-number-mode t)
 (size-indication-mode t)
-(use-package telephone-line
-  :config
-  (telephone-line-defsegment* mymacs-telephone-line-buffer-info ()
-    (when (and (eq 'python-mode major-mode)
-               (bound-and-true-p pyvenv-virtual-env-name))
-      (telephone-line-raw (format "pyvenv: %s" pyvenv-virtual-env-name) t)))
-
-  (setq telephone-line-lhs
-        '((evil   . (telephone-line-evil-tag-segment))
-          (accent . (telephone-line-major-mode-segment))
-          (evil   . (telephone-line-buffer-segment))
-          (nil    . (telephone-line-minor-mode-segment))))
-  
-  (setq telephone-line-rhs
-        '((nil    . (telephone-line-misc-info-segment))
-          (evil   . (mymacs-telephone-line-buffer-info))
-          (accent . (telephone-line-vc-segment
-                     telephone-line-erc-modified-channels-segment
-                     telephone-line-process-segment))
-          (evil   . (telephone-line-airline-position-segment))))
-
-  (require 'telephone-line)
-  (require 'telephone-line-config)
-  (telephone-line-mode t))
-
-;; (use-package mode-icons
-;;   :config
-;;   (mode-icons-mode))
 
 ;; Theme
 ;; (use-package zenburn-theme
@@ -97,6 +58,7 @@
 ;; (use-package moe-theme
 ;;   :config
 ;;   (moe-dark))
+
 (use-package darktooth-theme)
 
 ;; set font
