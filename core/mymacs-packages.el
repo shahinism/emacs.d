@@ -23,18 +23,4 @@
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
 ;;      (el-get 'sync)   
 
-;; quelpa
-; https://github.com/quelpa/quelpa
-(if (require 'quelpa nil t)
-    (quelpa-self-upgrade)
-  (with-temp-buffer
-    (url-insert-file-contents "https://raw.github.com/quelpa/quelpa/master/bootstrap.el")
-    (eval-buffer)))
-
-(quelpa
- '(quelpa-use-package
-   :fetcher github
-   :repo "quelpa/quelpa-use-package"))
-(require 'quelpa-use-package)
-
 (provide 'mymacs-packages)
