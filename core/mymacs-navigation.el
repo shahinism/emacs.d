@@ -167,4 +167,12 @@
         imenu-list-auto-resize t)
   (global-set-key (kbd "C-'") #'imenu-list-smart-toggle))
 
+;; evil-anzu
+;; https://github.com/syohex/emacs-evil-anzu
+(use-package evil-anzu
+  :init
+  (global-anzu-mode t)
+  :config
+  (setq anzu-search-threshold 1000))
+
 (provide 'mymacs-navigation)
