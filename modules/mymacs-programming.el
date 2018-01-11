@@ -78,6 +78,5 @@
   (setq wakatime-cli-path "/home/shahin/.pyenv/versions/3.6.1/bin/wakatime")
   (global-wakatime-mode))
 
-
 (provide 'mymacs-programming)
 ;;; mymacs-programming.el ends here

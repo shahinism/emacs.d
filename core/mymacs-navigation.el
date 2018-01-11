@@ -62,13 +62,20 @@
   (evil-define-key 'normal neotree-mode-map (kbd "h") 'mymacs/neotree-collapse-or-up))
 
 ;; iedit
-(use-package iedit
-  :config
-  (which-key-declare-prefixes "SPC s" "Search")
-  (evil-leader/set-key "se" 'iedit-mode))
+(use-package iedit)
 
+;; evil-iedit-state
+;; https://github.com/syl20bnr/evil-iedit-state/
 (use-package evil-iedit-state
-  :after iedit)
+  :commands (evil-iedit-state evil-iedit-state/iedit-mode)
+  :init
+  (progn
+    (setq iedit-current-symbol-default t
+          iedit-only-at-symbol-boundaries t
+          iedit-toggle-key-default nil)
+    (evil-leader/set-key "se" 'evil-iedit-state/iedit-mode))
+  :config
+  (which-key-declare-prefixes "SPC s" "Search"))
 
 ;; evil-matchit
 (use-package evil-matchit
