@@ -44,4 +44,10 @@
   (define-key evil-normal-state-map (kbd "<kp-add>") 'evil-numbers/inc-at-pt)
   (define-key evil-normal-state-map (kbd "<kp-subtract>") 'evil-numbers/dec-at-pt))
 
+;; https://github.com/emacs-evil/evil-surround
+(use-package evil-surround
+  :ensure t
+  :config
+  (global-evil-surround-mode 1))
+
 (provide 'mymacs-goodies)
