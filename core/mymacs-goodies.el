@@ -36,4 +36,12 @@
   (global-set-key (kbd "M-l") #'fix-word-downcase)
   (global-set-key (kbd "M-c") #'fix-word-capitalize))
 
+;; https://github.com/cofi/evil-numbers
+(use-package evil-numbers
+  :config
+  (global-set-key (kbd "C-c +") 'evil-numbers/inc-at-pt)
+  (global-set-key (kbd "C-c -") 'evil-numbers/dec-at-pt)
+  (define-key evil-normal-state-map (kbd "<kp-add>") 'evil-numbers/inc-at-pt)
+  (define-key evil-normal-state-map (kbd "<kp-subtract>") 'evil-numbers/dec-at-pt))
+
 (provide 'mymacs-goodies)
