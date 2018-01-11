@@ -106,4 +106,9 @@
   (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
   (setq highlight-indent-guides-method 'character))
 
+;; https://github.com/syl20bnr/vi-tilde-fringe
+(use-package vi-tilde-fringe
+  :config
+  (add-hook 'prog-mode-hook 'vi-tilde-fringe-mode))
+
 (provide 'mymacs-ui)
