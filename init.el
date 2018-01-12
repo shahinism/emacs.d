@@ -55,6 +55,7 @@
 (require 'mymacs-dot)
 (require 'mymacs-markups)
 (require 'mymacs-pig)
+(require 'mymacs-common-lisp)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -62,7 +63,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (vi-tilde-fringe vi-tilde-fringe-mode vi-tilder-fringe-mode evil-surround evil-numbers evil-anzu hideshowvis hideshowviz fix-word highlight-indent-guides imenu-list quelpa-use-package merlin-iedit reason-mode quelpa package-build wakatime-mode zenburn-theme yapfify yaml-mode xref-js2 web-mode web-beautify volatile-highlights use-package toml-mode telephone-line spaceline rjsx-mode rainbow-mode rainbow-delimiters racer pyvenv pyenv-mode py-isort pip-requirements pig-mode php-mode pdf-tools ox-twbs org-bullets nhexl-mode nginx-mode neotree moe-theme mode-icons markdown-mode json-mode js2-refactor indium htmlize helm-projectile helm-gtags helm-dash helm-c-yasnippet haml-mode graphviz-dot-mode gitignore-mode gitconfig-mode ggtags function-args fringe-helper flyspell-correct-helm flycheck-rust flycheck-pos-tip flycheck-irony exec-path-from-shell evil-org evil-nerd-commenter evil-matchit evil-magit evil-leader evil-iedit-state esup ereader emojify doom-themes dockerfile-mode disaster darktooth-theme csv-mode counsel company-web company-tern company-quickhelp company-irony company-auctex company-anaconda coffee-mode clojure-mode clang-format cargo beacon avy))))
+    (slime-company slime vi-tilde-fringe vi-tilde-fringe-mode vi-tilder-fringe-mode evil-surround evil-numbers evil-anzu hideshowvis hideshowviz fix-word highlight-indent-guides imenu-list quelpa-use-package merlin-iedit reason-mode quelpa package-build wakatime-mode zenburn-theme yapfify yaml-mode xref-js2 web-mode web-beautify volatile-highlights use-package toml-mode telephone-line spaceline rjsx-mode rainbow-mode rainbow-delimiters racer pyvenv pyenv-mode py-isort pip-requirements pig-mode php-mode pdf-tools ox-twbs org-bullets nhexl-mode nginx-mode neotree moe-theme mode-icons markdown-mode json-mode js2-refactor indium htmlize helm-projectile helm-gtags helm-dash helm-c-yasnippet haml-mode graphviz-dot-mode gitignore-mode gitconfig-mode ggtags function-args fringe-helper flyspell-correct-helm flycheck-rust flycheck-pos-tip flycheck-irony exec-path-from-shell evil-org evil-nerd-commenter evil-matchit evil-magit evil-leader evil-iedit-state esup ereader emojify doom-themes dockerfile-mode disaster darktooth-theme csv-mode counsel company-web company-tern company-quickhelp company-irony company-auctex company-anaconda coffee-mode clojure-mode clang-format cargo beacon avy))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
