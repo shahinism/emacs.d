@@ -111,4 +111,10 @@
   :config
   (add-hook 'prog-mode-hook 'vi-tilde-fringe-mode))
 
+;; https://github.com/TheBB/spaceline
+(use-package spaceline
+  :config
+  (require 'spaceline-config)
+  (spaceline-spacemacs-theme))
+
 (provide 'mymacs-ui)
