@@ -75,7 +75,7 @@
 (use-package wakatime-mode
   :config
   (setq wakatime-api-key mymacs-wakatime-api)
-  (setq wakatime-cli-path "/home/shahin/.pyenv/versions/3.6.1/bin/wakatime")
+  (setq wakatime-cli-path "/home/shahin/.pyenv/versions/3.6.4/bin/wakatime")
   (global-wakatime-mode))
 
 ;; https://github.com/pkmoore/strace-mode
