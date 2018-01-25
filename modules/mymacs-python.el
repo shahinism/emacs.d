@@ -48,7 +48,7 @@
 (defun python-format-buffer ()
   "Format python buffer using yapify and isort."
   (interactive)
-  (yapfify-buffer (point-min) (point-max))
+  (yapfify-buffer)
   (py-isort-buffer))
 
 ; yapfify
