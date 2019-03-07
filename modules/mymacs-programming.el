@@ -70,14 +70,6 @@
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
-;; wakatime
-;; TODO make cli-path configurable and activate this module only if api key is available
-(use-package wakatime-mode
-  :config
-  (setq wakatime-api-key mymacs-wakatime-api)
-  (setq wakatime-cli-path "/home/shahin/.pyenv/versions/3.6.4/bin/wakatime")
-  (global-wakatime-mode))
-
 ;; https://github.com/pkmoore/strace-mode
 (use-package strace-mode)
 
