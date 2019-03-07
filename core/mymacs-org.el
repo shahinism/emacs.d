@@ -27,17 +27,6 @@ Captured %<%Y-%m-%d %H:%M>
                       "~/Personal/buisiness.org"
                       "~/Personal/learning.org"))))
 
-(org-babel-do-load-languages 'org-babel-load-languages
-                             '((sh . t)
-                               (dot . t)
-                               (python . t)
-                               (gnuplot . t)
-                               (org . t)
-                               (ditaa . t)
-                               (latex . t)))
-
-(setq org-confirm-babel-evaluate nil)
-
 ;; Some useful configs from http://ergoemacs.org/emacs/emacs_org_mode_customization.html
 (progn
   ;; org-mode setup
