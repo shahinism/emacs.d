@@ -3,7 +3,8 @@
 (use-package evil
   :ensure t
   :init
-  (setq evil-want-integration nil)
+  (setq evil-want-integration nil
+        evil-want-keybinding nil)
   :config
   (evil-mode 1)
   (evil-leader/set-key
