@@ -4,9 +4,6 @@
 ;; You may delete these explanatory comments.
 ;; (package-initialize)
 
-(defvar mymacs-secrets-dir (expand-file-name "secret" user-emacs-directory)
-    "The secret directory of mymacs (not available on git).")
-
 (defvar mymacs-core-dir (expand-file-name "core" user-emacs-directory)
     "The core directory of mymacs tools.")
 
@@ -20,12 +17,8 @@
   "Default browser to be used when opening web pages.")
 
 ;; add mymacs to load path
-(add-to-list 'load-path mymacs-secrets-dir)
 (add-to-list 'load-path mymacs-core-dir)
 (add-to-list 'load-path mymacs-modules-dir)
-
-;; Secret variables
-(require 'secret-variables)
 
 ;; load mymacs
 (require 'mymacs-packages)
