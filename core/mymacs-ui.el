@@ -75,7 +75,7 @@
         (if range
             (set-fontset-font "fontset-default" range font)
           (set-frame-font font)) 
-      (message "Font % doesn't exists" font))))
+      (message "Font %s doesn't exists" font))))
 
 (defun mymacs-set-user-fonts ()
   "Set user defined fonts from mymacs-frame-font."
