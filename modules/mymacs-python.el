@@ -60,6 +60,27 @@
 (evil-leader/set-key-for-mode 'python-mode
   "=" 'python-format-buffer)
 
+;; pytest
+; https://github.com/wbolster/emacs-python-pytest
+(use-package python-pytest
+  :after python
+  :custom
+  (python-pytest-arguments
+   '("--color"
+     "--failed-first"
+     "--maxfail=5"))
+  :config
+  (which-key-declare-prefixes-for-mode 'python-mode "SPC pt" "Testing")
+  (evil-leader/set-key-for-mode 'python-mode
+    "ptp" 'python-pytest-popup
+    "ptt" 'python-pytest
+    "ptf" 'python-pytest-file
+    "ptF" 'python-pytest-file-dwim
+    "ptm" 'python-pytest-function
+    "ptM" 'python-pytest-function-dwim
+    "ptl" 'python-pytest-last-failed)
+  )
+
 ;; flycheck-mypy
 ;; (use-package flycheck-mypy
 ;;   :config
