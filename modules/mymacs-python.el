@@ -68,7 +68,8 @@
   (python-pytest-arguments
    '("--color"
      "--failed-first"
-     "--maxfail=5"))
+     "--maxfail=5"
+     "--verbose"))
   :config
   (which-key-declare-prefixes-for-mode 'python-mode "SPC pt" "Testing")
   (evil-leader/set-key-for-mode 'python-mode
@@ -78,7 +79,8 @@
     "ptF" 'python-pytest-file-dwim
     "ptm" 'python-pytest-function
     "ptM" 'python-pytest-function-dwim
-    "ptl" 'python-pytest-last-failed)
+    "ptl" 'python-pytest-last-failed
+    )
   )
 
 ;; flycheck-mypy
