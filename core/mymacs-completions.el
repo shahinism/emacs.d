@@ -96,14 +96,34 @@
 
 ;; yasnippet
 (use-package yasnippet
+  :hook ((prog-mode text-mode) . yas-minor-mode)
+  :commands (yas-expand yas-minor-mode)
+  :diminish (yas-minor-mode . " Ⓨ")
   :config
-  (yas-global-mode 1)
-  ;; Disabled it due to problems on company's normal work
-  ;; (add-to-list 'company-backends '(company-yasnippet)))
-  )
+  ;; see https://emacs.stackexchange.com/a/30150/11934
+  (defun mymacs/yas-org-mode-hook ()
+    (setq-local yas-buffer-local-condition
+            '(not (org-in-src-block-p t))))
+  (add-hook 'org-mode-hook #'cpm/yas-org-mode-hook)
+
+  ;; snippet directory
+  (setq yas-snippet-dirs  '("~/.emacs.d/.local/snippets/mymacs-snippets"
+                            yasnippet-snippets-dir))
+
+  ;; Adding yasnippet support to company
+  (with-eval-after-load 'company-mode
+  (add-to-list 'company-backends '(company-yasnippet))))
+
+;; the official snippet collection https://github.com/AndreaCrotti/yasnippet-snippets
+(use-package yasnippet-snippets
+  :after yasnippet
+  :config
+  (yas-reload-all))
 
 (use-package helm-c-yasnippet
   :config
   (global-set-key (kbd "C-c y") 'helm-yas-complete))
+
+
 
 (provide 'mymacs-completions)
