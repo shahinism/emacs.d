@@ -33,4 +33,6 @@
 
 (evil-leader/set-key "xo" 'mymacs-open-with)
 
+(use-package org-attach-screenshot)
+
 (provide 'mymacs-utils)
