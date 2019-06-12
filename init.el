@@ -10,7 +10,7 @@
 (defvar mymacs-modules-dir (expand-file-name "modules" user-emacs-directory)
     "Mymacs's modules directory.")
 
-(defvar mymacs-frame-font (list "Hack-10" (list "tahoma" '(#x600 . #x6ff)))
+(defvar mymacs-frame-font (list "Hack-12" (list "tahoma" '(#x600 . #x6ff)))
     "Default font to be used on mymacs frame.")
 
 (defvar mymacs-default-browser "/usr/bin/firefox-developer"
@@ -50,6 +50,8 @@
 (require 'mymacs-pig)
 (require 'mymacs-common-lisp)
 (require 'mymacs-java)
+(require 'mymacs-guix)
+ 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -57,7 +59,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (company-emacs-eclim eclim strace-mode evil-collection zenburn-theme yapfify yaml-mode xref-js2 which-key web-mode web-beautify wakatime-mode volatile-highlights vi-tilde-fringe toml-mode telephone-line spaceline-all-the-icons solarized-theme smartparens slime-company rjsx-mode reason-mode rainbow-mode rainbow-delimiters racer quelpa-use-package pyvenv pyenv-mode py-isort prettier-js pip-requirements pig-mode php-mode pdf-tools ox-twbs org-bullets nhexl-mode nginx-mode neotree moe-theme mode-icons markdown-mode json-mode js2-refactor indium imenu-list htmlize highlight-indent-guides hideshowvis helm-projectile helm-gtags helm-dash helm-c-yasnippet haml-mode graphviz-dot-mode gitignore-mode gitconfig-mode ggtags function-args fringe-helper flyspell-correct-helm flycheck-rust flycheck-pos-tip flycheck-irony fix-word exec-path-from-shell evil-surround evil-org evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-leader evil-iedit-state evil-anzu esup ereader emojify doom-themes dockerfile-mode disaster darktooth-theme csv-mode counsel company-web company-tern company-quickhelp company-irony company-auctex company-anaconda coffee-mode clojure-mode clang-format cargo beacon avy))))
+    (guix guix-emacs yapfify yaml-mode xref-js2 which-key web-mode web-beautify vi-tilde-fringe use-package toml-mode strace-mode spaceline smartparens slime-company rjsx-mode rainbow-mode rainbow-delimiters racer pyvenv python-pytest py-isort pip-requirements pig-mode ox-twbs org-bullets org-attach-screenshot neotree magit-todos json-mode js2-refactor imenu-list htmlize highlight-indent-guides helm-projectile helm-gtags helm-dash helm-c-yasnippet haml-mode graphviz-dot-mode gitignore-mode gitconfig-mode ggtags function-args fringe-helper flycheck-rust flycheck-pos-tip flycheck-irony fix-word exec-path-from-shell evil-surround evil-org evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-leader evil-iedit-state evil-collection evil-anzu ereader emojify el-get dockerfile-mode disaster darktooth-theme csv-mode counsel company-web company-tern company-quickhelp company-irony company-emacs-eclim company-auctex company-anaconda coffee-mode clang-format cargo avy all-the-icons))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

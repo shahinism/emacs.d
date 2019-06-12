@@ -1,6 +1,8 @@
+
+;;; Code:
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")) 
+(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (package-initialize)
 
@@ -21,6 +23,7 @@
   (require 'el-get))
 
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-;;      (el-get 'sync)   
+;;      (el-get 'sync)
 
 (provide 'mymacs-packages)
+;;; mymacs-packages.el ends here
