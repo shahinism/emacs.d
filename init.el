@@ -33,6 +33,7 @@
 (require 'mymacs-org)
 
 ;; load modules
+(require 'mymacs-lsp)
 (require 'mymacs-vc)
 (require 'mymacs-programming)
 (require 'mymacs-python)
@@ -59,7 +60,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (yasnippet-snippets guix guix-emacs yapfify yaml-mode xref-js2 which-key web-mode web-beautify vi-tilde-fringe use-package toml-mode strace-mode spaceline smartparens slime-company rjsx-mode rainbow-mode rainbow-delimiters racer pyvenv python-pytest py-isort pip-requirements pig-mode ox-twbs org-bullets org-attach-screenshot neotree magit-todos json-mode js2-refactor imenu-list htmlize highlight-indent-guides helm-projectile helm-gtags helm-dash helm-c-yasnippet haml-mode graphviz-dot-mode gitignore-mode gitconfig-mode ggtags function-args fringe-helper flycheck-rust flycheck-pos-tip flycheck-irony fix-word exec-path-from-shell evil-surround evil-org evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-leader evil-iedit-state evil-collection evil-anzu ereader emojify el-get dockerfile-mode disaster darktooth-theme csv-mode counsel company-web company-tern company-quickhelp company-irony company-emacs-eclim company-auctex company-anaconda coffee-mode clang-format cargo avy all-the-icons))))
+    (lsp-mode yasnippet-snippets guix guix-emacs yapfify yaml-mode xref-js2 which-key web-mode web-beautify vi-tilde-fringe use-package toml-mode strace-mode spaceline smartparens slime-company rjsx-mode rainbow-mode rainbow-delimiters racer pyvenv python-pytest py-isort pip-requirements pig-mode ox-twbs org-bullets org-attach-screenshot neotree magit-todos json-mode js2-refactor imenu-list htmlize highlight-indent-guides helm-projectile helm-gtags helm-dash helm-c-yasnippet haml-mode graphviz-dot-mode gitignore-mode gitconfig-mode ggtags function-args fringe-helper flycheck-rust flycheck-pos-tip flycheck-irony fix-word exec-path-from-shell evil-surround evil-org evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-leader evil-iedit-state evil-collection evil-anzu ereader emojify el-get dockerfile-mode disaster darktooth-theme csv-mode counsel company-web company-tern company-quickhelp company-irony company-emacs-eclim company-auctex company-anaconda coffee-mode clang-format cargo avy all-the-icons))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
