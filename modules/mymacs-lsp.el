@@ -1,6 +1,9 @@
 ;; LSP-mode
 ; https://github.com/emacs-lsp/lsp-mode
 
+;; npm i -g typescript-language-server
+;; npm i -g typescript
+
 ; https://github.com/emacs-lsp/lsp-ui/issues/226
 (setq lsp-prefer-flymake nil)
 
