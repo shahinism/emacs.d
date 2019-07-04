@@ -8,7 +8,7 @@
 (setq lsp-prefer-flymake nil)
 
 (use-package lsp-mode
-  :hook (js2-mode . lsp-deferred)
+  :hook ((js2-mode python-mode) . lsp-deferred)
   :commands lsp)
 
 ;; optionally

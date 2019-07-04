@@ -11,25 +11,25 @@
         python-shell-interpreter "python"))
 
 ;; anaconda
-(use-package anaconda-mode
-  :after python
-  :config
-  ;; trim eldoc to fit the frame
+;; (use-package anaconda-mode
+;;   :after python
+;;   :config
+;;   ;; trim eldoc to fit the frame
 
-  (evil-leader/set-key-for-mode 'python-mode
-    "sd" 'anaconda-mode-find-definitions)
+;;   (evil-leader/set-key-for-mode 'python-mode
+;;     "sd" 'anaconda-mode-find-definitions)
 
-  (setq anaconda-mode-eldoc-as-single-line t)
-  (add-hook 'python-mode-hook #'anaconda-mode)
-  (add-hook 'anaconda-mode-hook #'anaconda-eldoc-mode))
+;;   (setq anaconda-mode-eldoc-as-single-line t)
+;;   (add-hook 'python-mode-hook #'anaconda-mode)
+;;   (add-hook 'anaconda-mode-hook #'anaconda-eldoc-mode))
 
-(use-package company-anaconda
-  :after
-  anaconda-mode
-  company
-  :config
+;; (use-package company-anaconda
+;;   :after
+;;   anaconda-mode
+;;   company
+;;   :config
 
-  (add-to-list 'company-backends '(company-anaconda :with company-capf)))
+;;   (add-to-list 'company-backends '(company-anaconda :with company-capf)))
 
 ;; pip-requirements
 ; https://github.com/Wilfred/pip-requirements.el
@@ -45,20 +45,20 @@
     "pd" 'pyvenv-deactivate))
 
 ;; Auto-formatting
-(defun python-format-buffer ()
-  "Format python buffer using yapify and isort."
-  (interactive)
-  (yapfify-buffer)
-  (py-isort-buffer))
+;; (defun python-format-buffer ()
+;;   "Format python buffer using yapify and isort."
+;;   (interactive)
+;;   (yapfify-buffer)
+;;   (py-isort-buffer))
 
 ; yapfify
-(use-package yapfify :defer t)
+;; (use-package yapfify :defer t)
 
 ; py-isort
-(use-package py-isort :defer t)
+;; (use-package py-isort :defer t)
 
-(evil-leader/set-key-for-mode 'python-mode
-  "=" 'python-format-buffer)
+;; (evil-leader/set-key-for-mode 'python-mode
+;;   "=" 'python-format-buffer)
 
 ;; pytest
 ; https://github.com/wbolster/emacs-python-pytest
