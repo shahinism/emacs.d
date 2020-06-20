@@ -1,0 +1,63 @@
+
+* Org
+
+  #+begin_src emacs-lisp
+    (require 'org-tempo)
+  #+end_src
+  
+** Sources
+   1. [[https://orgmode.org/manual/Structure-Templates.html][org-documents structured templates]]
+
+* Evil 
+
+  #+begin_src emacs-lisp
+    (use-package evil
+      :ensure t
+      :init
+      (evil-mode))
+  #+end_src
+  
+** Sources
+   1. [[https://www.reddit.com/r/emacs/comments/726p7i/evil_mode_and_use_package/][r/emacs Evil mode and use-package]]
+
+* Theme
+  #+begin_src emacs-lisp
+    (use-package doom-themes
+      :ensure t
+      :config
+	;; Global settings (defaults)
+      (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+	    doom-themes-enable-italic t) ; if nil, italics is universally disabled
+      (load-theme 'doom-solarized-light t)
+
+      ;; Enable flashing mode-line on errors
+      (doom-themes-visual-bell-config)
+  
+      ;; Enable custom neotree theme (all-the-icons must be installed!)
+      (doom-themes-neotree-config)
+      ;; or for treemacs users
+      (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
+      (doom-themes-treemacs-config)
+  
+      ;; Corrects (and improves) org-mode's native fontification.
+      (doom-themes-org-config))
+  #+end_src
+  
+** Font
+
+   #+begin_src emacs-lisp
+     (set-frame-font "Hack-12")
+   #+end_src
+
+   #+RESULTS:
+
+** Turn off menu bar
+#+BEGIN_SRC emacs-lisp
+(menu-bar-mode -1)
+#+END_SRC
+* Git
+
+  #+begin_src emacs-lisp
+    (use-package magit
+      :ensure t)
+  #+end_src
