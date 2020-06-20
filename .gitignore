@@ -1,4 +1,3 @@
-
 # Created by https://www.gitignore.io/api/elisp,emacs
 
 ### Elisp ###
@@ -86,3 +85,7 @@ secret
 # quelpa packages
 quelpa
 url
+
+# shahin
+transient
+README.el
