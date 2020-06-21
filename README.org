@@ -1,4 +1,42 @@
+* Packages
+  
+  #+begin_src emacs-lisp
+    (require 'package)
 
+    (setq package-enable-at-startup nil)
+    (add-to-list 'package-archives
+		 '("melpa" . "https://melpa.org/packages/"))
+
+    (package-initialize)
+
+    (unless (package-installed-p 'use-package)
+      (package-refresh-contents)
+      (package-install 'use-package))
+
+    ;; Always ensure use-package packages are installed
+    (require 'use-package-ensure)
+    (setq use-package-always-ensure t)
+  #+end_src
+
+* Navigation 
+** Evil
+  #+begin_src emacs-lisp
+    (use-package evil
+      :init
+      (evil-mode))
+  #+end_src
+  
+*** Sources
+    1. [[https://www.reddit.com/r/emacs/comments/726p7i/evil_mode_and_use_package/][r/emacs Evil mode and use-package]]
+
+** Hydra
+   
+   For now I decided to go with [[https://gitlab.com/to1ne/use-package-hydra][use-package-hydra]] which combines best
+   of the best worlds.
+
+   #+begin_src emacs-lisp
+     (use-package use-package-hydra)
+   #+end_src
 * Org
 
   #+begin_src emacs-lisp
@@ -8,22 +46,9 @@
 ** Sources
    1. [[https://orgmode.org/manual/Structure-Templates.html][org-documents structured templates]]
 
-* Evil 
-
-  #+begin_src emacs-lisp
-    (use-package evil
-      :ensure t
-      :init
-      (evil-mode))
-  #+end_src
-  
-** Sources
-   1. [[https://www.reddit.com/r/emacs/comments/726p7i/evil_mode_and_use_package/][r/emacs Evil mode and use-package]]
-
 * Theme
   #+begin_src emacs-lisp
     (use-package doom-themes
-      :ensure t
       :config
 	;; Global settings (defaults)
       (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
@@ -58,6 +83,5 @@
 * Git
 
   #+begin_src emacs-lisp
-    (use-package magit
-      :ensure t)
+    (use-package magit)
   #+end_src
