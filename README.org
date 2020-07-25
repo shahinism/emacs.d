@@ -17,26 +17,148 @@
     (require 'use-package-ensure)
     (setq use-package-always-ensure t)
   #+end_src
+  
+* Helper Functions
+  
+** TODO Write helper to run a piece of code when a package is loaded.
+   References:
+   1. [[https://github.com/hlissner/doom-emacs/blob/2441d28ad15a9a2410f8d65641961ea5b1d39782/core/core-lib.el#L333][doom after!]]
+   2. [[https://github.com/abo-abo/ace-window/wiki][ace wiki]]
 
-* Navigation 
+  #+begin_src emacs-lisp
+  #+end_src
+
+* Navigation
 ** Evil
   #+begin_src emacs-lisp
+    (setq evil-want-keybinding nil)
     (use-package evil
       :init
-      (evil-mode))
+      (evil-mode)
+
+      ;; Set the state tag position to the mode line
+      (setq evil-mode-line-format 'before)
+
+      (setq evil-emacs-state-cursor  '("red" box))
+      (setq evil-normal-state-cursor '("blue" box))
+      (setq evil-visual-state-cursor '("blue" box))
+      (setq evil-insert-state-cursor '("blue" bar))
+      (setq evil-motion-state-cursor '("blue" box)))
+  #+end_src
+
+*** Hidras
+*** [[https://github.com/emacs-evil/evil-collection][Evil Collection]]
+
+  #+begin_src emacs-lisp
+    (use-package evil-collection
+      :after evil
+      :config
+      (evil-collection-init))
   #+end_src
   
 *** Sources
     1. [[https://www.reddit.com/r/emacs/comments/726p7i/evil_mode_and_use_package/][r/emacs Evil mode and use-package]]
-
-** Hydra
+** General
    
-   For now I decided to go with [[https://gitlab.com/to1ne/use-package-hydra][use-package-hydra]] which combines best
-   of the best worlds.
+   - *NOTE:* It's important to keep it up here, to have ~:general~
+     keyword available in ~use-package~.
+   - evil-collection binds over SPC in many packages. To use SPC as a
+     leader key with the general library set
+     ~general-override-states~ ([[https://github.com/emacs-evil/evil-collection#faq][source]]).
 
    #+begin_src emacs-lisp
-     (use-package use-package-hydra)
+     (use-package general
+       :init
+       (setq general-override-states '(insert
+				       emacs
+				       hybrid
+				       normal
+				       visual
+				       motion
+				       operator
+				       replace))
+       :config
+       (general-create-definer my-leader-def
+	 ;; :prefix my-leader
+	 :prefix "SPC")
+
+       (general-create-definer my-local-leader-def
+	 ;; :prefix my-local-leader
+	 :prefix "SPC m"))
    #+end_src
+   
+** Hydra
+
+   - *NOTE:* It's important to keep it up here, to have ~:general~
+     keyword available in ~use-package~.
+     
+   #+begin_src emacs-lisp
+     (use-package hydra)
+   #+end_src
+
+** Ivy
+   - NOTE: Ivy is splitted into:
+     1. ~ivy~
+     2. ~swiper~
+     3. ~counsel~: Installing this one will bring in the other two as
+        dependencies..
+
+   #+begin_src emacs-lisp
+     (use-package counsel
+       :general ("C-s" 'swiper-isearch
+		 "M-y" 'counsel-yank-pop)
+       :config
+       ;; Enable ivy globally
+       (counsel-mode 1))
+   #+end_src
+   
+   This [[https://github.com/Yevgnen/ivy-rich][ivy-rich]] package provides some quick documents around the
+   completion object, which is quite useful.
+   
+   #+begin_src emacs-lisp
+     (use-package ivy-rich
+       :config
+       (ivy-rich-mode 1))
+   #+end_src
+
+*** Sources
+    1. [[https://oremacs.com/swiper/][Swiper Documents]]
+  
+** Keybindings
+*** Zoom Hydra
+   
+   #+begin_src emacs-lisp
+     (defhydra hydra-zoom (global-map "<f2>")
+       "zoom"
+       ("=" text-scale-increase "in")
+       ("-" text-scale-decrease "out")
+       ("r" text-scale-set "reset"))
+   #+end_src
+   
+*** Help Hydra
+
+    #+begin_src emacs-lisp
+      (global-set-key
+       (kbd "<f1>")
+       (defhydra hydra-help (:color blue)
+	 "help"
+	 ("f" counsel-describe-function "function")
+	 ("v" counsel-describe-variable "variable")
+	 ("k" describe-key "key")))
+    #+end_src
+    
+*** Window Hydra
+
+    #+begin_src emacs-lisp
+    
+    #+end_src
+* Utils
+
+** [[https://github.com/iqbalansari/restart-emacs][Restart Emacs]]
+   #+begin_src emacs-lisp
+     (use-package restart-emacs)
+   #+end_src
+
 * Org
 
   #+begin_src emacs-lisp
@@ -46,42 +168,70 @@
 ** Sources
    1. [[https://orgmode.org/manual/Structure-Templates.html][org-documents structured templates]]
 
-* Theme
-  #+begin_src emacs-lisp
-    (use-package doom-themes
-      :config
-	;; Global settings (defaults)
-      (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-	    doom-themes-enable-italic t) ; if nil, italics is universally disabled
-      (load-theme 'doom-solarized-light t)
-
-      ;; Enable flashing mode-line on errors
-      (doom-themes-visual-bell-config)
-  
-      ;; Enable custom neotree theme (all-the-icons must be installed!)
-      (doom-themes-neotree-config)
-      ;; or for treemacs users
-      (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
-      (doom-themes-treemacs-config)
-  
-      ;; Corrects (and improves) org-mode's native fontification.
-      (doom-themes-org-config))
-  #+end_src
-  
-** Font
+* Programming
+** [[https://github.com/bbatsov/projectile][Projectile]]
 
    #+begin_src emacs-lisp
-     (set-frame-font "Hack-12")
+     (use-package projectile
+       :general
+       (my-leader-def
+	 :states 'normal
+	 :keymaps 'override
+	 "p" 'hydra-projectile/body)
+       :config
+       (setq projectile-completion-system 'ivy)
+
+       (defhydra hydra-projectile-other-window (:color teal)
+	 "projectile-other-window"
+	 ("f"  projectile-find-file-other-window        "file")
+	 ("g"  projectile-find-file-dwim-other-window   "file dwim")
+	 ("d"  projectile-find-dir-other-window         "dir")
+	 ("b"  projectile-switch-to-buffer-other-window "buffer")
+	 ("q"  nil                                      "cancel" :color blue))
+
+       (defhydra hydra-projectile (:color teal
+					  :hint nil)
+	 "
+	  PROJECTILE: %(projectile-project-root)
+
+	  Find File            Search/Tags          Buffers                Cache
+     ------------------------------------------------------------------------------------------
+       _f_: file            _a_: ag                _i_: Ibuffer           _c_: cache clear
+     _s-f_: file dwim       _g_: update gtags      _b_: switch to buffer  _x_: remove known project
+     _s-d_: file curr dir   _o_: multi-occur       _K_: Kill all buffers  _X_: cleanup non-existing
+       _r_: recent file                                               ^^^^_z_: cache current
+       _d_: dir
+
+     "
+	 ("a"   projectile-ag)
+	 ("b"   projectile-switch-to-buffer)
+	 ("c"   projectile-invalidate-cache)
+	 ("d"   projectile-find-dir)
+	 ("f"   projectile-find-file)
+	 ("s-f" projectile-find-file-dwim)
+	 ("s-d" projectile-find-file-in-directory)
+	 ("g"   ggtags-update-tags)
+	 ("i"   projectile-ibuffer)
+	 ("K"   projectile-kill-buffers)
+	 ("o"   projectile-multi-occur)
+	 ("p"   projectile-switch-project)
+	 ("r"   projectile-recentf)
+	 ("x"   projectile-remove-known-project)
+	 ("X"   projectile-cleanup-known-projects)
+	 ("z"   projectile-cache-current-file)
+	 ("`"   hydra-projectile-other-window/body "other window")
+	 ("q"   nil "cancel" :color blue)))
    #+end_src
 
-   #+RESULTS:
-
-** Turn off menu bar
-#+BEGIN_SRC emacs-lisp
-(menu-bar-mode -1)
-#+END_SRC
 * Git
 
   #+begin_src emacs-lisp
-    (use-package magit)
+    (use-package magit
+      :general
+      (my-leader-def
+	:states 'normal
+	:keymaps 'override
+	"gg" 'magit-status))
+
+    (use-package evil-magit)
   #+end_src
