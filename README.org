@@ -267,5 +267,6 @@
 	:keymaps 'override
 	"gg" 'magit-status))
 
-    (use-package evil-magit)
+    (use-package evil-magit
+      :after (evil magit))
   #+end_src
