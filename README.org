@@ -189,7 +189,7 @@
 	      ("a" ace-window "ace")
 	      ("s" ace-swap-window "swap")
 	      ("d" ace-delete-window "del")
-	      ("i" ace-maximize-window "ace-one" :exit t))
+	      ("i" ace-maximize-window "ace-one" :exit t)))
     #+end_src
 * Utils
 
@@ -262,16 +262,6 @@
 	 ("q"   nil "cancel" :color blue)))
    #+end_src
 
-** [[https://github.com/abo-abo/ace-window/][smartparens]]
-   #+begin_src emacs-lisp
-     ;; source: https://ebzzry.io/en/emacs-pairs/#installation
-     (use-package smartparens-config
-       :ensure smartparens
-       :config (progn (show-smartparens-global-mode t)))
-
-     (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
-     (add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
-   #+end_src
 ** Git
 
   #+begin_src emacs-lisp
