@@ -93,7 +93,12 @@
      keyword available in ~use-package~.
      
    #+begin_src emacs-lisp
-     (use-package hydra)
+     (use-package hydra
+       :config
+       ;; This configuration is noted on the header of `hydra-example.el`
+       (setq hydra-examples-verbatim t)
+       ;; hydra-move-splitters are defined here
+       (require 'hydra-examples))
    #+end_src
 
 ** Ivy
@@ -204,7 +209,7 @@
 
 * Programming
 ** [[https://github.com/bbatsov/projectile][Projectile]]
-
+   
    #+begin_src emacs-lisp
      (use-package projectile
        :general
@@ -257,7 +262,17 @@
 	 ("q"   nil "cancel" :color blue)))
    #+end_src
 
-* Git
+** [[https://github.com/abo-abo/ace-window/][smartparens]]
+   #+begin_src emacs-lisp
+     ;; source: https://ebzzry.io/en/emacs-pairs/#installation
+     (use-package smartparens-config
+       :ensure smartparens
+       :config (progn (show-smartparens-global-mode t)))
+
+     (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
+     (add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
+   #+end_src
+** Git
 
   #+begin_src emacs-lisp
     (use-package magit
