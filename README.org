@@ -275,3 +275,14 @@
     (use-package evil-magit
       :after (evil magit))
   #+end_src
+** Smartparens
+
+   #+begin_src emacs-lisp
+     (use-package smartparens
+       :config
+       (require 'smartparens-config)
+
+       ;; do not pair stars
+       (sp-local-pair 'org-mode "*" nil :actions :rem)
+       (smartparens-global-mode))
+   #+end_src
