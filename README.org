@@ -124,6 +124,12 @@
 *** Sources
     1. [[https://oremacs.com/swiper/][Swiper Documents]]
   
+** [[https://github.com/abo-abo/ace-window/][Ace]]
+
+   #+begin_src emacs-lisp
+     (use-package ace-window)
+   #+end_src
+
 ** Keybindings
 *** Zoom Hydra
    
@@ -150,7 +156,35 @@
 *** Window Hydra
 
     #+begin_src emacs-lisp
-    
+      (my-leader-def
+	:states 'normal
+	:keymaps 'override
+	"w" (defhydra hydra-window (:color red)
+	      "window"
+	      ("h" windmove-left "move-left")
+	      ("j" windmove-down "move-down")
+	      ("k" windmove-up "move-up")
+	      ("l" windmove-right "move-write")
+
+	      ("H" hydra-move-splitter-left nil)
+	      ("J" hydra-move-splitter-down nil)
+	      ("K" hydra-move-splitter-up nil)
+	      ("L" hydra-move-splitter-right nil)
+	      ("/" (lambda ()
+		     (interactive)
+		     (split-window-right)
+		     (windmove-right))
+	       "split-vertically")
+	      ("-" (lambda ()
+		     (interactive)
+		     (split-window-below)
+		     (windmove-down))
+	       "split-horizontally")
+	      ("o" delete-other-windows "one" :exit t)
+	      ("a" ace-window "ace")
+	      ("s" ace-swap-window "swap")
+	      ("d" ace-delete-window "del")
+	      ("i" ace-maximize-window "ace-one" :exit t))
     #+end_src
 * Utils
 
