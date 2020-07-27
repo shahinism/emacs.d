@@ -286,3 +286,31 @@
        (sp-local-pair 'org-mode "*" nil :actions :rem)
        (smartparens-global-mode))
    #+end_src
+* Look
+** Theme
+  [[https://gitlab.com/protesilaos/modus-themes][Modus Operandi]]! I've never used light themes like this, but I'm
+  going to give it a try for a while. Interesting thing about this
+  theme is [[https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html][WCAG standard]] which requires to have contrast ratio of
+  >=7:1 between foreground and background colors.
+
+  #+begin_src emacs-lisp
+    (use-package modus-operandi-theme
+      :config
+      (load-theme 'modus-operandi t))
+  #+end_src
+
+*** To be done [0%]
+**** TODO Tune Modus Operandi
+   This theme is also very customizable and the documntation provides a
+   good details on it, I need to come back to it and tune it in future.
+** Font
+   #+begin_src emacs-lisp
+     (set-frame-font (font-spec :family "Fira Code" :size 15))
+   #+end_src
+*** To be done [0%]
+**** TODO Is it possible to set non-programming mode fonts to something that supports Persian as well?
+***** *NOT USABLE:* Unfortunately as you can test [[https://bboxtype.com/typefaces/FiraGO/#!layout=editor][here]], FiraGo doesn't show پ as good as it should be! 
+      [[https://bboxtype.com/typefaces/FiraGO/#!layout=specimen][FiraGo]] looks like a good candidate, and [[https://www.emacswiki.org/emacs/ProgMode][looks like]] setting the
+      font as a hook for ~text-mode~ would be the solution. However the
+      FiraGo font is separated per language, and may not support all
+      characters at once.
