@@ -119,9 +119,15 @@
 	 ("l" ace-jump-line-mode "jump to line"))
 
        (modalka-global-mode 1)
+
        (general-define-key
 	:keymaps 'modalka-mode-map
-	"SPC" ""
+	:prefix "SPC"
+	"" nil
+	"w" 'hydra-window/body)
+  
+       (general-define-key
+	:keymaps 'modalka-mode-map
 	"RET" ""
 	"DEL" ""
 	"!" ""
