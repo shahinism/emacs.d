@@ -99,6 +99,11 @@
 	 (blink-cursor-mode 1)
 	 ))
 
+     (defun find-literate-config ()
+       "Find literate config file"
+       (interactive)
+       (find-file (expand-file-name "README.org" user-emacs-directory)))
+
      (use-package ace-jump-mode)
 
      (use-package modalka
@@ -124,8 +129,15 @@
 	:keymaps 'modalka-mode-map
 	:prefix "SPC"
 	"" nil
-	"w" 'hydra-window/body)
-  
+	"w" 'hydra-window/body
+	"gg" 'magit-status
+	"bb" 'ivy-switch-buffer
+	"br" 'crux-rename-file-and-buffer
+	"ff" 'counsel-find-file
+	"fi" 'find-literate-config
+	"fs" 'save-buffer
+	"fr" 'counsel-recentf)
+
        (general-define-key
 	:keymaps 'modalka-mode-map
 	"RET" ""
