@@ -99,6 +99,8 @@
 	 (blink-cursor-mode 1)
 	 ))
 
+     (use-package ace-jump-mode)
+
      (use-package modalka
        :after general crux
        :config
@@ -110,6 +112,11 @@
 	 ("w" kill-word "kill next word")
 	 ("j" kill-line-forward "kill line forward")
 	 ( "k" kill-line-backward "kill line backward"))
+
+       (defhydra ace-jump-hydra (:color blue)
+	 ("w" ace-jump-word-mode "jump to word")
+	 ("c" ace-jump-char-mode "jump to character")
+	 ("l" ace-jump-line-mode "jump to line"))
 
        (modalka-global-mode 1)
        (general-define-key
@@ -152,7 +159,7 @@
 	"C" ""
 	"D" ""
 	"E" ""
-	"F" ""
+	"F" 'ace-jump-hydra/body  ;; probaby useless
 	"G" 'end-of-buffer
 	"H" ""
 	"I" ""
@@ -180,7 +187,7 @@
 	"c" ""
 	"d" 'kill-hydra/body
 	"e" ""
-	"f" ""
+	"f" 'ace-jump-char-mode
 	"g" ""
 	"h" 'backward-char
 	"i" 'disable-modalka
@@ -201,8 +208,6 @@
 	"x" 'delete-char
 	"y" ""
 	"z" ""
-	;; f and F for snipe
-	;; o and O for start from new line
      ;;   "yy" 'kill-ring-save     
 	)
 
