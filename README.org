@@ -104,6 +104,19 @@
        (interactive)
        (find-file (expand-file-name "README.org" user-emacs-directory)))
 
+     (defun kill-point-or-region ()
+       "kill current character at point or marked region"
+       (interactive)
+       (if mark-active
+	   (kill-region (region-beginning) (region-end))
+	 (kill-region (point) (+ (point) 1))))
+
+     (defun yank-after ()
+       "Yank after current point."
+       (interactive)
+       (forward-char)
+       (yank))
+
      (use-package ace-jump-mode)
 
      (use-package modalka
@@ -215,7 +228,7 @@
 	"m" ""
 	"n" ""
 	"o" 'insert-new-line
-	"p" 'yank
+	"p" 'yank-after
 	"q" ""
 	"r" 'replace-char-at-point
 	"s" ""
@@ -223,7 +236,7 @@
 	"u" 'undo
 	"v" ""
 	"w" 'forward-word
-	"x" 'delete-char
+	"x" 'kill-point-or-region
 	"y" ""
 	"z" ""
      ;;   "yy" 'kill-ring-save     
@@ -347,7 +360,7 @@
       (my-leader-def
 	:states 'normal
 	:keymaps 'override
-	"w" (defhydra hydra-window (:color red)
+	"w" (defhydra hydra-window (:color blue)
 	      "window"
 	      ("h" windmove-left "move-left")
 	      ("j" windmove-down "move-down")
