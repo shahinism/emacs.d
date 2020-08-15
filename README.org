@@ -1,33 +1,35 @@
 * Packages
   
   #+begin_src emacs-lisp
-		(defvar bootstrap-version)
-		(let ((bootstrap-file
-					 (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-					(bootstrap-version 5))
-			(unless (file-exists-p bootstrap-file)
-				(with-current-buffer
-						(url-retrieve-synchronously
-						 "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-						 'silent 'inhibit-cookies)
-					(goto-char (point-max))
-					(eval-print-last-sexp)))
-			(load bootstrap-file nil 'nomessage))
+    (defvar bootstrap-version)
+    (let ((bootstrap-file
+           (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+          (bootstrap-version 5))
+      (unless (file-exists-p bootstrap-file)
+        (with-current-buffer
+            (url-retrieve-synchronously
+             "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+             'silent 'inhibit-cookies)
+          (goto-char (point-max))
+          (eval-print-last-sexp)))
+      (load bootstrap-file nil 'nomessage))
 
-		(unless (package-installed-p 'use-package)
-			(package-refresh-contents)
-			(package-install 'use-package))
+    (unless (package-installed-p 'use-package)
+      (package-refresh-contents)
+      (package-install 'use-package))
 
-		(straight-use-package 'use-package)
+    (straight-use-package 'use-package)
   #+end_src
 
 * Defaults
   #+begin_src emacs-lisp
     (use-package lolsmacs
-      :straight (lolsmacs :type git :host github :repo "grettke/lolsmacs")
-      :init
-			(require 'lolsmacs)
-      (lolsmacs-init))
+     :straight (lolsmacs :type git :host github :repo "grettke/lolsmacs")
+     :init
+     (require 'lolsmacs)
+        (lolsmacs-init))
+
+    (setq-default indent-tabs-mode nil)
   #+end_src
 * Helper Functions
   
@@ -46,224 +48,225 @@
      (use-package crux)
 
      (defun run-exit-modalka (func &rest args)
-       "run func and exit modalka mode afterwards"
-       (apply func args)
-       (if modalka-mode
-	   (disable-modalka)))
+      "run func and exit modalka mode afterwards"
+      (apply func args)
+      (if modalka-mode
+        (disable-modalka)))
 
      (defun enable-modalka ()
-       "Enable modalka if it's not already active"
-       (interactive)
-       (if (not modalka-mode)
-	   (modalka-mode 1))
-       (message "modalka is enable now."))
+      "Enable modalka if it's not already active"
+      (interactive)
+      (if (not modalka-mode)
+        (modalka-mode 1))
+      (message "modalka is enable now."))
 
      (defun disable-modalka ()
-       "Disable modalka if it's active."
-       (interactive)
-       (if modalka-mode
-	   (modalka-mode -1))
-       (message "modalka is disable now."))
+      "Disable modalka if it's active."
+      (interactive)
+      (if modalka-mode
+        (modalka-mode -1))
+      (message "modalka is disable now."))
 
      (defun insert-forward ()
-       "Move one character forward and exit modalka"
-       (interactive)
-       (run-exit-modalka 'forward-char))
+      "Move one character forward and exit modalka"
+      (interactive)
+      (run-exit-modalka 'forward-char))
 
      (defun insert-end-of-line ()
-       "Move to the end of line and exit modalka"
-       (interactive)
-       (run-exit-modalka 'end-of-line))
+      "Move to the end of line and exit modalka"
+      (interactive)
+      (run-exit-modalka 'end-of-line))
 
      (defun insert-new-line-above ()
-       "Open a new line above and exit modalka"
-       (interactive)
-       (run-exit-modalka 'crux-smart-open-line-above))
+      "Open a new line above and exit modalka"
+      (interactive)
+      (run-exit-modalka 'crux-smart-open-line-above))
 
      (defun insert-new-line ()
-       "Open a new line and exit modalka"
-       (interactive)
-       (run-exit-modalka 'crux-smart-open-line nil))
+      "Open a new line and exit modalka"
+      (interactive)
+      (run-exit-modalka 'crux-smart-open-line nil))
 
      (defun kill-line-forward ()
-       "Kill current line and the one after it"
-       (interactive)
-       (crux-kill-whole-line 2))
+      "Kill current line and the one after it"
+      (interactive)
+      (crux-kill-whole-line 2))
 
      (defun kill-line-backward ()
-       "Kill current line and the one before it"
-       (interactive)
-       (previous-line 1)
-       (crux-kill-whole-line 2))
+      "Kill current line and the one before it"
+      (interactive)
+      (previous-line 1)
+      (crux-kill-whole-line 2))
 
      (defun replace-char-at-point ()
-       "Replace char at point"
-       (interactive)
-       (let ((cursor-color (face-attribute 'cursor :background)))
-	 (blink-cursor-mode 0)
-	 (set-cursor-color "#005e00")
-	 (let ((char (read-key)))
-	   (delete-char 1)
-	   (insert char)
-	   (backward-char))
-	 (set-cursor-color cursor-color)
-	 (blink-cursor-mode 1)
-	 ))
+      "Replace char at point"
+      (interactive)
+      (let ((cursor-color (face-attribute 'cursor :background)))
+       (blink-cursor-mode 0)
+       (set-cursor-color "#005e00")
+       (let ((char (read-key)))
+        (delete-char 1)
+        (insert char)
+        (backward-char))
+       (set-cursor-color cursor-color)
+       (blink-cursor-mode 1)
+       ))
 
      (defun find-literate-config ()
-       "Find literate config file"
-       (interactive)
-       (find-file (expand-file-name "README.org" user-emacs-directory)))
+      "Find literate config file"
+      (interactive)
+      (find-file (expand-file-name "README.org" user-emacs-directory)))
 
      (defun kill-point-or-region ()
-       "kill current character at point or marked region"
-       (interactive)
-       (if mark-active
-	   (kill-region (region-beginning) (region-end))
-	 (kill-region (point) (+ (point) 1))))
+      "kill current character at point or marked region"
+      (interactive)
+      (if mark-active
+        (kill-region (region-beginning) (region-end))
+       (kill-region (point) (+ (point) 1))))
 
      (defun yank-after ()
-       "Yank after current point."
-       (interactive)
-       (forward-char)
-       (yank))
+      "Yank after current point."
+      (interactive)
+      (forward-char)
+      (yank))
 
      (use-package ace-jump-mode)
 
      (use-package modalka
-       :after general crux
-       :config
-       (setq-default cursor-type '(bar . 2))
-       (setq modalka-cursor-type 'box)
+      :after general crux
+      :config
+      (setq-default cursor-type '(bar . 2))
+      (setq modalka-cursor-type 'box)
 
-       (defhydra kill-hydra (:color blue)
-	 ("d" crux-kill-whole-line "kill current line")
-	 ("w" kill-word "kill next word")
-	 ("j" kill-line-forward "kill line forward")
-	 ( "k" kill-line-backward "kill line backward"))
+      (defhydra kill-hydra (:color blue)
+       ("d" crux-kill-whole-line "kill current line")
+       ("w" kill-word "kill next word")
+       ("j" kill-line-forward "kill line forward")
+       ( "k" kill-line-backward "kill line backward"))
 
-       (defhydra ace-jump-hydra (:color blue)
-	 ("w" ace-jump-word-mode "jump to word")
-	 ("c" ace-jump-char-mode "jump to character")
-	 ("l" ace-jump-line-mode "jump to line"))
+      (defhydra ace-jump-hydra (:color blue)
+       ("w" ace-jump-word-mode "jump to word")
+       ("c" ace-jump-char-mode "jump to character")
+       ("l" ace-jump-line-mode "jump to line"))
 
-       (modalka-global-mode 1)
+      (modalka-global-mode 1)
 
-       (general-define-key
-	:keymaps 'modalka-mode-map
-	:prefix "SPC"
-	"" nil
-	"w" 'hydra-window/body
-	"gg" 'magit-status
-	"bb" 'ivy-switch-buffer
-	"br" 'crux-rename-file-and-buffer
-	"ff" 'counsel-find-file
-	"fi" 'find-literate-config
-	"fs" 'save-buffer
-	"fr" 'counsel-recentf)
+      (general-define-key
+      :keymaps 'modalka-mode-map
+      :prefix "SPC"
+      "" nil
+      "w" 'hydra-window/body
+      "gg" 'magit-status
+      "bb" 'ivy-switch-buffer
+      "br" 'crux-rename-file-and-buffer
+      "ff" 'counsel-find-file
+      "fi" 'find-literate-config
+      "fs" 'save-buffer
+      "fr" 'counsel-recentf)
 
-       (general-define-key
-	:keymaps 'modalka-mode-map
-	"RET" ""
-	"DEL" ""
-	"!" ""
-	"@" ""
-	"#" ""
-	"%" ""
-	"^" ""
-	"&" ""
-	"(" ""
-	")" ""
-	"-" ""
-	"+" ""
-	"\\" ""
-	"|" ""
-	"[" ""
-	"]" ""
-	"{" ""
-	"'" ""
-	";" ""
-	"\"" ""
-	":" ""
-	"/" ""
-	"." ""
-	"," ""
-	">" ""
-	"<" ""
-	"`'" ""
-	"~" ""
-	"0" 'beginning-of-line
-	"*" 'swiper-thing-at-point
-	"=" 'indent-region
-	"$" 'end-of-line
-	"A" 'insert-end-of-line
-	"B" ""
-	"C" ""
-	"D" ""
-	"E" ""
-	"F" 'ace-jump-hydra/body  ;; probaby useless
-	"G" 'end-of-buffer
-	"H" ""
-	"I" ""
-	"J" ""
-	"K" ""
-	"L" ""
-	"M" ""
-	"N" ""
-	"O" 'insert-new-line-above
-	"P" ""
-	"Q" ""
-	"R" ""
-	"S" ""
-	"T" ""
-	"U" ""
-	"V" ""
-	"W" ""
-	"Y" ""
-	"Z" ""
-	"C-r" 'undo-redo
-	"X" 'backward-delete-char-untabify
-	"^" 'back-to-indentation
-	"a" 'insert-forward
-	"b" 'backward-word
-	"c" ""
-	"d" 'kill-hydra/body
-	"e" ""
-	"f" 'ace-jump-char-mode
-	"g" ""
-	"h" 'backward-char
-	"i" 'disable-modalka
-	"j" 'next-line
-	"k" 'previous-line
-	"l" 'forward-char
-	"m" ""
-	"n" ""
-	"o" 'insert-new-line
-	"p" 'yank-after
-	"q" ""
-	"r" 'replace-char-at-point
-	"s" ""
-	"t" ""
-	"u" 'undo
-	"v" ""
-	"w" 'forward-word
-	"x" 'kill-point-or-region
-	"y" ""
-	"z" ""
-     ;;   "yy" 'kill-ring-save     
-	)
+      (general-define-key
+      :keymaps 'modalka-mode-map
+      "RET" ""
+      "DEL" ""
+      "!" ""
+      "@" ""
+      "#" ""
+      "%" ""
+      "^" ""
+      "&" ""
+      "(" ""
+      ")" ""
+      "-" ""
+      "+" ""
+      "\\" ""
+      "|" ""
+      "[" ""
+      "]" ""
+      "{" ""
+      "'" ""
+      ";" ""
+      "\"" ""
+      ":" ""
+      "/" ""
+      "." ""
+      "," ""
+      ">" ""
+      "<" ""
+      "`'" ""
+      "~" ""
+      "0" 'beginning-of-line
+      "*" 'swiper-thing-at-point
+      "=" 'indent-region
+      "$" 'end-of-line
+      "A" 'insert-end-of-line
+      "B" ""
+      "C" ""
+      "D" ""
+      "E" ""
+      "F" 'ace-jump-hydra/body  ;; probaby useless
+      "G" 'end-of-buffer
+      "H" ""
+      "I" ""
+      "J" ""
+      "K" ""
+      "L" ""
+      "M" ""
+      "N" ""
+      "O" 'insert-new-line-above
+      "P" ""
+      "Q" ""
+      "R" ""
+      "S" ""
+      "T" ""
+      "U" ""
+      "V" ""
+      "W" ""
+      "Y" ""
+      "Z" ""
+      "C-r" 'undo-redo
+      "X" 'backward-delete-char-untabify
+      "^" 'back-to-indentation
+      "a" 'insert-forward
+      "b" 'backward-word
+      "c" ""
+      "d" 'kill-hydra/body
+      "e" ""
+      "f" 'ace-jump-char-mode
+      "g" nil
+      "gg" 'beginning-of-buffer
+      "h" 'backward-char
+      "i" 'disable-modalka
+      "j" 'next-line
+      "k" 'previous-line
+      "l" 'forward-char
+      "m" ""
+      "n" ""
+      "o" 'insert-new-line
+      "p" 'yank-after
+      "q" ""
+      "r" 'replace-char-at-point
+      "s" ""
+      "t" ""
+      "u" 'undo
+      "v" ""
+      "w" 'forward-word
+      "x" 'kill-point-or-region
+      "y" ""
+      "z" ""
+      ;;   "yy" 'kill-ring-save     
+      )
 
-       (modalka-define-kbd "1" "M-1")
-       (modalka-define-kbd "2" "M-2")
-       (modalka-define-kbd "3" "M-3")
-       (modalka-define-kbd "4" "M-4")
-       (modalka-define-kbd "5" "M-5")
-       (modalka-define-kbd "6" "M-6")
-       (modalka-define-kbd "7" "M-7")
-       (modalka-define-kbd "8" "M-8")
-       (modalka-define-kbd "9" "M-9")
-       (general-define-key
-	[escape] 'enable-modalka))
+      (modalka-define-kbd "1" "M-1")
+      (modalka-define-kbd "2" "M-2")
+      (modalka-define-kbd "3" "M-3")
+      (modalka-define-kbd "4" "M-4")
+      (modalka-define-kbd "5" "M-5")
+      (modalka-define-kbd "6" "M-6")
+      (modalka-define-kbd "7" "M-7")
+      (modalka-define-kbd "8" "M-8")
+      (modalka-define-kbd "9" "M-9")
+      (general-define-key
+      [escape] 'enable-modalka))
    #+end_src
 ** General
    
@@ -274,24 +277,7 @@
      ~general-override-states~ ([[https://github.com/emacs-evil/evil-collection#faq][source]]).
 
    #+begin_src emacs-lisp
-     (use-package general
-       :init
-       (setq general-override-states '(insert
-				       emacs
-				       hybrid
-				       normal
-				       visual
-				       motion
-				       operator
-				       replace))
-       :config
-       (general-create-definer my-leader-def
-	 ;; :prefix my-leader
-	 :prefix "SPC")
-
-       (general-create-definer my-local-leader-def
-	 ;; :prefix my-local-leader
-	 :prefix "SPC m"))
+     (use-package general)
    #+end_src
    
 ** Hydra
@@ -318,7 +304,7 @@
    #+begin_src emacs-lisp
      (use-package counsel
        :general ("C-s" 'swiper-isearch
-		 "M-y" 'counsel-yank-pop)
+                 "M-y" 'counsel-yank-pop)
        :config
        ;; Enable ivy globally
        (counsel-mode 1))
@@ -359,44 +345,41 @@
       (global-set-key
        (kbd "<f1>")
        (defhydra hydra-help (:color blue)
-	 "help"
-	 ("f" counsel-describe-function "function")
-	 ("v" counsel-describe-variable "variable")
-	 ("k" describe-key "key")))
+         "help"
+         ("f" counsel-describe-function "function")
+         ("v" counsel-describe-variable "variable")
+         ("k" describe-key "key")))
     #+end_src
     
 *** Window Hydra
 
     #+begin_src emacs-lisp
-      (my-leader-def
-	:states 'normal
-	:keymaps 'override
-	"w" (defhydra hydra-window (:color blue)
-	      "window"
-	      ("h" windmove-left "move-left")
-	      ("j" windmove-down "move-down")
-	      ("k" windmove-up "move-up")
-	      ("l" windmove-right "move-write")
+      (defhydra hydra-window (:color blue)
+        "window"
+        ("h" windmove-left "move-left")
+        ("j" windmove-down "move-down")
+        ("k" windmove-up "move-up")
+        ("l" windmove-right "move-write")
 
-	      ("H" hydra-move-splitter-left nil)
-	      ("J" hydra-move-splitter-down nil)
-	      ("K" hydra-move-splitter-up nil)
-	      ("L" hydra-move-splitter-right nil)
-	      ("/" (lambda ()
-		     (interactive)
-		     (split-window-right)
-		     (windmove-right))
-	       "split-vertically")
-	      ("-" (lambda ()
-		     (interactive)
-		     (split-window-below)
-		     (windmove-down))
-	       "split-horizontally")
-	      ("o" delete-other-windows "one" :exit t)
-	      ("a" ace-window "ace")
-	      ("s" ace-swap-window "swap")
-	      ("d" ace-delete-window "del")
-	      ("i" ace-maximize-window "ace-one" :exit t)))
+        ("H" hydra-move-splitter-left nil)
+        ("J" hydra-move-splitter-down nil)
+        ("K" hydra-move-splitter-up nil)
+        ("L" hydra-move-splitter-right nil)
+        ("/" (lambda ()
+               (interactive)
+               (split-window-right)
+               (windmove-right))
+         "split-vertically")
+        ("-" (lambda ()
+               (interactive)
+               (split-window-below)
+               (windmove-down))
+         "split-horizontally")
+        ("o" delete-other-windows "one" :exit t)
+        ("a" ace-window "ace")
+        ("s" ace-swap-window "swap")
+        ("d" ace-delete-window "del")
+        ("i" ace-maximize-window "ace-one" :exit t))
     #+end_src
 * Utils
 
@@ -420,53 +403,49 @@
    #+begin_src emacs-lisp
      (use-package projectile
        :general
-       (my-leader-def
-	 :states 'normal
-	 :keymaps 'override
-	 "p" 'hydra-projectile/body)
        :config
        (setq projectile-completion-system 'ivy)
 
        (defhydra hydra-projectile-other-window (:color teal)
-	 "projectile-other-window"
-	 ("f"  projectile-find-file-other-window        "file")
-	 ("g"  projectile-find-file-dwim-other-window   "file dwim")
-	 ("d"  projectile-find-dir-other-window         "dir")
-	 ("b"  projectile-switch-to-buffer-other-window "buffer")
-	 ("q"  nil                                      "cancel" :color blue))
+         "projectile-other-window"
+         ("f"  projectile-find-file-other-window        "file")
+         ("g"  projectile-find-file-dwim-other-window   "file dwim")
+         ("d"  projectile-find-dir-other-window         "dir")
+         ("b"  projectile-switch-to-buffer-other-window "buffer")
+         ("q"  nil                                      "cancel" :color blue))
 
        (defhydra hydra-projectile (:color teal
-					  :hint nil)
-	 "
-	  PROJECTILE: %(projectile-project-root)
+                                          :hint nil)
+         "
+      PROJECTILE: %(projectile-project-root)
 
-	  Find File            Search/Tags          Buffers                Cache
-     ------------------------------------------------------------------------------------------
-       _f_: file            _a_: ag                _i_: Ibuffer           _c_: cache clear
-     _s-f_: file dwim       _g_: update gtags      _b_: switch to buffer  _x_: remove known project
-     _s-d_: file curr dir   _o_: multi-occur       _K_: Kill all buffers  _X_: cleanup non-existing
-       _r_: recent file                                               ^^^^_z_: cache current
-       _d_: dir
+      Find File            Search/Tags          Buffers                Cache
+        ------------------------------------------------------------------------------------------
+          _f_: file            _a_: ag                _i_: Ibuffer           _c_: cache clear
+        _s-f_: file dwim       _g_: update gtags      _b_: switch to buffer  _x_: remove known project
+        _s-d_: file curr dir   _o_: multi-occur       _K_: Kill all buffers  _X_: cleanup non-existing
+          _r_: recent file                                               ^^^^_z_: cache current
+          _d_: dir
 
-     "
-	 ("a"   projectile-ag)
-	 ("b"   projectile-switch-to-buffer)
-	 ("c"   projectile-invalidate-cache)
-	 ("d"   projectile-find-dir)
-	 ("f"   projectile-find-file)
-	 ("s-f" projectile-find-file-dwim)
-	 ("s-d" projectile-find-file-in-directory)
-	 ("g"   ggtags-update-tags)
-	 ("i"   projectile-ibuffer)
-	 ("K"   projectile-kill-buffers)
-	 ("o"   projectile-multi-occur)
-	 ("p"   projectile-switch-project)
-	 ("r"   projectile-recentf)
-	 ("x"   projectile-remove-known-project)
-	 ("X"   projectile-cleanup-known-projects)
-	 ("z"   projectile-cache-current-file)
-	 ("`"   hydra-projectile-other-window/body "other window")
-	 ("q"   nil "cancel" :color blue)))
+        "
+         ("a"   projectile-ag)
+         ("b"   projectile-switch-to-buffer)
+         ("c"   projectile-invalidate-cache)
+         ("d"   projectile-find-dir)
+         ("f"   projectile-find-file)
+         ("s-f" projectile-find-file-dwim)
+         ("s-d" projectile-find-file-in-directory)
+         ("g"   ggtags-update-tags)
+         ("i"   projectile-ibuffer)
+         ("K"   projectile-kill-buffers)
+         ("o"   projectile-multi-occur)
+         ("p"   projectile-switch-project)
+         ("r"   projectile-recentf)
+         ("x"   projectile-remove-known-project)
+         ("X"   projectile-cleanup-known-projects)
+         ("z"   projectile-cache-current-file)
+         ("`"   hydra-projectile-other-window/body "other window")
+         ("q"   nil "cancel" :color blue)))
    #+end_src
 
 ** Git
