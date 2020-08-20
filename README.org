@@ -3,20 +3,16 @@
   #+begin_src emacs-lisp
     (defvar bootstrap-version)
     (let ((bootstrap-file
-           (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-          (bootstrap-version 5))
+	   (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+	  (bootstrap-version 5))
       (unless (file-exists-p bootstrap-file)
-        (with-current-buffer
-            (url-retrieve-synchronously
-             "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-             'silent 'inhibit-cookies)
-          (goto-char (point-max))
-          (eval-print-last-sexp)))
+	(with-current-buffer
+	    (url-retrieve-synchronously
+	     "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+	     'silent 'inhibit-cookies)
+	  (goto-char (point-max))
+	  (eval-print-last-sexp)))
       (load bootstrap-file nil 'nomessage))
-
-    (unless (package-installed-p 'use-package)
-      (package-refresh-contents)
-      (package-install 'use-package))
 
     (straight-use-package 'use-package)
   #+end_src
@@ -27,7 +23,7 @@
      :straight (lolsmacs :type git :host github :repo "grettke/lolsmacs")
      :init
      (require 'lolsmacs)
-        (lolsmacs-init))
+     (lolsmacs-init))
 
     (setq-default indent-tabs-mode nil)
   #+end_src
@@ -42,6 +38,12 @@
   #+end_src
 
 * Navigation
+#+begin_src emacs-lisp
+  (use-package smooth-scrolling
+    :straight (smooth-scrolling :type git :host github :repo "aspiers/smooth-scrolling")
+    :init
+    (smooth-scrolling-mode 1))
+#+end_src
 ** Modalka
 
    #+begin_src emacs-lisp
@@ -136,7 +138,7 @@
 
      (use-package modalka
       :straight t
-      :after general crux
+      :after general crux hydra general
       :config
       (setq-default cursor-type '(bar . 2))
       (setq modalka-cursor-type 'box)
@@ -390,7 +392,6 @@
         ("i" ace-maximize-window "ace-one" :exit t))
     #+end_src
 * Utils
-
 ** [[https://github.com/iqbalansari/restart-emacs][Restart Emacs]]
    #+begin_src emacs-lisp
      (use-package restart-emacs
@@ -401,13 +402,18 @@
 
   #+begin_src emacs-lisp
     (require 'org-tempo)
+    (use-package org
+      :straight org-plus-contrib
+      :config
+      (require 'ob-tangle)
+      (setq org-use-speed-commands t))
   #+end_src
   
   #+begin_src emacs-lisp
     (use-package org-bullets      
       :straight t
       :config
-      (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+      (setq org-startup-indented t))
   #+end_src
   
 ** Sources
@@ -529,9 +535,12 @@
    #+begin_src emacs-lisp
      (set-frame-font (font-spec :family "Fira Code" :size 15))
    #+end_src
-*** To be done [0%]
-**** TODO Is it possible to set non-programming mode fonts to something that supports Persian as well?
-***** *NOT USABLE:* Unfortunately as you can test [[https://bboxtype.com/typefaces/FiraGO/#!layout=editor][here]], FiraGo doesn't show پ as good as it should be! 
+
+* TO-Do [0%]
+** TODO Learn how speed commands for org-mode work
+~F1 v org-speed-commands-default RET~
+** TODO Is it possible to set non-programming mode fonts to something that supports Persian as well?
+*** *NOT USABLE:* Unfortunately as you can test [[https://bboxtype.com/typefaces/FiraGO/#!layout=editor][here]], FiraGo doesn't show پ as good as it should be! 
       [[https://bboxtype.com/typefaces/FiraGO/#!layout=specimen][FiraGo]] looks like a good candidate, and [[https://www.emacswiki.org/emacs/ProgMode][looks like]] setting the
       font as a hook for ~text-mode~ would be the solution. However the
       FiraGo font is separated per language, and may not support all
