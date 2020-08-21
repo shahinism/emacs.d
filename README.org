@@ -26,6 +26,15 @@
      (lolsmacs-init))
 
     (setq-default indent-tabs-mode nil)
+
+
+    (use-package uniquify
+      :config
+      (setq uniquify-buffer-name-style 'forward
+            uniquify-separator "/"
+            uniquify-after-kill-buffer-p t    ;; rename buffer after killing uniquify
+            uniquify-ignore-buffers-re "^\\*" ;; don't mock special buffers
+            ))
   #+end_src
 * Helper Functions
   
@@ -36,7 +45,7 @@
 
   #+begin_src emacs-lisp
   #+end_src
-
+  
 * Navigation
 #+begin_src emacs-lisp
   (use-package smooth-scrolling
@@ -167,7 +176,9 @@
       "ff" 'counsel-find-file
       "fi" 'find-literate-config
       "fs" 'save-buffer
-      "fr" 'counsel-recentf)
+      "fr" 'counsel-recenf
+      "p" 'hydra-projectile/body
+      "P" 'hydra-projectile-other-window/body)
 
       (general-define-key
       :keymaps 'modalka-mode-map
@@ -406,7 +417,9 @@
       :straight org-plus-contrib
       :config
       (require 'ob-tangle)
-      (setq org-use-speed-commands t))
+      (setq org-use-speed-commands t
+            org-src-fontify-natively t
+            org-src-tab-acts-natively t))
   #+end_src
   
   #+begin_src emacs-lisp
@@ -420,12 +433,11 @@
    1. [[https://orgmode.org/manual/Structure-Templates.html][org-documents structured templates]]
 
 * Programming
-** [[https://github.com/bbatsov/projectile][Projectile]]
+** COMMENT [[https://github.com/bbatsov/projectile][Projectile]]
    
    #+begin_src emacs-lisp
-     (use-package projectile
+     (use-package counsel-projectile
        :straight t
-       :general
        :config
        (setq projectile-completion-system 'ivy)
 
@@ -445,20 +457,19 @@
       Find File            Search/Tags          Buffers                Cache
         ------------------------------------------------------------------------------------------
           _f_: file            _a_: ag                _i_: Ibuffer           _c_: cache clear
-        _s-f_: file dwim       _g_: update gtags      _b_: switch to buffer  _x_: remove known project
-        _s-d_: file curr dir   _o_: multi-occur       _K_: Kill all buffers  _X_: cleanup non-existing
+          _/_: file dwim                              _b_: switch to buffer  _x_: remove known project
+          _._: file curr dir   _o_: multi-occur       _K_: Kill all buffers  _X_: cleanup non-existing
           _r_: recent file                                               ^^^^_z_: cache current
-          _d_: dir
+          _d_: dir                                                           _s_: Save buffers
 
         "
-         ("a"   projectile-ag)
-         ("b"   projectile-switch-to-buffer)
+         ("a"   counsel-projectile-ag)
+         ("b"   counsel-projectile-switch-to-buffer)
          ("c"   projectile-invalidate-cache)
-         ("d"   projectile-find-dir)
-         ("f"   projectile-find-file)
-         ("s-f" projectile-find-file-dwim)
-         ("s-d" projectile-find-file-in-directory)
-         ("g"   ggtags-update-tags)
+         ("d"   counsel-projectile-find-dir)
+         ("f"   counselprojectile-find-file)
+         ("."   counsel-projectile-find-file-dwim)
+         ("/"   projectile-find-file-in-directory)
          ("i"   projectile-ibuffer)
          ("K"   projectile-kill-buffers)
          ("o"   projectile-multi-occur)
@@ -467,7 +478,7 @@
          ("x"   projectile-remove-known-project)
          ("X"   projectile-cleanup-known-projects)
          ("z"   projectile-cache-current-file)
-         ("`"   hydra-projectile-other-window/body "other window")
+         ("s"   projectile-save-project-buffers)
          ("q"   nil "cancel" :color blue)))
    #+end_src
 
@@ -545,3 +556,4 @@
       font as a hook for ~text-mode~ would be the solution. However the
       FiraGo font is separated per language, and may not support all
       characters at once.
+** TODO Learn and use [[https://github.com/magnars/expand-region.el][Expand Region]]
