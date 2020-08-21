@@ -468,6 +468,47 @@
       (setq org-use-speed-commands t
             org-src-fontify-natively t
             org-src-tab-acts-natively t))
+
+
+    (use-package org-journal
+      :straight t
+      :config
+      (setq org-journal-dir "~/org/journal"
+            org-journal-date-prefix "#+TITLE: "
+            org-journal-file-format "%Y-%m-%d.org"
+            org-journal-date-format "%A, %d %B %Y")
+
+      (defun get-org-journal-date (date)
+        "Get org-journal's file for the DATE."
+        (let ((name (format-time-string org-journal-file-format date)))
+          (expand-file-name (concat (file-name-as-directory org-journal-dir) name))))
+
+      (defun ge-org-journal-today ()
+        "Get today's journal file path."
+        (get-org-journal-date (current-time)))
+
+      (defun org-journal-today ()
+        "Get todays journal file path."
+        (interactive)
+        (find-file (get-org-journal-today)))
+      )
+
+    (use-package org-roam
+      :straight t
+      :hook
+      (after-init . org-roam-mode)
+      :custom
+      (org-roam-directory "~/org/wiki")
+
+      :config
+
+      (defhydra hydra-roam (:color red)
+        ("l" org-roam "roam")
+        ("f" org-roam-find-file "find roam file")
+        ("g" org-roam-graph-show "show graph")
+        ("i" org-roam-insert "insert roam link")
+        ("I" org-roam-insert-immediate "insert roam link immediately")
+        ))
   #+end_src
   
   #+begin_src emacs-lisp
