@@ -19,8 +19,6 @@
 
 * Defaults
   #+begin_src emacs-lisp
-    (setq-default indent-tabs-mode nil)
-
     (use-package uniquify
       :config
       (setq uniquify-buffer-name-style 'forward
@@ -28,7 +26,48 @@
             uniquify-after-kill-buffer-p t    ;; rename buffer after killing uniquify
             uniquify-ignore-buffers-re "^\\*" ;; don't mock special buffers
             ))
+
+
+    ;; Enable show paren mode and set it to show matching parens immediately
+    (setq show-paren-delay 0)
+    (show-paren-mode 1)
+
+    ;; Enable ~y-or-no-p~
+    (fset 'yes-or-no-p 'y-or-n-p)
+
+    ;; Enable visible-bell to save ears
+    (setq-default visible-bell t)
+
+    ;; Remove initial message from scratch buffer:
+    (setq-default initial-scratch-message "")
+
+    ;; Remove startup message:
+    (setq-default inhibit-startup-message t)
+
+    ;; http://ergoemacs.org/emacs/emacs_tabs_space_indentation_setup.html
+    (setq-default indent-tabs-mode nil)
+
+    ;; Strip UI
+    (scroll-bar-mode 0)
+    (tool-bar-mode 0)
+    (menu-bar-mode 0)
+
+    ;; Show line number in the mode-line:
+    (line-number-mode t)
+
+    ;; Show column number in the mode-line:
+    (column-number-mode t)
+
+    ;; Show file size in the mode-line:
+    (size-indication-mode t)
   #+end_src
+** Beacon
+#+begin_src emacs-lisp
+  (use-package beacon
+    :straight t
+    :config
+    (beacon-mode +1))
+#+end_src
 * Helper Functions
   
 ** TODO Write helper to run a piece of code when a package is loaded.
@@ -421,7 +460,7 @@
     (use-package org-bullets      
       :straight t
       :config
-      (setq org-startup-indented t))
+      (add-hook 'org-mode-hook #'org-bullets-mode))
   #+end_src
   
 ** Sources
@@ -525,6 +564,13 @@
     (general-define-key
      :keymaps 'prog-mode-map
      "C-." 'company-complete))
+
+
+  (use-package company-quickhelp
+    :straight t
+    :config
+    (setq company-quickhelp-delay 0)
+    (company-quickhelp-mode 1))
 #+end_src
 
 ** Yasnippet
