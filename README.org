@@ -703,6 +703,13 @@
           ("s" er/mark-symbol "symbol"))
         )
     #+end_src
+*** Aggressive Indent
+    #+begin_src emacs-lisp
+      (use-package aggressive-indent
+        :straight t
+        :config
+        (global-aggressive-indent-mode 1))
+    #+end_src
 ** Lint
     #+begin_src emacs-lisp
   (use-package flycheck
