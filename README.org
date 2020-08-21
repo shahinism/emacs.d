@@ -513,7 +513,7 @@
     :config
     (add-hook 'after-init-hook 'global-company-mode)
     (setq company-idle-delay 0
-          company-minimum-prefix-length 1))
+          company-minimum-prefix-length 2))
 #+end_src
 
 ** Yasnippet
@@ -532,14 +532,14 @@
     :hook (scala-mode . eglot-ensure)  
     :config
     (add-to-list 'eglot-server-programs '(scala-mode . ("metals-emacs")))
-  
+
     (defhydra hydra-eglot (:exit t :hint nil)
-      ("d" eglot-find-declaration)
-      ("t" eglot-typeDefinition)
-      ("i" eglot-find-implementation)
-      ("r" eglot-rename)
-      ("f" eglot-format-buffer)
-      ("a" eglot-code-actions)))
+      ("d" eglot-find-declaration "find declaration")
+      ("t" eglot-typeDefinition "find type definition")
+      ("i" eglot-find-implementation "find implementation")
+      ("r" eglot-rename "rename")
+      ("f" eglot-format-buffer "format")
+      ("a" eglot-code-actions "code actions")))
 #+end_src
 
 ** Languages
@@ -554,6 +554,14 @@
     :commands sbt-start sbt-command
     :defer t
     :straight t)
+#+end_src
+** Tools
+*** DirEnv
+#+begin_src emacs-lisp
+  (use-package direnv
+    :straight t
+    :config
+    (direnv-mode))
 #+end_src
 * Look
 ** Theme
