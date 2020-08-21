@@ -489,8 +489,16 @@
     (use-package magit
       :straight t
       :config
-      (add-to-list 'modalka-excluded-modes 'magit-status-mode)
-      (add-to-list 'modalka-excluded-modes 'magit-section-mode-hook))
+      ;; It's possible to deactivate modalka in modes like this, however
+      ;; look like it's not the best idea. For now I'm going to take this
+      ;; approach:
+      ;; 1. By default I want to navigate any buffer.
+      ;; 2. If I want to do any change (including staging on git), I need to
+      ;;    switch to insert mode.
+      ;;
+      ;;(add-to-list 'modalka-excluded-modes 'magit-status-mode)
+      ;;(add-to-list 'modalka-excluded-modes 'magit-section-mode-hook)
+      )
   #+end_src
 ** Smartparens
 
