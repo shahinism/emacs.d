@@ -169,11 +169,13 @@
            (kill-region (region-beginning) (region-end))
          (kill-region (point) (+ (point) 1))))
 
-     (defun yank-after ()
-       "Yank after current point."
-       (interactive)
-       (forward-char)
-       (yank))
+     (defun copy-line (arg)
+       "Copy lines (as many lines in the prefix arg) to the kill ring.
+        Source: https://www.emacswiki.org/emacs/CopyingWholeLines"
+       (interactive "p")
+       (kill-ring-save (line-beginning-position)
+                       (line-beginning-position (+ 1 arg)))
+       (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
 
      (use-package ace-jump-mode
        :straight t)
@@ -293,7 +295,7 @@
         "m" ""
         "n" ""
         "o" 'insert-new-line
-        "p" 'yank-after
+        "p" 'yank
         "q" ""
         "r" 'replace-char-at-point
         "s" ""
@@ -302,10 +304,12 @@
         "v" ""
         "w" 'forward-word
         "x" 'kill-point-or-region
-        "y" ""
         "z" ""
-        ;;   "yy" 'kill-ring-save     
+        "y" nil
+        "yy" 'copy-line
+        "yy" 'copy-line
         )
+  
 
        (modalka-define-kbd "1" "M-1")
        (modalka-define-kbd "2" "M-2")
@@ -316,8 +320,8 @@
        (modalka-define-kbd "7" "M-7")
        (modalka-define-kbd "8" "M-8")
        (modalka-define-kbd "9" "M-9")
-       (general-define-key
-        [escape] 'enable-modalka))
+       (general-define-key [escape] 'enable-modalka)
+       )
    #+end_src
 ** General
    
@@ -621,6 +625,13 @@
     :config
     (direnv-mode))
 #+end_src
+*** Rainbow Mode
+    #+begin_src emacs-lisp
+      (use-package rainbow-delimiters
+        :straight t
+        :config
+        (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+    #+end_src
 ** Lint
 #+begin_src emacs-lisp
   (use-package flycheck
