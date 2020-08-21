@@ -77,7 +77,8 @@
   (use-package beacon
     :straight t
     :config
-    (beacon-mode +1))
+    (beacon-mode +1)
+    (setq beacon-color "#ff8059"))
 #+end_src
 * Helper Functions
   
@@ -385,7 +386,7 @@
        :config
        (ivy-rich-mode 1))
    #+end_src
-
+   
 *** Sources
     1. [[https://oremacs.com/swiper/][Swiper Documents]]
   
@@ -748,7 +749,7 @@
      (set-frame-font (font-spec :family "Fira Code" :size 15))
    #+end_src
 
-* TO-Do [50%]
+* TO-Do [40%]
 ** TODO Learn how speed commands for org-mode work
 ~F1 v org-speed-commands-default RET~
 ** TODO Is it possible to set non-programming mode fonts to something that supports Persian as well?
@@ -759,3 +760,4 @@
       characters at once.
 ** DONE Learn and use [[https://github.com/magnars/expand-region.el][Expand Region]]
 ** DONE Extract useful things from lolsmacs
+** TODO Undo-tree
