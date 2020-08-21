@@ -213,19 +213,22 @@
         :prefix "SPC"
         "" nil
         ":" 'hydra-anzu/body
-        "w" 'hydra-window/body
-        "gg" 'magit-status
+        "J" 'hydra-journal/body
+        "P" 'hydra-projectile-other-window/body
         "bb" 'ivy-switch-buffer
         "br" 'crux-rename-file-and-buffer
+        "e" 'hydra-expand/body
         "ff" 'counsel-find-file
         "fi" 'find-literate-config
-        "fs" 'save-buffer
         "fr" 'counsel-recenf
-        "p" 'hydra-projectile/body
-        "P" 'hydra-projectile-other-window/body
+        "fs" 'save-buffer
+        "gg" 'magit-status
+        "j" 'dumb-jump-hydra/body
         "l" 'hydra-eglot/body
-        "e" 'hydra-expand/body
-        "j" 'dumb-jump-hydra/body)
+        "p" 'hydra-projectile/body
+        "r" 'hydra-roam/body
+        "w" 'hydra-window/body
+        )
 
        (general-define-key
         :keymaps 'modalka-mode-map
@@ -483,7 +486,7 @@
         (let ((name (format-time-string org-journal-file-format date)))
           (expand-file-name (concat (file-name-as-directory org-journal-dir) name))))
 
-      (defun ge-org-journal-today ()
+      (defun get-org-journal-today ()
         "Get today's journal file path."
         (get-org-journal-date (current-time)))
 
@@ -491,6 +494,9 @@
         "Get todays journal file path."
         (interactive)
         (find-file (get-org-journal-today)))
+
+      (defhydra hydra-journal (:color red)
+        ("t" org-journal-today "get today's journal file"))
       )
 
     (use-package org-roam
