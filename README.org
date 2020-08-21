@@ -200,6 +200,7 @@
         :keymaps 'modalka-mode-map
         :prefix "SPC"
         "" nil
+        ":" 'hydra-anzu/body
         "w" 'hydra-window/body
         "gg" 'magit-status
         "bb" 'ivy-switch-buffer
@@ -636,6 +637,7 @@
         (require 'company-terraform)
         (company-terraform-init))
     #+end_src
+** Tools
 *** Dumb Jump
     #+begin_src emacs-lisp
       (use-package dumb-jump
@@ -652,7 +654,17 @@
           ("l" dumb-jump-quick-look "Quick look")
           ("b" dumb-jump-back "Back")))
     #+end_src
-** Tools
+*** Anzu
+    #+begin_src emacs-lisp
+      (use-package anzu
+        :straight t
+        :config
+        (defhydra hydra-anzu (:color red)
+          "Anzu"
+          ("q" anzu-query-replace "query replace")
+          ("r" anzu-query-replace-regexp "regex replace")
+          ("c" anzu-query-replace-at-cursor "cursor at thing replac")))
+    #+end_src
 *** DirEnv
 #+begin_src emacs-lisp
   (use-package direnv
