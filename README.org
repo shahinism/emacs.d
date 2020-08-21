@@ -521,7 +521,10 @@
     :config
     (add-hook 'after-init-hook 'global-company-mode)
     (setq company-idle-delay 0
-          company-minimum-prefix-length 2))
+          company-minimum-prefix-length 2)
+    (general-define-key
+     :keymaps 'prog-mode-map
+     "C-." 'company-complete))
 #+end_src
 
 ** Yasnippet
