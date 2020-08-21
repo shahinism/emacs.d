@@ -211,7 +211,8 @@
         "p" 'hydra-projectile/body
         "P" 'hydra-projectile-other-window/body
         "l" 'hydra-eglot/body
-        "e" 'hydra-expand/body)
+        "e" 'hydra-expand/body
+        "j" 'dumb-jump-hydra/body)
 
        (general-define-key
         :keymaps 'modalka-mode-map
@@ -622,6 +623,34 @@
       (use-package pip-requirements
         :straight t
         :mode ("/requirements.txt$" . pip-requirements-mode))
+    #+end_src
+*** Terraform
+    #+begin_src emacs-lisp
+      (use-package terraform-mode
+        :straight t)
+
+      (use-package company-terraform
+        :after company
+        :straight t
+        :config
+        (require 'company-terraform)
+        (company-terraform-init))
+    #+end_src
+*** Dumb Jump
+    #+begin_src emacs-lisp
+      (use-package dumb-jump
+        :straight t
+        :config
+        (setq dumb-jump-selector 'ivy)
+        (defhydra dumb-jump-hydra (:color blue :columns 3)
+          "Dumb Jump"
+          ("j" dumb-jump-go "Go")
+          ("o" dumb-jump-go-other-window "Other window")
+          ("e" dumb-jump-go-prefer-external "Go external")
+          ("x" dumb-jump-go-prefer-external-other-window "Go external other window")
+          ("i" dumb-jump-go-prompt "Prompt")
+          ("l" dumb-jump-quick-look "Quick look")
+          ("b" dumb-jump-back "Back")))
     #+end_src
 ** Tools
 *** DirEnv
