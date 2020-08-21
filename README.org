@@ -214,7 +214,8 @@
         "fr" 'counsel-recenf
         "p" 'hydra-projectile/body
         "P" 'hydra-projectile-other-window/body
-        "l" 'hydra-eglot/body)
+        "l" 'hydra-eglot/body
+        "e" 'hydra-expand/body)
 
        (general-define-key
         :keymaps 'modalka-mode-map
@@ -309,7 +310,7 @@
         "yy" 'copy-line
         "yy" 'copy-line
         )
-  
+
 
        (modalka-define-kbd "1" "M-1")
        (modalka-define-kbd "2" "M-2")
@@ -617,6 +618,17 @@
     :defer t
     :straight t)
 #+end_src
+*** Markdown
+    #+begin_src emacs-lisp
+      (use-package markdown-mode
+        :straight t)
+    #+end_src
+*** Pip Requirements
+    #+begin_src emacs-lisp
+      (use-package pip-requirements
+        :straight t
+        :mode ("/requirements.txt$" . pip-requirements-mode))
+    #+end_src
 ** Tools
 *** DirEnv
 #+begin_src emacs-lisp
@@ -632,8 +644,21 @@
         :config
         (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
     #+end_src
+*** Expand Region
+    #+begin_src emacs-lisp
+      (use-package expand-region
+        :straight t
+        :config
+        (defhydra hydra-expand ()
+          "expand-region"
+          ("c" er/contact-region "contract")
+          ("e" er/expand-region "expand")
+          ("w" er/mark-word "word")
+          ("s" er/mark-symbol "symbol"))
+        )
+    #+end_src
 ** Lint
-#+begin_src emacs-lisp
+    #+begin_src emacs-lisp
   (use-package flycheck
     :straight t
     :config
