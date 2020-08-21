@@ -190,8 +190,9 @@
        (defhydra kill-hydra (:color blue)
          ("d" crux-kill-whole-line "kill current line")
          ("w" kill-word "kill next word")
+         ("$" kill-line "kill to the end of line")
          ("j" kill-line-forward "kill line forward")
-         ( "k" kill-line-backward "kill line backward"))
+         ("k" kill-line-backward "kill line backward"))
 
        (defhydra ace-jump-hydra (:color blue)
          ("w" ace-jump-word-mode "jump to word")
