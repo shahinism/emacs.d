@@ -29,8 +29,9 @@
 
 
     ;; Enable show paren mode and set it to show matching parens immediately
-    (setq show-paren-delay 0)
-    (show-paren-mode 1)
+    (show-paren-mode)
+    (setq show-paren-delay 0
+          show-paren-style 'expression)
 
     ;; Enable ~y-or-no-p~
     (fset 'yes-or-no-p 'y-or-n-p)
@@ -60,6 +61,16 @@
 
     ;; Show file size in the mode-line:
     (size-indication-mode t)
+
+    ;; Enable global font lock
+    (global-font-lock-mode)
+
+    ;; highlight current line
+    (global-hl-line-mode)
+
+    ;; whitespaces
+    (setq whitespace-style '(tab-mark))
+    (global-whitespace-mode)
   #+end_src
 ** Beacon
 #+begin_src emacs-lisp
@@ -730,7 +741,7 @@
      (set-frame-font (font-spec :family "Fira Code" :size 15))
    #+end_src
 
-* TO-Do [0%]
+* TO-Do [50%]
 ** TODO Learn how speed commands for org-mode work
 ~F1 v org-speed-commands-default RET~
 ** TODO Is it possible to set non-programming mode fonts to something that supports Persian as well?
@@ -739,5 +750,5 @@
       font as a hook for ~text-mode~ would be the solution. However the
       FiraGo font is separated per language, and may not support all
       characters at once.
-** TODO Learn and use [[https://github.com/magnars/expand-region.el][Expand Region]]
-** TODO Extract useful things from lolsmacs
+** DONE Learn and use [[https://github.com/magnars/expand-region.el][Expand Region]]
+** DONE Extract useful things from lolsmacs
