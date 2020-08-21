@@ -169,13 +169,8 @@
            (kill-region (region-beginning) (region-end))
          (kill-region (point) (+ (point) 1))))
 
-     (defun copy-line (arg)
-       "Copy lines (as many lines in the prefix arg) to the kill ring.
-        Source: https://www.emacswiki.org/emacs/CopyingWholeLines"
-       (interactive "p")
-       (kill-ring-save (line-beginning-position)
-                       (line-beginning-position (+ 1 arg)))
-       (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
+     (use-package easy-kill
+       :straight t)
 
      (use-package ace-jump-mode
        :straight t)
@@ -308,10 +303,8 @@
         "x" 'kill-point-or-region
         "z" ""
         "y" nil
-        "yy" 'copy-line
-        "yy" 'copy-line
+        "yy" 'easy-kill
         )
-
 
        (modalka-define-kbd "1" "M-1")
        (modalka-define-kbd "2" "M-2")
