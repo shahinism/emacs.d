@@ -71,6 +71,16 @@
     ;; whitespaces
     (setq whitespace-style '(tab-mark))
     (global-whitespace-mode)
+
+    ;; backups
+    (setq make-backup-files nil
+          auto-save-default nil)
+
+    ;; TODO add description
+    (auto-save-visited-mode)
+    (global-auto-revert-mode)
+
+    ;; TODO add save on hooks from lolsmacs
   #+end_src
 ** Beacon
 #+begin_src emacs-lisp
@@ -254,7 +264,7 @@
         ";" ""
         "\"" ""
         ":" ""
-        "/" ""
+        "/" 'swiper-isearch
         "." ""
         "," ""
         ">" ""
@@ -377,7 +387,9 @@
                  "M-y" 'counsel-yank-pop)
        :config
        ;; Enable ivy globally
-       (counsel-mode 1))
+       (ivy-mode 1)
+       (counsel-mode 1)
+       )
    #+end_src
    
    This [[https://github.com/Yevgnen/ivy-rich][ivy-rich]] package provides some quick documents around the
@@ -388,6 +400,14 @@
        :straight t
        :config
        (ivy-rich-mode 1))
+   #+end_src
+   
+   Better sorting ([[https://github.com/raxod502/prescient.el][prescient]]):
+   #+begin_src emacs-lisp
+     (use-package ivy-prescient
+       :straight t
+       :config
+       (ivy-prescient-mode))
    #+end_src
    
 *** Sources
@@ -495,7 +515,7 @@
         (interactive)
         (find-file (get-org-journal-today)))
 
-      (defhydra hydra-journal (:color red)
+      (defhydra hydra-journal (:color blue)
         ("t" org-journal-today "get today's journal file"))
       )
 
@@ -508,7 +528,7 @@
 
       :config
 
-      (defhydra hydra-roam (:color red)
+      (defhydra hydra-roam (:color blue)
         ("l" org-roam "roam")
         ("f" org-roam-find-file "find roam file")
         ("g" org-roam-graph-show "show graph")
@@ -568,7 +588,7 @@
          ("b"   counsel-projectile-switch-to-buffer)
          ("c"   projectile-invalidate-cache)
          ("d"   counsel-projectile-find-dir)
-         ("f"   counselprojectile-find-file)
+         ("f"   counsel-projectile-find-file)
          ("."   counsel-projectile-find-file-dwim)
          ("/"   projectile-find-file-in-directory)
          ("i"   projectile-ibuffer)
@@ -696,6 +716,12 @@
         (require 'company-terraform)
         (company-terraform-init))
     #+end_src
+*** Jinja2
+    #+begin_src emacs-lisp
+      (use-package jinja2-mode
+        :straight t
+        :defer t)
+    #+end_src
 ** Tools
 *** Dumb Jump
     #+begin_src emacs-lisp
@@ -718,7 +744,7 @@
       (use-package anzu
         :straight t
         :config
-        (defhydra hydra-anzu (:color red)
+        (defhydra hydra-anzu (:color blue)
           "Anzu"
           ("q" anzu-query-replace "query replace")
           ("r" anzu-query-replace-regexp "regex replace")
@@ -773,6 +799,11 @@
           flycheck-display-errors-delay 0.5)
     (flycheck-pos-tip-mode +1))
 #+end_src
+** Yaml
+   #+begin_src emacs-lisp
+     (use-package yaml-mode
+       :straight t)
+   #+end_src
 * Look
 ** Theme
   [[https://gitlab.com/protesilaos/modus-themes][Modus Operandi]]! I've never used light themes like this, but I'm
@@ -796,7 +827,7 @@
      (set-frame-font (font-spec :family "Fira Code" :size 15))
    #+end_src
 
-* TO-Do [40%]
+* TO-Do [33%]
 ** TODO Learn how speed commands for org-mode work
 ~F1 v org-speed-commands-default RET~
 ** TODO Is it possible to set non-programming mode fonts to something that supports Persian as well?
@@ -808,3 +839,5 @@
 ** DONE Learn and use [[https://github.com/magnars/expand-region.el][Expand Region]]
 ** DONE Extract useful things from lolsmacs
 ** TODO Undo-tree
+** TODO Ensure SQLite3 is installed on the host
+   https://www.orgroam.com/manual/Post_002dInstallation-Tasks.html#Post_002dInstallation-Tasks
