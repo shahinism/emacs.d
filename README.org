@@ -230,7 +230,7 @@
         "e" 'hydra-expand/body
         "ff" 'counsel-find-file
         "fi" 'find-literate-config
-        "fr" 'counsel-recenf
+        "fr" 'counsel-recentf
         "fs" 'save-buffer
         "gg" 'magit-status
         "j" 'dumb-jump-hydra/body
