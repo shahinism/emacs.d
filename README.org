@@ -804,6 +804,11 @@
      (use-package yaml-mode
        :straight t)
    #+end_src
+** JSON
+   #+begin_src emacs-lisp
+     (use-package json-mode
+       :straight t)
+   #+end_src
 * Look
 ** Theme
   [[https://gitlab.com/protesilaos/modus-themes][Modus Operandi]]! I've never used light themes like this, but I'm
