@@ -648,10 +648,11 @@
 
 
   (use-package company-quickhelp
+    :after company
     :straight t
     :config
-    (setq company-quickhelp-delay 0)
-    (company-quickhelp-mode 1))
+    (eval-after-load 'company
+      '(define-key company-active-map (kbd "C-h") #'company-quickhelp-manual-begin)))
 #+end_src
 
 ** Yasnippet
@@ -783,6 +784,33 @@
         :straight t
         :config
         (global-aggressive-indent-mode 1))
+    #+end_src
+*** Treemacs
+    #+begin_src emacs-lisp
+      (use-package treemacs
+        :straight t
+        :general
+        ("<f8>" 'treemacs)
+        :config
+        (treemacs-follow-mode t)
+        (treemacs-filewatch-mode t)
+        (treemacs-git-mode 'deferred))
+
+      ;; quickly add projectile projects to treemacs workspace
+      (use-package treemacs-projectile
+        :after projectile treemacs
+        :straight t)
+
+      ;; allows to use treemacs icons in dired mode
+      (use-package treemacs-icons-dired
+        :after treemacs dired
+        :straight t
+        :config (treemacs-icons-dired-mode))
+
+      ;; show the status of git tracked files using magit
+      (use-package treemacs-magit
+        :after treemacs magit
+        :straight t)
     #+end_src
 ** Lint
     #+begin_src emacs-lisp
