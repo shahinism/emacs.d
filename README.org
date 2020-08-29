@@ -81,6 +81,9 @@
     (global-auto-revert-mode)
 
     ;; TODO add save on hooks from lolsmacs
+
+    ;; emacs server
+    (server-start)
   #+end_src
 ** Beacon
 #+begin_src emacs-lisp
@@ -225,6 +228,7 @@
         ":" 'hydra-anzu/body
         "J" 'hydra-journal/body
         "P" 'hydra-projectile-other-window/body
+        "X" 'org-capture
         "bb" 'ivy-switch-buffer
         "br" 'crux-rename-file-and-buffer
         "e" 'hydra-expand/body
@@ -490,8 +494,32 @@
       (require 'ob-tangle)
       (setq org-use-speed-commands t
             org-src-fontify-natively t
-            org-src-tab-acts-natively t))
+            org-src-tab-acts-natively t)
 
+      (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
+
+      (setq org-capture-templates '(("t" "Todo [inbox]" entry
+                                     (file+headline +org-capture-inbox-file "Tasks")
+                                     "* TODO %i%?")
+                                    ("n" "note" entry
+                                     (file+headline +org-capture-inbox-file "Notes")
+                                     "* %u %?\n%i\n%a" :prepend t)
+                                    ("b" "Quick link bookmark" entry
+                                     (file+headline "~/org/www.org" "Bookmarks")
+                                     "* %a %U"
+                                     :immediate-finish t)
+                                    ("B" "Link capture" entry
+                                     (file+headline "~/org/www.org" "Bookmarks")
+                                     "* %a %U")
+                                    ("l" "Quick read later" entry
+                                     (file+headline "~/org/www.org" "Read Later")
+                                     "* TODO %a %U"
+                                     :immediate-finish t)
+                                    ("L" "Read Later" entry
+                                     (file+headline "~/org/www.org" "Read Later")
+                                     "* TODO %a %U"
+                                     :immediate-finish t)
+                                    )))
 
     (use-package org-journal
       :straight t
@@ -535,6 +563,7 @@
         ("i" org-roam-insert "insert roam link")
         ("I" org-roam-insert-immediate "insert roam link immediately")
         ))
+
   #+end_src
   
   #+begin_src emacs-lisp
