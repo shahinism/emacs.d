@@ -485,7 +485,7 @@
    #+end_src
 
 * Org
-
+  
   #+begin_src emacs-lisp
     (require 'org-tempo)
     (use-package org
@@ -697,21 +697,28 @@
    #+end_src
    
 ** LSP
-#+begin_src emacs-lisp
-  (use-package eglot
-    :straight t
-    :hook (scala-mode . eglot-ensure)  
-    :config
-    (add-to-list 'eglot-server-programs '(scala-mode . ("metals-emacs")))
+   Download latest version of [[https://github.com/elixir-lsp/elixir-ls][elixir-ls]] into ~/.emacs.d/elixir-ls/~
+   #+begin_src emacs-lisp
+     (use-package eglot
+       :straight t
+       :hook 
+       (scala-mode . eglot-ensure)
+       (elixir-mode . eglot-ensure)
+       :config
+       ;; scala
+       (add-to-list 'eglot-server-programs '(scala-mode . ("metals-emacs")))
+       ;; elixir
+       (let ((lspath (expand-file-name "elixir-ls/language_server.sh" user-emacs-directory)))
+         (add-to-list 'eglot-server-programs `(elixir-mode ,lspath)))
 
-    (defhydra hydra-eglot (:exit t :hint nil)
-      ("d" eglot-find-declaration "find declaration")
-      ("t" eglot-typeDefinition "find type definition")
-      ("i" eglot-find-implementation "find implementation")
-      ("r" eglot-rename "rename")
-      ("f" eglot-format-buffer "format")
-      ("a" eglot-code-actions "code actions")))
-#+end_src
+       (defhydra hydra-eglot (:exit t :hint nil)
+         ("d" eglot-find-declaration "find declaration")
+         ("t" eglot-typeDefinition "find type definition")
+         ("i" eglot-find-implementation "find implementation")
+         ("r" eglot-rename "rename")
+         ("f" eglot-format-buffer "format")
+         ("a" eglot-code-actions "code actions")))
+   #+end_src
 
 ** Languages
 *** Scala
@@ -754,6 +761,11 @@
       (use-package jinja2-mode
         :straight t
         :defer t)
+    #+end_src
+*** Elixir
+    #+begin_src emacs-lisp
+      (use-package elixir-mode
+        :straight t)
     #+end_src
 ** Tools
 *** Dumb Jump
