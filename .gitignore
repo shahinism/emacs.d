@@ -92,3 +92,4 @@ README.el
 history
 straight
 projectile.cache
+elixir-ls
