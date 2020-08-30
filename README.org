@@ -556,7 +556,6 @@
       (after-init . org-roam-mode)
       :custom
       (org-roam-directory "~/org/wiki")
-
       :config
 
       (defhydra hydra-roam (:color blue)
@@ -766,6 +765,13 @@
     #+begin_src emacs-lisp
       (use-package elixir-mode
         :straight t)
+    #+end_src
+*** Docker
+    #+begin_src emacs-lisp
+      (use-package dockerfile-mode
+        :straight t
+        :config
+        (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode)))
     #+end_src
 ** Tools
 *** Dumb Jump
