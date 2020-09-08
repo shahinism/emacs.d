@@ -483,6 +483,14 @@
      (use-package restart-emacs
        :straight t)
    #+end_src
+** Path
+   #+begin_src emacs-lisp
+     (use-package exec-path-from-shell
+       :straight t
+       :config
+       (when (memq window-system '(mac ns x))
+         (exec-path-from-shell-initialize)))
+   #+end_src
 
 * Org
   
@@ -703,6 +711,8 @@
        :hook 
        (scala-mode . eglot-ensure)
        (elixir-mode . eglot-ensure)
+       (python-mode . eglot-ensure)
+       (typescript-mode . eglot-ensure)
        :config
        ;; scala
        (add-to-list 'eglot-server-programs '(scala-mode . ("metals-emacs")))
@@ -766,12 +776,15 @@
       (use-package elixir-mode
         :straight t)
     #+end_src
-*** Docker
+*** TypeScript
     #+begin_src emacs-lisp
-      (use-package dockerfile-mode
+      (use-package typescript-mode
         :straight t
         :config
-        (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode)))
+        (require 'ansi-color)
+        (defun colorize-compilation-buffer ()
+          (ansi-color-apply-on-region compilation-filter-start (point-max)))
+        (add-hook 'compilation-filter-hook 'colorize-compilation-buffer))
     #+end_src
 ** Tools
 *** Dumb Jump
@@ -828,13 +841,6 @@
           ("s" er/mark-symbol "symbol"))
         )
     #+end_src
-*** Aggressive Indent
-    #+begin_src emacs-lisp
-      (use-package aggressive-indent
-        :straight t
-        :config
-        (global-aggressive-indent-mode 1))
-    #+end_src
 *** Treemacs
     #+begin_src emacs-lisp
       (use-package treemacs
@@ -862,6 +868,14 @@
         :after treemacs magit
         :straight t)
     #+end_src
+*** Docker
+    #+begin_src emacs-lisp
+      (use-package dockerfile-mode
+        :straight t
+        :config
+        (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode)))
+    #+end_src
+
 ** Lint
     #+begin_src emacs-lisp
   (use-package flycheck
@@ -886,6 +900,13 @@
    #+begin_src emacs-lisp
      (use-package json-mode
        :straight t)
+   #+end_src
+** Python
+   #+begin_src emacs-lisp
+     (use-package python-black
+       :straight t
+       :demand t
+       :after python)
    #+end_src
 * Look
 ** Theme
