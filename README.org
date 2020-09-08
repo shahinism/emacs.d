@@ -197,7 +197,7 @@
      (use-package easy-kill
        :straight t)
 
-     (use-package ace-jump-mode
+     (use-package avy
        :straight t)
 
      (use-package modalka
@@ -213,11 +213,6 @@
          ("$" kill-line "kill to the end of line")
          ("j" kill-line-forward "kill line forward")
          ("k" kill-line-backward "kill line backward"))
-
-       (defhydra ace-jump-hydra (:color blue)
-         ("w" ace-jump-word-mode "jump to word")
-         ("c" ace-jump-char-mode "jump to character")
-         ("l" ace-jump-line-mode "jump to line"))
 
        (modalka-global-mode 1)
 
@@ -267,7 +262,7 @@
         "'" ""
         ";" ""
         "\"" ""
-        ":" ""
+        ":" 'avy-goto-line
         "/" 'swiper-isearch
         "." ""
         "," ""
@@ -284,7 +279,7 @@
         "C" ""
         "D" ""
         "E" ""
-        "F" 'ace-jump-hydra/body  ;; probaby useless
+        "F" 'avy-goto-char-timer
         "G" 'end-of-buffer
         "H" ""
         "I" ""
@@ -312,7 +307,7 @@
         "c" ""
         "d" 'kill-hydra/body
         "e" ""
-        "f" 'ace-jump-char-mode
+        "f" 'avy-goto-char
         "g" nil
         "gg" 'beginning-of-buffer
         "h" 'backward-char
@@ -812,7 +807,7 @@
           "Anzu"
           ("q" anzu-query-replace "query replace")
           ("r" anzu-query-replace-regexp "regex replace")
-          ("c" anzu-query-replace-at-cursor "cursor at thing replac")))
+          ("c" anzu-query-replace-at-cursor "cursor at thing replace")))
     #+end_src
 *** DirEnv
 #+begin_src emacs-lisp
