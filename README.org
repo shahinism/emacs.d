@@ -232,6 +232,7 @@
         "fr" 'counsel-recentf
         "fs" 'save-buffer
         "gg" 'magit-status
+        "i"  'ivy-yasnippet
         "j" 'dumb-jump-hydra/body
         "l" 'hydra-eglot/body
         "p" 'hydra-projectile/body
@@ -869,6 +870,25 @@
         :straight t
         :config
         (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode)))
+    #+end_src
+*** Yasnippet
+    #+begin_src emacs-lisp
+      (use-package yasnippet
+        :straight t
+        :defer t
+        :diminish yas-minor-mode
+        :config
+        (yas-reload-all)
+        (add-hook 'prog-mode-hook #'yas-minor-mode))
+
+      (use-package yasnippet-snippets
+        :after yasnippet
+        :straight t
+        :config (yasnippet-snippets-initialize))
+
+      (use-package ivy-yasnippet
+        :after yasnippet
+        :straight t)
     #+end_src
 
 ** Lint
