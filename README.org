@@ -941,6 +941,13 @@
 **** TODO Tune Modus Operandi
    This theme is also very customizable and the documntation provides a
    good details on it, I need to come back to it and tune it in future.
+** Modeline
+   #+begin_src emacs-lisp
+     (use-package smart-mode-line
+       :straight t
+       :config
+       (sml/setup))
+   #+end_src
 ** Font
    #+begin_src emacs-lisp
      (set-frame-font (font-spec :family "Fira Code" :size 15))
