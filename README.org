@@ -505,11 +505,12 @@
 * Org
   
   #+begin_src emacs-lisp
-    ;; (require 'org-tempo)
     (use-package org
       :straight org-plus-contrib
       :config
       (require 'ob-tangle)
+      (require 'org-tempo)
+
       (setq org-use-speed-commands t
             org-src-fontify-natively t
             org-src-tab-acts-natively t
@@ -544,6 +545,7 @@
 
     (use-package org-journal
       :straight t
+      :after org
       :config
       (setq org-journal-dir "~/org/journal"
             org-journal-date-prefix "#+TITLE: "
@@ -570,6 +572,7 @@
 
     (use-package org-roam
       :straight t
+      :after org
       :hook
       (after-init . org-roam-mode)
       :custom
@@ -585,6 +588,7 @@
         ))
   #+end_src
   
+  
   #+begin_src emacs-lisp
     (use-package org-bullets      
       :straight t
@@ -592,6 +596,13 @@
       (add-hook 'org-mode-hook #'org-bullets-mode))
   #+end_src
   
+*** TODO Fix ~void symbol's function~ error on export
+    
+    Currently quickfix for this is:
+    #+begin_src emacs-lisp
+      (org-reload)
+    #+end_src
+
 ** Sources
    1. [[https://orgmode.org/manual/Structure-Templates.html][org-documents structured templates]]
 
