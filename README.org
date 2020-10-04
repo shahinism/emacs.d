@@ -84,6 +84,9 @@
 
     ;; emacs server
     (server-start)
+
+    ;; Remember the positon in the buffer
+    (save-place-mode 1)
   #+end_src
 ** Beacon
 #+begin_src emacs-lisp
@@ -102,6 +105,17 @@
 
   #+begin_src emacs-lisp
   #+end_src
+  
+** End of line helper
+   [[https://www.emacswiki.org/emacs/EndOfLineTips][source]]
+   #+begin_src emacs-lisp
+     (defun no-junk-please-were-unixish ()
+       (interactive)
+       (let ((coding-str (symbol-name buffer-file-coding-system)))
+         (when (string-match "-\\(?:dos\\|mac\\)$" coding-str)
+           (set-buffer-file-coding-system 'unix))))
+
+   #+end_src
   
 * Navigation
 ** Scrolling
@@ -491,7 +505,7 @@
 * Org
   
   #+begin_src emacs-lisp
-    (require 'org-tempo)
+    ;; (require 'org-tempo)
     (use-package org
       :straight org-plus-contrib
       :config
@@ -569,7 +583,6 @@
         ("i" org-roam-insert "insert roam link")
         ("I" org-roam-insert-immediate "insert roam link immediately")
         ))
-
   #+end_src
   
   #+begin_src emacs-lisp
@@ -950,9 +963,91 @@
    #+end_src
 ** Font
    #+begin_src emacs-lisp
-     (set-frame-font (font-spec :family "Fira Code" :size 15))
+     (set-frame-font (font-spec :family "Fira Code" :size 15) nil t)
    #+end_src
 
+* PDF
+  After starting off Emacs for the first time, it's needed to run ~M-x pdf-tools-install~.
+  #+begin_src emacs-lisp
+    (defhydra hydra-pdftools (:color blue :hint nil)
+            "
+                                                                          ╭───────────┐
+           Move  History   Scale/Fit     Annotations  Search/Link    Do   │ PDF Tools │
+       ╭──────────────────────────────────────────────────────────────────┴───────────╯
+             ^^_g_^^      _B_    ^↧^    _+_    ^ ^     [_al_] list    [_s_] search    [_u_] revert buffer
+             ^^^↑^^^      ^↑^    _H_    ^↑^  ↦ _W_ ↤   [_am_] markup  [_o_] outline   [_i_] info
+             ^^_p_^^      ^ ^    ^↥^    _0_    ^ ^     [_at_] text    [_F_] link      [_d_] dark mode
+             ^^^↑^^^      ^↓^  ╭─^─^─┐  ^↓^  ╭─^ ^─┐   [_ad_] delete  [_f_] search link
+        _h_ ←pag_e_→ _l_  _N_  │ _P_ │  _-_    _b_     [_aa_] dired
+             ^^^↓^^^      ^ ^  ╰─^─^─╯  ^ ^  ╰─^ ^─╯   [_y_]  yank
+             ^^_n_^^      ^ ^  _r_eset slice box
+             ^^^↓^^^
+             ^^_G_^^
+       --------------------------------------------------------------------------------
+            "
+            ("\\" hydra-master/body "back")
+            ("<ESC>" nil "quit")
+            ("al" pdf-annot-list-annotations)
+            ("ad" pdf-annot-delete)
+            ("aa" pdf-annot-attachment-dired)
+            ("am" pdf-annot-add-markup-annotation)
+            ("at" pdf-annot-add-text-annotation)
+            ("y"  pdf-view-kill-ring-save)
+            ("+" pdf-view-enlarge :color red)
+            ("-" pdf-view-shrink :color red)
+            ("0" pdf-view-scale-reset)
+            ("H" pdf-view-fit-height-to-window)
+            ("W" pdf-view-fit-width-to-window)
+            ("P" pdf-view-fit-page-to-window)
+            ("n" pdf-view-next-page-command :color red)
+            ("p" pdf-view-previous-page-command :color red)
+            ("d" pdf-view-dark-minor-mode)
+            ("b" pdf-view-set-slice-from-bounding-box)
+            ("r" pdf-view-reset-slice)
+            ("g" pdf-view-first-page)
+            ("G" pdf-view-last-page)
+            ("e" pdf-view-goto-page)
+            ("o" pdf-outline)
+            ("s" pdf-occur)
+            ("i" pdf-misc-display-metadata)
+            ("u" pdf-view-revert-buffer)
+            ("F" pdf-links-action-perfom)
+            ("f" pdf-links-isearch-link)
+            ("B" pdf-history-backward :color red)
+            ("N" pdf-history-forward :color red)
+            ("l" image-forward-hscroll :color red)
+            ("h" image-backward-hscroll :color red))
+
+    (use-package pdf-tools
+      :straight t
+      :mode (("\\.pdf\\'" . pdf-view-mode))
+      :init (load "pdf-tools-autoloads" nil t)
+      :general
+      (pdf-view-mode-map
+       "H" 'hydra-pdftools/body
+       "j" 'pdf-view-next-line-or-next-page
+       "k" 'pdf-view-previous-line-or-previous-page)
+      :config
+      ;; https://github.com/politza/pdf-tools/issues/475
+      (setenv "PKG_CONFIG_PATH" "/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig")
+
+      (pdf-tools-install)
+      ;; open pdfs scaled to fit page
+      (setq-default pdf-view-display-size 'fit-page)
+      ;; automatically annotate highlights
+      (setq pdf-annot-activate-created-annotations t)
+      (add-hook 'pdf-view-mode-hook
+                (lambda ()
+                  (blink-cursor-mode -1)))
+      (add-to-list 'modalka-excluded-modes 'pdf-view-mode))
+  #+end_src
+  
+  #+begin_src emacs-lisp
+    (use-package org-noter
+      :straight t
+      :config
+      (setq org-noter-auto-save-last-location t))
+  #+end_src
 * TO-Do [33%]
 ** TODO Learn how speed commands for org-mode work
 ~F1 v org-speed-commands-default RET~
