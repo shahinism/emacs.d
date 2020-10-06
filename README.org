@@ -501,9 +501,18 @@
        (when (memq window-system '(mac ns x))
          (exec-path-from-shell-initialize)))
    #+end_src
-
+** Workgroups
+   #+begin_src emacs-lisp
+     (use-package workgroups
+       :straight (workgroups :type git :host github :repo "tlh/workgroups.el")
+       :init
+       (require 'workgroups)
+       (workgroups-mode 1)
+       :config
+       (setq wg-prefix-key (kbd "C-c w")))
+   #+end_src
 * Org
-  
+** Main Tools  
   #+begin_src emacs-lisp
     (use-package org
       :straight org-plus-contrib
@@ -588,7 +597,7 @@
         ))
   #+end_src
   
-  
+*** Bullets
   #+begin_src emacs-lisp
     (use-package org-bullets      
       :straight t
