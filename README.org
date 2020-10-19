@@ -250,7 +250,8 @@
         "j" 'dumb-jump-hydra/body
         "l" 'hydra-eglot/body
         "p" 'hydra-projectile/body
-        "r" 'hydra-roam/body
+        "or" 'hydra-roam/body
+        "oa" 'org-agenda
         "w" 'hydra-window/body
         )
 
@@ -322,7 +323,7 @@
         "c" ""
         "d" 'kill-hydra/body
         "e" ""
-        "f" 'avy-goto-char
+        "f" 'avy-goto-char-2
         "g" nil
         "gg" 'beginning-of-buffer
         "h" 'backward-char
@@ -512,28 +513,82 @@
        (setq wg-prefix-key (kbd "C-c w")))
    #+end_src
 * Org
-** Main Tools  
-  #+begin_src emacs-lisp
-    (use-package org
-      :straight org-plus-contrib
-      :config
-      (require 'ob-tangle)
-      (require 'org-tempo)
+** Main Tools
+*** Org-Mode
+    #+begin_src emacs-lisp
+      (use-package org
+        :straight org-plus-contrib
+        :config
+        (require 'ob-tangle)
+        (require 'org-tempo)
 
-      (setq org-use-speed-commands t
-            org-src-fontify-natively t
-            org-src-tab-acts-natively t
-            org-capture-inbox-file "~/org/inbox.org"
-            org-capture-web-file "~/org/web.org")
+        (setq org-use-speed-commands t
+              org-src-fontify-natively t
+              org-src-tab-acts-natively t
+              org-capture-inbox-file "~/org/inbox.org"
+              org-capture-web-file "~/org/web.org"
+              org-agenda-files '("~/org/agenda.org"))
 
-      (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
+        (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
+        (require 'org-protocol))
+    #+end_src
+*** Org-Journal
+    #+begin_src emacs-lisp
+      (defun get-org-journal-date (date)
+        "Get org-journal's file for the DATE."
+        (let ((name (format-time-string org-journal-file-format date)))
+          (expand-file-name (concat (file-name-as-directory org-journal-dir) name))))
 
-      (setq org-capture-templates '(("t" "Todo [inbox]" entry
+      (defun get-org-journal-today ()
+        "Get today's journal file path."
+        (get-org-journal-date (current-time)))
+
+      (defun org-journal-today ()
+        "Get todays journal file path."
+        (interactive)
+        (find-file (get-org-journal-today)))
+
+      (use-package org-journal
+        :straight t
+        :after org
+        :config
+        (setq org-journal-dir "~/org/journal"
+              org-journal-date-prefix "#+TITLE: "
+              org-journal-file-format "%Y-%m-%d.org"
+              org-journal-date-format "%A, %d %B %Y")
+
+        (defhydra hydra-journal (:color blue)
+          ("t" org-journal-today "get today's journal file"))
+        )
+    #+end_src
+*** Org-Roam
+    #+begin_src emacs-lisp
+      (use-package org-roam
+        :straight t
+        :after org
+        :hook
+        (after-init . org-roam-mode)
+        :custom
+        (org-roam-directory "~/org/wiki")
+        :config
+
+        (defhydra hydra-roam (:color blue)
+          ("l" org-roam "roam")
+          ("f" org-roam-find-file "find roam file")
+          ("g" org-roam-graph-show "show graph")
+          ("i" org-roam-insert "insert roam link")
+          ("I" org-roam-insert-immediate "insert roam link immediately")
+          ))
+    #+end_src
+*** Org Capture Templates
+    #+begin_src emacs-lisp
+      (setq org-capture-templates `(("t" "Todo [inbox]" entry
                                      (file+headline org-capture-inbox-file "Tasks")
                                      "* TODO %i%?")
-                                    ("n" "note" entry
-                                     (file+headline org-capture-inbox-file "Notes")
-                                     "* %u %?\n%i\n%a" :prepend t)
+                                    ("j" "Journal"
+                                     entry (file ,(get-org-journal-today))
+                                     "* %<%H:%M-%Z>: %?"
+                                     :empty-lines 1)
                                     ("b" "Quick link bookmark" entry
                                      (file+headline org-capture-web-file "Bookmarks")
                                      "* %a %U"
@@ -549,54 +604,7 @@
                                      (file+headline org-capture-web-file "Read Later")
                                      "* TODO %a %U")
                                     ))
-
-      (require 'org-protocol))
-
-    (use-package org-journal
-      :straight t
-      :after org
-      :config
-      (setq org-journal-dir "~/org/journal"
-            org-journal-date-prefix "#+TITLE: "
-            org-journal-file-format "%Y-%m-%d.org"
-            org-journal-date-format "%A, %d %B %Y")
-
-      (defun get-org-journal-date (date)
-        "Get org-journal's file for the DATE."
-        (let ((name (format-time-string org-journal-file-format date)))
-          (expand-file-name (concat (file-name-as-directory org-journal-dir) name))))
-
-      (defun get-org-journal-today ()
-        "Get today's journal file path."
-        (get-org-journal-date (current-time)))
-
-      (defun org-journal-today ()
-        "Get todays journal file path."
-        (interactive)
-        (find-file (get-org-journal-today)))
-
-      (defhydra hydra-journal (:color blue)
-        ("t" org-journal-today "get today's journal file"))
-      )
-
-    (use-package org-roam
-      :straight t
-      :after org
-      :hook
-      (after-init . org-roam-mode)
-      :custom
-      (org-roam-directory "~/org/wiki")
-      :config
-
-      (defhydra hydra-roam (:color blue)
-        ("l" org-roam "roam")
-        ("f" org-roam-find-file "find roam file")
-        ("g" org-roam-graph-show "show graph")
-        ("i" org-roam-insert "insert roam link")
-        ("I" org-roam-insert-immediate "insert roam link immediately")
-        ))
-  #+end_src
-  
+    #+end_src
 *** Bullets
   #+begin_src emacs-lisp
     (use-package org-bullets      
@@ -611,7 +619,12 @@
     #+begin_src emacs-lisp
       (org-reload)
     #+end_src
-
+** Web Tools
+   
+   #+begin_src emacs-lisp
+     (use-package org-web-tools
+       :straight t)
+   #+end_src
 ** Sources
    1. [[https://orgmode.org/manual/Structure-Templates.html][org-documents structured templates]]
 
@@ -757,7 +770,7 @@
          ("f" eglot-format-buffer "format")
          ("a" eglot-code-actions "code actions")))
    #+end_src
-
+   
 ** Languages
 *** Scala
 #+begin_src emacs-lisp
@@ -956,6 +969,17 @@
        :demand t
        :after python)
    #+end_src
+** Elixir
+   Resolve project directory discover ([[https://github.com/elixir-lsp/elixir-ls/issues/364][more info]]).
+   #+begin_src emacs-lisp
+     (defun elixir/find-mix-project (dir)
+       "Try to locate a Elixir project root by 'mix.exs' above DIR."
+       (let ((mix_root (locate-dominating-file dir "mix.exs")))
+         (message "Found Elixir project root in '%s' starting from '%s'" mix_root dir)
+         (if (stringp mix_root) `(transient . ,mix_root) nil)))
+
+     (add-hook 'project-find-functions 'elixir/find-mix-project nil nil)
+   #+end_src
 * Look
 ** Theme
   [[https://gitlab.com/protesilaos/modus-themes][Modus Operandi]]! I've never used light themes like this, but I'm
@@ -1067,6 +1091,17 @@
       :straight t
       :config
       (setq org-noter-auto-save-last-location t))
+  #+end_src
+* EPub
+
+  #+begin_src emacs-lisp
+    (use-package nov
+      :straight t
+      :config
+      (defun nov-font-setup ()
+        (face-remap-add-relative 'variable-pitch :family "Liberation Serif"
+                                 :height 1.0))
+      (add-hook 'nov-mode-hook 'nov-font-setup))
   #+end_src
 * TO-Do [33%]
 ** TODO Learn how speed commands for org-mode work
