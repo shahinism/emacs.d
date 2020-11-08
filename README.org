@@ -323,7 +323,7 @@
         "c" ""
         "d" 'kill-hydra/body
         "e" ""
-        "f" 'avy-goto-char-2
+        "f" 'avy-goto-char-in-line
         "g" nil
         "gg" 'beginning-of-buffer
         "h" 'backward-char
