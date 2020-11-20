@@ -802,41 +802,74 @@
 ** LSP
    Download latest version of [[https://github.com/elixir-lsp/elixir-ls][elixir-ls]] into ~/.emacs.d/elixir-ls/~
    #+begin_src emacs-lisp
-     (use-package eglot
-       :straight t
-       :hook 
-       (scala-mode . eglot-ensure)
-       (elixir-mode . eglot-ensure)
-       (python-mode . eglot-ensure)
-       (typescript-mode . eglot-ensure)
-       :config
-       ;; scala
-       (add-to-list 'eglot-server-programs '(scala-mode . ("metals-emacs")))
-       ;; elixir
-       (let ((lspath (expand-file-name "elixir-ls/language_server.sh" user-emacs-directory)))
-         (add-to-list 'eglot-server-programs `(elixir-mode ,lspath)))
+     (setq lsp-keymap-prefix "C-l")
 
-       (defhydra hydra-eglot (:exit t :hint nil)
-         ("d" eglot-find-declaration "find declaration")
-         ("t" eglot-typeDefinition "find type definition")
-         ("i" eglot-find-implementation "find implementation")
-         ("r" eglot-rename "rename")
-         ("f" eglot-format-buffer "format")
-         ("a" eglot-code-actions "code actions")))
+     (use-package lsp-mode
+       :straight t
+       :hook
+       (scala-mode . lsp)
+       (elixir-mode . lsp)
+       (python-mode . lsp)
+       (typescript-mode . lsp)
+       (lsp-mode . lsp-lens-mode)
+       :commands lsp
+       :config
+       (setq lsp-prefer-flymake nil))
+
+     (use-package lsp-metals
+       :straight t
+       :config (setq lsp-metals-treeview-show-when-views-received nil))
+
+     (use-package lsp-ui
+       :straight t
+       :commands lsp-ui-mode)
+
+     (use-package lsp-ivy
+       :straight t
+       :commands lsp-ivy-workspace-symbol)
+
+     (use-package lsp-treemacs
+       :straight t
+       :commands lsp-treemacs-errors-list)
+
+     (use-package company-lsp
+       :straight t)
+
+     (use-package posframe
+       :straight t)
+
+     (use-package dap-mode
+       :straight t
+       :hook
+       (lsp-mode . dap-mode)
+       (lsp-mode . dap-ui-mode))
+
    #+end_src
    
 ** Languages
 *** Scala
 #+begin_src emacs-lisp
+  ;; Enable scala-mode for highlighting, indentation and motion commands
   (use-package scala-mode
     :straight t
-    :defer t
-    :mode "^\w+\\.s\\(cala\\|bt\\)$")
+    :mode "^\w+\\.s\\(cala\\|bt\\)$"
+    :interpreter
+      ("scala" . scala-mode))
 
+  ;; Enable sbt mode for executing sbt commands
   (use-package sbt-mode
+    :straight t
     :commands sbt-start sbt-command
-    :defer t
-    :straight t)
+    :config
+    ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
+    ;; allows using SPACE when in the minibuffer
+    (substitute-key-definition
+     'minibuffer-complete-word
+     'self-insert-command
+     minibuffer-local-completion-map)
+     ;; sbt-supershell kills sbt-mode:  https://github.com/hvesalai/emacs-sbt-mode/issues/152
+     (setq sbt:program-options '("-Dsbt.supershell=false"))
+  )
 #+end_src
 *** Markdown
     #+begin_src emacs-lisp
@@ -875,7 +908,8 @@
     
     #+begin_src emacs-lisp
       (use-package alchemist
-        :straight t)
+        :straight t
+        :hook (elixir-mode . alchemist-mode))
     #+end_src
 *** TypeScript
     #+begin_src emacs-lisp
