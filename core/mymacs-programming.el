@@ -48,4 +48,84 @@
   :ryo
   ("SPC g" (("g" magit-status))))
 
+;; LSP
+;; TODO use ryo for key maps
+(setq lsp-keymap-prefix "C-l")
+(use-package lsp-mode
+  :straight t
+  :hook
+  (scala-mode . lsp)
+  (elixir-mode . lsp)
+  (python-mode . lsp)
+  (typescript-mode . lsp)
+  (lsp-mode . lsp-lens-mode)
+  :commands lsp
+  :config
+  (setq lsp-prefer-flymake nil))
+
+(use-package lsp-ui
+  :straight t
+  :commands lsp-ui-mode)
+
+(use-package lsp-ivy
+  :straight t
+  :commands lsp-ivy-workspace-symbol)
+
+(use-package company-lsp
+  :straight t)
+
+(use-package posframe
+  :straight t)
+
+(use-package dap-mode
+  :straight t
+  :hook
+  (lsp-mode . dap-mode)
+  (lsp-mode . dap-ui-mode))
+
+;; lsp-scala
+(use-package lsp-metals
+  :straight t
+  :config
+  (setq lsp-metals-treeview-show-when-views-received nil))
+
+(use-package scala-mode
+  :straight t
+  :mode "^\w+\\.s\\(cala\\|bt\\)$"
+  :interpreter
+    ("scala" . scala-mode))
+
+;; Enable sbt mode for executing sbt commands
+(use-package sbt-mode
+  :straight t
+  :commands sbt-start sbt-command
+  :config
+  ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
+  ;; allows using SPACE when in the minibuffer
+  (substitute-key-definition
+   'minibuffer-complete-word
+   'self-insert-command
+   minibuffer-local-completion-map)
+   ;; sbt-supershell kills sbt-mode:  https://github.com/hvesalai/emacs-sbt-mode/issues/152
+   (setq sbt:program-options '("-Dsbt.supershell=false"))
+)
+
+;; TODO split
+(use-package markdown-mode
+  :straight t)
+
+(use-package pip-requirements
+  :straight t
+  :mode ("/requirements.txt$" . pip-requirements-mode))
+
+(use-package terraform-mode
+  :straight t)
+
+(use-package company-terraform
+  :after company
+  :straight t
+  :config
+  (require 'company-terraform)
+  (company-terraform-init))
+
 (provide 'mymacs-programming)
