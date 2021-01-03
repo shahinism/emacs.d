@@ -1,8 +1,8 @@
 (use-package counsel
   :straight t
   :ryo
-  ("/" (("b" swiper-isearch)
-        ("p" counsel-ag)))
+  ("/" (("b" swiper-isearch :name "Search Buffer")
+        ("d" counsel-ag     :name "Search Directory")))
   :config
   (ivy-mode 1)
   (counsel-mode 1))
@@ -33,5 +33,11 @@
   :straight t
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+
+(use-package which-key
+  :straight t
+  :config
+  (push '((nil . "ryo:.*:") . (nil . "")) which-key-replacement-alist)
+  (which-key-mode))
 
 (provide 'mymacs-utils)

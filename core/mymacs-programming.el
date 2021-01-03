@@ -2,9 +2,9 @@
   :straight t
   :after counsel
   :ryo
-  ("SPC j" (("j" dumb-jump-go)
-            ("l" dumb-jump-quick-look)
-            ("b" dumb-jump-back)))
+  ("SPC j" (("j" dumb-jump-go         :name "Go to Definition")
+            ("l" dumb-jump-quick-look :name "Lookup Definitions")
+            ("b" dumb-jump-back       :name "Go Back")))
   :config
   (setq dumb-jump-selector 'ivy))
 
@@ -46,7 +46,7 @@
 (use-package magit
   :straight t
   :ryo
-  ("SPC g" (("g" magit-status))))
+  ("SPC g" (("g" magit-status :name "Git Status")) :name "Git"))
 
 ;; LSP
 ;; TODO use ryo for key maps
