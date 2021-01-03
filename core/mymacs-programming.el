@@ -1,3 +1,46 @@
+(use-package which-func
+  :config
+  ;; show the name of the current function
+  (which-function-mode 1))
+
+(use-package hl-todo
+  :straight t
+  :config
+  ;; font-lock TODO annotations
+  (global-hl-todo-mode 1))
+
+(use-package flycheck
+  :straight t
+  :config
+  (add-hook 'prog-mode-hook 'flycheck-mode))
+
+(use-package flycheck-pos-tip
+  :after flycheck
+  :straight t
+  :config
+  (setq flycheck-pos-tip-timeout 10
+        flycheck-display-errors-delay 0.5)
+  (flycheck-pos-tip-mode +1))
+
+(use-package yasnippet
+  :straight t
+  :defer t
+  :diminish yas-minor-mode
+  :config
+  (yas-reload-all)
+  (add-hook 'prog-mode-hook #'yas-minor-mode))
+
+(use-package yasnippet-snippets
+  :after yasnippet
+  :straight t
+  :config (yasnippet-snippets-initialize))
+
+(use-package ivy-yasnippet
+  :after yasnippet
+  :ryo
+  ("SPC i" (("i" ivy-yasnippet :name "Insert Snippets")))
+  :straight t)
+
 (use-package dumb-jump
   :straight t
   :after counsel

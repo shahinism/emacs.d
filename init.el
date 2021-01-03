@@ -9,5 +9,6 @@
 (require 'mymacs-packages)
 (require 'mymacs-keys)
 (require 'mymacs-editor)
+(require 'mymacs-ui)
 (require 'mymacs-utils)
 (require 'mymacs-programming)

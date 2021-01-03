@@ -40,4 +40,10 @@
   (push '((nil . "ryo:.*:") . (nil . "")) which-key-replacement-alist)
   (which-key-mode))
 
+(use-package anzu
+  :straight t
+  :ryo
+  ("SPC r" (("r" anzu-query-replace-regexp :name "Replace Regexp")
+            ("s" anzu-query-replace        :name "Replace Text"))))
+
 (provide 'mymacs-utils)

@@ -23,23 +23,6 @@
 ;; Enable ~y-or-no-p~
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;; Strip UI
-(scroll-bar-mode 0)
-(tool-bar-mode 0)
-(menu-bar-mode 0)
-
-;; Show line number in the mode-line:
-(line-number-mode t)
-
-;; Show column number in the mode-line:
-(column-number-mode t)
-
-;; Show file size in the mode-line:
-(size-indication-mode t)
-
-;; Enable global font lock
-(global-font-lock-mode)
-
 ;; Remeber where you left off
 (setq save-place-file (expand-file-name "saveplace" mymacs-savefile-dir))
 (save-place-mode 1)
@@ -78,9 +61,15 @@
   (setq ispell-program-name "aspell" ; use aspell instead of ispell
         ispell-extra-args '("--sug-mode=ultra"))
 
-  (when (executable-find ispell-program-name)
-    (flyspell-mode +1)
+  (if (executable-find ispell-program-name)
+      (flyspell-mode +1)
     (message "aspell not found, disabling flyspell mode"))
   )
+
+;; Make sure minified source codes (no new lines and so-long) won't
+;; bring Emacs to its knees: https://www.emacswiki.org/emacs/SoLong
+(use-package so-long
+  :config
+  (global-so-long-mode 1))
 
 (provide 'mymacs-editor)

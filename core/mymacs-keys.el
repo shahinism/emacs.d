@@ -56,17 +56,27 @@
   (split-window-below)
   (windmove-down))
 
+(use-package guru-mode
+  :straight t
+  :config
+  ;; Guide me to use more efficient keybindings
+  (setq guru-warn-only nil)
+  (guru-mode +1))
+
 (use-package expand-region
   :straight t)
 
 (use-package crux
   :straight t)
 
+(use-package avy
+  :straight t)
+
 (use-package ryo-modal
   :straight t
-  :after expand-region crux
+  :after expand-region crux avy
   :commands ryo-modal-mode
-  :bind ("<escape>" . mm/normal-mode)
+  :bind (("<escape>" . mm/normal-mode))
   :config
   (ryo-modal-keys
    ("M-;" comment-line)
@@ -137,7 +147,11 @@
          ("j" mm/kill-line-forward)
          ("k" mm/kill-line-backward)))
    ("e" mm/noop)
-   ("f" mm/noop)
+   ("f" (("c" avy-goto-char)
+         ("f" avy-goto-char-in-line)
+         ("s" avy-goto-char-timer)
+         ("l" avy-goto-line)
+         ("w" avy-goto-word-1)))
    ("g" mm/noop)
    ("h" backward-char)
    ("i" mm/insert-mode)
