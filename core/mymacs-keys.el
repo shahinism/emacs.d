@@ -208,7 +208,12 @@
              ("f" find-file)))
    
    )
- 
+
+  ;; TODO debug why setting these in the use-package construct wasn't
+  ;; working properly.
+  (add-hook 'text-mode-hook #'ryo-modal-mode)
+  (add-hook 'prog-mode-hook #'ryo-modal-mode)
+
   )
 
 (use-package ace-window

@@ -1,3 +1,10 @@
+(use-package iedit
+  :straight t
+  :ryo
+  ("SPC r" (("o" iedit-mode                :name "Edit Occurrences")))
+  :config
+  (unbind-key (kbd "C-;")))
+
 (use-package counsel
   :straight t
   :ryo
