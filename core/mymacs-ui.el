@@ -33,9 +33,10 @@
   :straight t
   :bind
   (([f5] . modus-themes-toggle))
+  :init
+  (load-theme 'modus-operandi t)
   :config
-  (require 'modus-themes)
-  (load-theme 'modus-operandi t))
+  (require 'modus-themes))
 
 (use-package doom-modeline
   :straight t

@@ -12,3 +12,4 @@
 (require 'mymacs-ui)
 (require 'mymacs-utils)
 (require 'mymacs-programming)
+(require 'mymacs-org)

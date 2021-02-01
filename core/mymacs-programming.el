@@ -171,4 +171,19 @@
   (require 'company-terraform)
   (company-terraform-init))
 
+;; SQL
+(use-package sqlformat
+  :straight t
+  :config
+  (setq sqlformat-command 'pgformatter)
+  (setq sqlformat-args '("-s2" "-g")))
+
+(use-package python-black
+  :demand t
+  :straight t
+  :after python)
+
+(use-package yaml-mode
+  :straight t)
+
 (provide 'mymacs-programming)

@@ -74,7 +74,7 @@
 
 (use-package ryo-modal
   :straight t
-  :after expand-region crux avy
+  :after expand-region crux avy counsel
   :commands ryo-modal-mode
   :bind (("<escape>" . mm/normal-mode))
   :config
@@ -205,7 +205,9 @@
              ("r" crux-rename-file-and-buffer)
              ("c" crux-cleanup-buffer-or-region)))
    ("SPC f" (("i" crux-find-user-init-file)
-             ("f" find-file)))
+             ("f" find-file)
+             ("r" counsel-recentf)
+             ("s" save-buffer)))
    
    )
 
