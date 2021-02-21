@@ -104,6 +104,12 @@
   (lsp-mode . lsp-lens-mode)
   :commands lsp
   :config
+  ;; https://emacs-lsp.github.io/lsp-mode/page/performance/
+  (setq gc-cons-threshold 100000000) ;; 100mb
+  (setq read-process-output-max (* 1024 1024)) ;; 1mb
+  (setq lsp-idle-delay 0.500)
+  (setq lsp-log-io nil)
+  (setq lsp-completion-provider :capf)  
   (setq lsp-prefer-flymake nil))
 
 (use-package lsp-ui
@@ -157,6 +163,9 @@
 (use-package markdown-mode
   :straight t)
 
+(use-package markdown-toc
+  :straight t)
+
 (use-package pip-requirements
   :straight t
   :mode ("/requirements.txt$" . pip-requirements-mode))
@@ -184,6 +193,12 @@
   :after python)
 
 (use-package yaml-mode
+  :straight t)
+
+(use-package json-mode
+  :straight t)
+
+(use-package web-beautify
   :straight t)
 
 (provide 'mymacs-programming)
