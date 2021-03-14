@@ -22,25 +22,6 @@
         flycheck-display-errors-delay 0.5)
   (flycheck-pos-tip-mode +1))
 
-(use-package yasnippet
-  :straight t
-  :defer t
-  :diminish yas-minor-mode
-  :config
-  (yas-reload-all)
-  (add-hook 'prog-mode-hook #'yas-minor-mode))
-
-(use-package yasnippet-snippets
-  :after yasnippet
-  :straight t
-  :config (yasnippet-snippets-initialize))
-
-(use-package ivy-yasnippet
-  :after yasnippet
-  ;; :ryo
-  ;; ("SPC i" (("i" ivy-yasnippet :name "Insert Snippets")))
-  :straight t)
-
 (use-package dumb-jump
   :straight t
   :after counsel
@@ -63,33 +44,6 @@
   :config
   (require 'smartparens-config)
   (smartparens-global-mode))
-
-(use-package projectile
-  :straight t
-  :config
-  (projectile-mode +1)
-  (setq projectile-enable-caching t))
-
-(use-package counsel-projectile
-  :after projectile
-  :straight t
-  ;; :ryo
-  ;; ("SPC p" (("a" counsel-projectile-ag)
-  ;;           ("b" counsel-projectile-switch-to-buffer)
-  ;;           ("c" projectile-invalidate-cache)
-  ;;           ("d" counsel-projectile-find-dir)
-  ;;           ("f" counsel-projectile-find-file)
-  ;;           ("K" projectile-kill-buffers)
-  ;;           ("p" projectile-switch-project)
-  ;;           ("r" projectile-recentf)
-  ;;           ("s" projectile-save-project-buffers)))
-  :config
-  (setq projectile-completion-system 'ivy))
-
-(use-package magit
-  :straight t)
-  ;; :ryo
-  ;; ("SPC g" (("g" magit-status :name "Git Status")) :name "Git"))
 
 ;; LSP
 ;; TODO use ryo for key maps
