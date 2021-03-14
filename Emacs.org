@@ -162,7 +162,7 @@
        "pd" 'counsel-projectile-find-dir
        "pf" 'counsel-projectile-find-file
        "pK" 'projectile-kill-buffers
-       "pp" 'projectile-switch-to-buffer
+       "pp" 'projectile-switch-project
        "pr" 'projectile-recentf
        "ps" 'projectile-save-project-buffers
        )
