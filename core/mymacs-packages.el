@@ -1,4 +1,8 @@
 ;; initialize straight
+
+;; disable native comp warnings.
+(setq comp-async-report-warnings-errors nil)
+
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
