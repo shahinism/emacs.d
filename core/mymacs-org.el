@@ -34,8 +34,8 @@
 
 (use-package org-roam
   :straight t
-  :ryo
-  ("SPC n" (("d" org-roam-dailies-capture-today :name "Capture Daily Note")))
+  ;; :ryo
+  ;; ("SPC n" (("d" org-roam-dailies-capture-today :name "Capture Daily Note")))
   :config
   (setq org-roam-directory "~/org/roam"
         org-roam-dailies-directory "~/org/daily")
