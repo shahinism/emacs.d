@@ -37,17 +37,17 @@
 
 (use-package ivy-yasnippet
   :after yasnippet
-  :ryo
-  ("SPC i" (("i" ivy-yasnippet :name "Insert Snippets")))
+  ;; :ryo
+  ;; ("SPC i" (("i" ivy-yasnippet :name "Insert Snippets")))
   :straight t)
 
 (use-package dumb-jump
   :straight t
   :after counsel
-  :ryo
-  ("SPC j" (("j" dumb-jump-go         :name "Go to Definition")
-            ("l" dumb-jump-quick-look :name "Lookup Definitions")
-            ("b" dumb-jump-back       :name "Go Back")))
+  ;; :ryo
+  ;; ("SPC j" (("j" dumb-jump-go         :name "Go to Definition")
+  ;;           ("l" dumb-jump-quick-look :name "Lookup Definitions")
+  ;;           ("b" dumb-jump-back       :name "Go Back")))
   :config
   (setq dumb-jump-selector 'ivy))
 
@@ -73,23 +73,23 @@
 (use-package counsel-projectile
   :after projectile
   :straight t
-  :ryo
-  ("SPC p" (("a" counsel-projectile-ag)
-            ("b" counsel-projectile-switch-to-buffer)
-            ("c" projectile-invalidate-cache)
-            ("d" counsel-projectile-find-dir)
-            ("f" counsel-projectile-find-file)
-            ("K" projectile-kill-buffers)
-            ("p" projectile-switch-project)
-            ("r" projectile-recentf)
-            ("s" projectile-save-project-buffers)))
+  ;; :ryo
+  ;; ("SPC p" (("a" counsel-projectile-ag)
+  ;;           ("b" counsel-projectile-switch-to-buffer)
+  ;;           ("c" projectile-invalidate-cache)
+  ;;           ("d" counsel-projectile-find-dir)
+  ;;           ("f" counsel-projectile-find-file)
+  ;;           ("K" projectile-kill-buffers)
+  ;;           ("p" projectile-switch-project)
+  ;;           ("r" projectile-recentf)
+  ;;           ("s" projectile-save-project-buffers)))
   :config
   (setq projectile-completion-system 'ivy))
 
 (use-package magit
-  :straight t
-  :ryo
-  ("SPC g" (("g" magit-status :name "Git Status")) :name "Git"))
+  :straight t)
+  ;; :ryo
+  ;; ("SPC g" (("g" magit-status :name "Git Status")) :name "Git"))
 
 ;; LSP
 ;; TODO use ryo for key maps
