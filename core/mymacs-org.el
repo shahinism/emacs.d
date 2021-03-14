@@ -34,8 +34,6 @@
 
 (use-package org-roam
   :straight t
-  ;; :ryo
-  ;; ("SPC n" (("d" org-roam-dailies-capture-today :name "Capture Daily Note")))
   :config
   (setq org-roam-directory "~/org/roam"
         org-roam-dailies-directory "~/org/daily")
@@ -81,8 +79,8 @@
                           (org-web-tools-insert-web-page-as-entry (org-get-x-clipboard 'PRIMARY)))
                  )))))
 
-(use-package org-web-tools
-  :straight t)
+;;(use-package org-web-tools
+;;  :straight t)
 
 
 (provide 'mymacs-org)

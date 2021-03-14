@@ -1,0 +1,200 @@
+* Packages
+  #+begin_src emacs-lisp
+    (setq comp-async-report-warnings-errors nil)
+
+    (defvar bootstrap-version)
+    (let ((bootstrap-file
+           (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+          (bootstrap-version 5))
+      (unless (file-exists-p bootstrap-file)
+        (with-current-buffer
+            (url-retrieve-synchronously
+             "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+             'silent 'inhibit-cookies)
+          (goto-char (point-max))
+          (eval-print-last-sexp)))
+      (load bootstrap-file nil 'nomessage))
+
+    ;; enable use-package integration with straight
+    (straight-use-package 'use-package)
+  #+end_src
+  
+* Evil
+  #+begin_src emacs-lisp
+    (use-package evil
+      :straight t
+      :init
+      (setq evil-want-keybinding nil)
+      :config
+      (evil-mode 1))
+  #+end_src
+
+  #+begin_src emacs-lisp
+    (use-package evil-collection
+      :after evil
+      :straight t
+      :config
+      (evil-collection-init))
+  #+end_src
+
+* General
+
+  #+begin_src emacs-lisp
+    (use-package general
+      :straight t
+      :config
+
+      (general-create-definer sa/leader-key-def
+        :keymaps '(normal insert visual emacs)
+        :prefix "SPC"
+        :global-prefix "C-SPC"))
+  #+end_src
+
+** Main Bindings
+
+   #+begin_src emacs-lisp
+     (sa/leader-key-def
+       "f" '(:ignore t :which-key "file")
+       "ff" 'counsel-find-file
+       "fr" 'counsel-recentf
+       "fs" 'save-buffer
+
+       "w" '(:ignore t :which-key "window")
+       "wh" 'windmove-left
+       "wj" 'windmove-down
+       "wk" 'windmove-up
+       "wl" 'windmove-right
+       "w/" '(lambda ()
+               (interactive)
+               (split-window-right)
+               (windmove-right))
+       "w-" '(lambda ()
+               (interactive)
+               (split-window-below)
+               (windmove-down))
+       "wo" 'delete-other-windows
+       "wa" 'ace-window
+       "ws" 'ace-swap-window
+       "wd" 'ace-delete-window)
+   #+end_src
+   
+** [[https://github.com/abo-abo/avy][Avy]]
+
+   #+begin_src emacs-lisp
+     (use-package avy
+       :straight t
+       :config
+       ;; make avy to search current buffer only
+       (setq avy-all-windows nil)
+
+       (general-define-key
+        :keymaps 'normal
+        :prefix "f"
+        "f" 'avy-goto-char
+        "F" 'avy-goto-char-2
+        "t" 'avy-goto-char-timer
+        "w" 'avy-goto-word-1-below
+        "w" 'avy-goto-word-1-above
+        )
+       )
+   #+end_src
+
+* Programming
+** Magit
+   #+begin_src emacs-lisp
+     (use-package magit
+       :straight t
+       :config
+       (sa/leader-key-def
+         "g" '(:ignore t :which-key "git")
+         "gs" 'magit-status
+         "gd" 'magit-diff-unstaged
+         "gc" 'magit-branch-or-checkout
+         "gl" '(:ignore t :which-key "log")
+         "glc" 'magit-log-current
+         "glf" 'magit-log-buffer-file
+         "gb" 'magit-branch
+         "gP" 'magit-push-current
+         "gp" 'magit-pull-branch
+         "gf" 'magit-fetch
+         "gF" 'magit-fetch-all
+         "gr" 'magit-rebase ;; TODO learn this
+         )
+       )
+   #+end_src
+** Projectile
+   #+begin_src emacs-lisp
+     (use-package projectile
+       :straight t
+       :config
+       (projectile-mode +1)
+       (setq projectile-enable-caching t))
+
+     (use-package counsel-projectile
+       :after projectile
+       :straight t
+       :config
+       (setq projectile-completion-system 'ivy))
+
+     (sa/leader-key-def
+       "p" '(:ignore t :which-key "proejct")
+       "pa" 'counsel-projectile-ag
+       "pb" 'counsel-projectile-switch-to-buffer
+       "pc" 'projectile-invalidate-cache
+       "pC" 'projectile-compile-project
+       "pd" 'counsel-projectile-find-dir
+       "pf" 'counsel-projectile-find-file
+       "pK" 'projectile-kill-buffers
+       "pp" 'projectile-switch-to-buffer
+       "pr" 'projectile-recentf
+       "ps" 'projectile-save-project-buffers
+       )
+   #+end_src 
+** Yasnippet
+
+   #+begin_src emacs-lisp
+     (use-package yasnippet
+       :straight t
+       :defer t
+       :diminish yas-minor-mode
+       :hook (prog-mode . yas-minor-mode) 
+       :config
+       (yas-reload-all))
+
+     (use-package yasnippet-snippets
+       :after yasnippet
+       :straight t
+       :config (yasnippet-snippets-initialize))
+   #+end_src 
+* Utilities
+** [[https://github.com/Wilfred/helpful][Helpful]]
+
+   #+begin_src emacs-lisp
+     (use-package helpful
+       :straight t
+       :custom
+       (counsel-describe-function-function #'helpful-callable)
+       (counsel-describe-variable-function #'helpful-variable)
+       :bind
+       ([remap describe-function] . helpful-function)
+       ([remap describe-symbol] . helpful-symbol)
+       ([remap describe-variable] . helpful-variable)
+       ([remap describe-command] . helpful-command)
+       ([remap describe-key] . helpful-key))
+   #+end_src
+* Old Config
+  #+begin_src emacs-lisp
+    (defvar mymacs-core-dir (expand-file-name "core" user-emacs-directory))
+    (defvar mymacs-savefile-dir (expand-file-name "savefile" user-emacs-directory))
+
+    (unless (file-directory-p mymacs-savefile-dir)
+      (make-directory mymacs-savefile-dir))
+
+    (add-to-list 'load-path mymacs-core-dir)
+
+    (require 'mymacs-editor)
+    (require 'mymacs-ui)
+    (require 'mymacs-utils)
+    (require 'mymacs-programming)
+    (require 'mymacs-org)
+  #+end_src

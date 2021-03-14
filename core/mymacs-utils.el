@@ -1,15 +1,11 @@
+;; TODO implement a proper multicursor binding 
 (use-package iedit
   :straight t
-  ;; :ryo
-  ;; ("SPC r" (("o" iedit-mode                :name "Edit Occurrences")))
   :config
   (unbind-key (kbd "C-;")))
 
 (use-package counsel
   :straight t
-  ;; :ryo
-  ;; ("/" (("b" swiper-isearch :name "Search Buffer")
-  ;;       ("d" counsel-ag     :name "Search Directory")))
   :config
   (ivy-mode 1)
   (counsel-mode 1))
@@ -44,13 +40,6 @@
 (use-package which-key
   :straight t
   :config
-  ;; (push '((nil . "ryo:.*:") . (nil . "")) which-key-replacement-alist)
   (which-key-mode))
-
-(use-package anzu
-  :straight t)
-  ;; :ryo
-  ;; ("SPC r" (("r" anzu-query-replace-regexp :name "Replace Regexp")
-            ;; ("s" anzu-query-replace        :name "Replace Text"))))
 
 (provide 'mymacs-utils)
