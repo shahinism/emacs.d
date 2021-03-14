@@ -90,9 +90,9 @@
        (general-define-key
         :keymaps 'normal
         :prefix "f"
-        "f" 'avy-goto-char
+        "f" 'avy-goto-char-timer
         "F" 'avy-goto-char-2
-        "t" 'avy-goto-char-timer
+        "j" 'avy-goto-char
         "w" 'avy-goto-word-1-below
         "w" 'avy-goto-word-1-above
         )
