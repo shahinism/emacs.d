@@ -90,15 +90,32 @@
        (general-define-key
         :keymaps 'normal
         :prefix "f"
-        "f" 'avy-goto-char-timer
+        "f" 'avy-goto-char
         "F" 'avy-goto-char-2
-        "j" 'avy-goto-char
+        "j" 'avy-goto-char-timer
         "w" 'avy-goto-word-1-below
         "w" 'avy-goto-word-1-above
         )
        )
    #+end_src
-
+   
+** [[https://github.com/magnars/expand-region.el][Expand-Region]]
+   #+begin_src emacs-lisp
+     (use-package expand-region
+       :straight t
+       :config
+       (sa/leader-key-def
+         "s" '(:ignore t :which-key "select")
+         "sa" 'mark-page
+         "se" 'er/expand-region
+         "ss" 'er/mark-symbol
+         "sb" 'er/mark-inside-pairs
+         "sl" 'er/mark-line
+         "s'" 'er/mark-inside-quotes
+         "s." 'er/mark-sentence
+         "sp" 'er/mark-paragraph
+         "sw" 'er/mark-word))
+   #+end_src
 * Programming
 ** Magit
    #+begin_src emacs-lisp
