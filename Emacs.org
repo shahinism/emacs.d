@@ -37,6 +37,28 @@
       (evil-collection-init))
   #+end_src
 
+* Ivy
+
+  #+begin_src emacs-lisp
+    (use-package counsel
+      :straight t
+      :config
+      (ivy-mode 1)
+      (counsel-mode 1)
+
+      (sa/leader-key-def
+        "/" '(:ignore t :which-key "search")
+        "//" 'swiper-thing-at-point
+        "/?" 'swiper-all-thing-at-point
+        "/s" 'swiper-isearch
+        "/s" 'swiper-all))
+
+    (use-package ivy-rich
+      :straight t
+      :config
+      (ivy-rich-mode 1))
+
+  #+end_src
 * General
 
   #+begin_src emacs-lisp
@@ -183,6 +205,15 @@
        :straight t
        :config (yasnippet-snippets-initialize))
    #+end_src 
+** Docker
+
+   Install =dockerfile-mode=. Did you know it's by [[https://github.com/spotify/dockerfile-mode][Spotify]]?
+   #+begin_src emacs-lisp
+     (use-package dockerfile-mode
+       :straight t
+       :config
+       (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode)))
+   #+end_src
 * Utilities
 ** [[https://github.com/Wilfred/helpful][Helpful]]
 
