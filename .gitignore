@@ -88,7 +88,7 @@ url
 
 # shahin
 transient
-README.el
+Emacs.el
 history
 straight
 projectile.cache
