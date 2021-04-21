@@ -37,28 +37,6 @@
       (evil-collection-init))
   #+end_src
 
-* Ivy
-
-  #+begin_src emacs-lisp
-    (use-package counsel
-      :straight t
-      :config
-      (ivy-mode 1)
-      (counsel-mode 1)
-
-      (sa/leader-key-def
-        "/" '(:ignore t :which-key "search")
-        "//" 'swiper-thing-at-point
-        "/?" 'swiper-all-thing-at-point
-        "/s" 'swiper-isearch
-        "/s" 'swiper-all))
-
-    (use-package ivy-rich
-      :straight t
-      :config
-      (ivy-rich-mode 1))
-
-  #+end_src
 * General
 
   #+begin_src emacs-lisp
@@ -138,6 +116,28 @@
          "sp" 'er/mark-paragraph
          "sw" 'er/mark-word))
    #+end_src
+* Ivy
+
+  #+begin_src emacs-lisp
+    (use-package counsel
+      :straight t
+      :config
+      (ivy-mode 1)
+      (counsel-mode 1)
+
+      (sa/leader-key-def
+        "/" '(:ignore t :which-key "search")
+        "//" 'swiper-thing-at-point
+        "/?" 'swiper-all-thing-at-point
+        "/s" 'swiper-isearch
+        "/s" 'swiper-all))
+
+    (use-package ivy-rich
+      :straight t
+      :config
+      (ivy-rich-mode 1))
+
+  #+end_src
 * Programming
 ** Magit
    #+begin_src emacs-lisp
@@ -214,6 +214,11 @@
        :config
        (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode)))
    #+end_src
+** R and Statistics
+   #+begin_src emacs-lisp
+     (use-package ess
+       :straight t)
+   #+end_src
 * Utilities
 ** [[https://github.com/Wilfred/helpful][Helpful]]
 
@@ -229,6 +234,22 @@
        ([remap describe-variable] . helpful-variable)
        ([remap describe-command] . helpful-command)
        ([remap describe-key] . helpful-key))
+   #+end_src
+** [[https://github.com/bbatsov/crux][Crux]]
+   #+begin_src emacs-lisp
+     (use-package crux
+       :straight t
+       :config
+       (sa/leader-key-def
+         "b" '(:ignore t :which-key "buffer")
+         "br" 'crux-rename-file-and-buffer))
+   #+end_src
+** [[https://github.com/redguardtoo/evil-nerd-commenter][Evil Nerd Commenter]]
+   #+begin_src emacs-lisp
+     (use-package evil-nerd-commenter
+       :straight t
+       :config
+       (evilnc-default-hotkeys))
    #+end_src
 * Old Config
   #+begin_src emacs-lisp
