@@ -220,6 +220,31 @@
        :straight t)
    #+end_src
 * Utilities
+** Spell Checking
+   #+begin_src emacs-lisp
+     (defun get-aspell-args (&optional check-camel-case)
+       "if CHECK-CAMEL-CASE, spell check CamelCase words."
+       (let (args)
+         (setq args (list "--sug-mode=ultra" "--lang=en-US"))
+         (when check-camel-case
+           (setq args (append args '("--camel-case"))))))
+
+     ;; use aspell as spell checker, and by default enable camel case typo
+     ;; detection.
+     (setq ispell-program-name "aspell")
+     (setq-default ispell-extra-args (get-aspell-args t))
+
+     (defun disabled-camel-case-hook ()
+       "Get ispell config with RUN-TOGETER disabled"
+       (setq-local ispell-extra-args (get-aspell-args)))
+
+     ;; in text mode, disable camel case typo detection.
+     (add-hook 'text-mode-hook 'disabled-camel-case-hook)
+
+     ;; Enable flyspell for all modes.
+     (add-hook 'text-mode-hook 'flyspell-mode)
+     (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+   #+end_src
 ** [[https://github.com/Wilfred/helpful][Helpful]]
 
    #+begin_src emacs-lisp
