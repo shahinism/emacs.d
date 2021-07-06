@@ -251,6 +251,13 @@
        :config
        (evilnc-default-hotkeys))
    #+end_src
+** ActivityWatch
+   #+begin_src emacs-lisp
+     (use-package activity-watch-mode
+       :straight t
+       :config
+       (global-activity-watch-mode))
+   #+end_src
 * Old Config
   #+begin_src emacs-lisp
     (defvar mymacs-core-dir (expand-file-name "core" user-emacs-directory))
