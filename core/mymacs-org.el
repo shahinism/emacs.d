@@ -4,7 +4,7 @@
   (add-hook 'org-mode-hook #'org-bullets-mode))
 
 (use-package org
-  ;; :straight org-plus-contrib
+  :straight org-plus-contrib
   :config
   (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
   (setq org-use-speed-commands t
@@ -34,30 +34,20 @@
 
 (use-package org-roam
   :straight t
+  :after org
+  :custom
+  (org-roam-directory (file-truename "/path/to/org-files/"))
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n g" . org-roam-graph)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n c" . org-roam-capture)
+         ;; Dailies
+         ("C-c n j" . org-roam-dailies-capture-today))
   :config
-  (setq org-roam-directory "~/org/roam"
-        org-roam-dailies-directory "~/org/daily")
-
-  (add-hook 'after-init-hook 'org-roam-mode)
-  
-  (when (not (file-directory-p org-roam-directory))
-    (make-directory org-roam-directory))
-
-  (setq org-roam-dailies-capture-templates
-      '(("p" "Personal" entry
-         #'org-roam-capture--get-point
-         "* %?"
-         :file-name "~/org/daily/%<%Y-%m-%d>"
-         :head "#+title: %<%Y-%m-%d>\n"
-         :olp ("Personal"))
-
-        ("t" "Technical" entry
-         #'org-roam-capture--get-point
-         "* %?"
-         :file-name "~/org/daily/%<%Y-%m-%d>"
-         :head "#+title: %<%Y-%m-%d>\n"
-         :olp ("Technical"))))
-  )
+  (org-roam-setup)
+  ;; If using org-roam-protocol
+  (require 'org-roam-protocol))
 
 (use-package doct
   :straight t
