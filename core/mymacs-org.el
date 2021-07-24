@@ -4,7 +4,7 @@
   (add-hook 'org-mode-hook #'org-bullets-mode))
 
 (use-package org
-  :straight org-plus-contrib
+  ;; :straight org-plus-contrib
   :config
   (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
   (setq org-use-speed-commands t
@@ -31,23 +31,6 @@
 
   (setq org-todo-keywords '((sequence "[ ](t)" "[w](w)" "|" "[x](d)" "[-](c)")))
   (require 'org-protocol))
-
-(use-package org-roam
-  :straight t
-  :after org
-  :custom
-  (org-roam-directory (file-truename "/path/to/org-files/"))
-  :bind (("C-c n l" . org-roam-buffer-toggle)
-         ("C-c n f" . org-roam-node-find)
-         ("C-c n g" . org-roam-graph)
-         ("C-c n i" . org-roam-node-insert)
-         ("C-c n c" . org-roam-capture)
-         ;; Dailies
-         ("C-c n j" . org-roam-dailies-capture-today))
-  :config
-  (org-roam-setup)
-  ;; If using org-roam-protocol
-  (require 'org-roam-protocol))
 
 (use-package doct
   :straight t
