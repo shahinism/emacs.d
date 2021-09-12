@@ -95,3 +95,9 @@ projectile.cache
 elixir-ls
 savefile
 eln-cache
+
+.cache
+.dap-breakpoints
+.lsp-session-v1
+request
+org-roam.db
