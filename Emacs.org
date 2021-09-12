@@ -19,6 +19,13 @@
     (straight-use-package 'use-package)
   #+end_src
   
+* Default
+  #+begin_src emacs-lisp
+    (global-set-key (kbd "C-=") 'text-scale-increase)
+    (global-set-key (kbd "C--") 'text-scale-decrease)
+    (global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
+    (global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
+  #+end_src
 * Evil
   #+begin_src emacs-lisp
     (use-package evil
@@ -139,6 +146,14 @@
 
   #+end_src
 * Programming
+  
+** [[https://github.com/emacsorphanage/git-gutter][git-gutter]]
+   #+begin_src emacs-lisp
+     (use-package git-gutter
+       :straight t
+       :init
+       (global-git-gutter-mode +1))
+   #+end_src
 ** Magit
    #+begin_src emacs-lisp
      (use-package magit
@@ -219,6 +234,16 @@
      (use-package ess
        :straight t)
    #+end_src
+** TypeScript
+*** Tide
+    #+begin_src emacs-lisp
+      (use-package tide
+        :straight t
+        :after (typescript-mode company flycheck)
+        :hook ((typescript-mode . tide-setup)
+               (typescript-mode . tide-hl-identifier-mode)
+               (before-save . tide-format-before-save)))
+    #+end_src
 * Utilities
 ** Spell Checking
    #+begin_src emacs-lisp
@@ -283,6 +308,47 @@
        :config
        (global-activity-watch-mode))
    #+end_src
+** EShell
+*** [[https://github.com/kyagi/shell-pop-el][Shell pop]]
+    #+begin_src emacs-lisp
+      (use-package shell-pop
+        :straight t
+        :bind ([f12] . shell-pop)
+        :init
+        (custom-set-variables
+         '(shell-pop-default-directory "~/")
+         '(shell-pop-shell-type '("eshell" "*eshell*" #'eshell))
+         '(shell-pop-universal-key "C-t")
+         '(shell-pop-window-size 30)
+         '(shell-pop-full-span t)
+         '(shell-pop-window-position "bottom")
+         '(shell-pop-autocd-to-working-dir t)
+         '(shell-pop-restore-window-configuration t)
+         '(shell-pop-cleanup-buffer-at-process-exit t))
+        ;; Visual commands
+        (setq eshell-visual-commands '("vi" "screen" "top" "less" "more" "lynx"
+                                       "ncftp" "pine" "tin" "trn" "elm" "vim"
+                                       "nmtui" "alsamixer" "htop" "el" "elinks"
+                                       ))
+        (setq eshell-visual-subcommands '(("git" "log" "diff" "show"))))
+    #+end_src
+*** [[https://github.com/zwild/eshell-prompt-extras][eshell-prompt-extras]]
+    #+begin_src emacs-lisp
+      (use-package eshell-prompt-extras
+        :straight t
+        :after shell-pop
+        :init
+        (with-eval-after-load "esh-opt"
+          (autoload 'epe-theme-lambda "eshell-prompt-extras")
+          (setq eshell-highlight-prompt nil
+                eshell-prompt-function 'epe-theme-lambda)))
+    #+end_src
+*** [[https://github.com/dieggsy/esh-autosuggest/][esh-autosuggest]]
+    #+begin_src emacs-lisp
+      (use-package esh-autosuggest
+        :straight t
+        :hook (eshell-mode . esh-autosuggest-mode))
+    #+end_src
 * Old Config
   #+begin_src emacs-lisp
     (defvar mymacs-core-dir (expand-file-name "core" user-emacs-directory))
