@@ -97,9 +97,10 @@
        (general-define-key
         :keymaps 'normal
         :prefix "f"
-        "f" 'avy-goto-char
-        "F" 'avy-goto-char-2
+        "f" 'avy-goto-char-2
+        "F" 'avy-goto-char
         "j" 'avy-goto-char-timer
+        "l" 'avy-goto-char-in-line
         "w" 'avy-goto-word-1-below
         "w" 'avy-goto-word-1-above
         )
