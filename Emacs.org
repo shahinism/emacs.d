@@ -98,7 +98,7 @@
         :keymaps 'normal
         :prefix "f"
         "f" 'avy-goto-char-2
-        "F" 'avy-goto-char
+        "j" 'avy-goto-char
         "j" 'avy-goto-char-timer
         "l" 'avy-goto-char-in-line
         "w" 'avy-goto-word-1-below
@@ -124,6 +124,7 @@
          "sp" 'er/mark-paragraph
          "sw" 'er/mark-word))
    #+end_src
+
 * Ivy
 
   #+begin_src emacs-lisp
