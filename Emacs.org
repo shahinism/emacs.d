@@ -93,17 +93,12 @@
        :config
        ;; make avy to search current buffer only
        (setq avy-all-windows nil)
-
-       (general-define-key
-        :keymaps 'normal
-        :prefix "f"
-        "f" 'avy-goto-char-2
-        "j" 'avy-goto-char
-        "j" 'avy-goto-char-timer
-        "l" 'avy-goto-char-in-line
-        "w" 'avy-goto-word-1-below
-        "w" 'avy-goto-word-1-above
-        )
+       (sa/leader-key-def
+         "j" '(:ignore t :which-key "jump")
+         "jj" 'avy-goto-char
+         "jw" 'avy-goto-word-0
+         "jl" 'avy-goto-line
+         "jt" 'avy-goto-char-timer)
        )
    #+end_src
    
