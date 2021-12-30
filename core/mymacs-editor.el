@@ -1,5 +1,5 @@
 (setq-default indent-tabs-mode nil ;; don't use tabs
-              tab-width 8          ;; maintain correct appearance
+              tab-width 4          ;; maintain correct appearance
               visible-bell t       ;; enable to save ears
               initial-scratch-message ""
               inhibit-startup-message t

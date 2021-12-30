@@ -18,13 +18,26 @@
     ;; enable use-package integration with straight
     (straight-use-package 'use-package)
   #+end_src
-  
+ 
 * Default
   #+begin_src emacs-lisp
     (global-set-key (kbd "C-=") 'text-scale-increase)
     (global-set-key (kbd "C--") 'text-scale-decrease)
     (global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
     (global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
+  #+end_src
+
+  #+begin_src emacs-lisp
+    ;;; It is the opposite of fill-paragraph    
+    (defun unfill-paragraph ()
+      "Takes a multi-line paragraph and makes it into a single line of text."
+      (interactive)
+      (let ((fill-column (point-max)))
+        (fill-paragraph nil)))
+
+     ;; Handy key definition
+     (define-key global-map "\M-Q" 'unfill-paragraph)
+
   #+end_src
 * Evil
   #+begin_src emacs-lisp
@@ -300,17 +313,17 @@
    #+end_src
 ** ActivityWatch
    #+begin_src emacs-lisp
-     (use-package activity-watch-mode
-       :straight t
-       :config
-       (global-activity-watch-mode))
+     ;; (use-package activity-watch-mode
+     ;;   :straight t
+     ;;   :config
+     ;;   (global-activity-watch-mode))
    #+end_src
 ** EShell
 *** [[https://github.com/kyagi/shell-pop-el][Shell pop]]
     #+begin_src emacs-lisp
       (use-package shell-pop
         :straight t
-        :bind ([f12] . shell-pop)
+        :bind ([f8] . shell-pop)
         :init
         (custom-set-variables
          '(shell-pop-default-directory "~/")
@@ -328,6 +341,14 @@
                                        "nmtui" "alsamixer" "htop" "el" "elinks"
                                        ))
         (setq eshell-visual-subcommands '(("git" "log" "diff" "show"))))
+
+
+      (use-package eshell-z
+        :straight t
+        :config
+        (add-hook 'eshell-mode-hook
+                (defun my-eshell-mode-hook ()
+                  (require 'eshell-z))))
     #+end_src
 *** [[https://github.com/zwild/eshell-prompt-extras][eshell-prompt-extras]]
     #+begin_src emacs-lisp
@@ -362,3 +383,50 @@
     (require 'mymacs-programming)
     (require 'mymacs-org)
   #+end_src
+* Theme
+
+#+begin_src emacs-lisp
+  (use-package modus-themes
+    :straight t
+    :init
+    ;; Add all your customizations prior to loading the themes
+    (setq modus-themes-italic-constructs t
+          modus-themes-bold-constructs nil
+          modus-themes-region '(bg-only no-extend))
+
+    ;; Load the theme files before enabling a theme (else you get an error).
+    (modus-themes-load-themes)
+    :config
+    ;; Load the theme of your choice:
+    (modus-themes-load-operandi) ;; OR (modus-themes-load-vivendi)
+    :bind ("<f5>" . modus-themes-toggle))
+#+end_src
+
+* Emoji
+
+#+begin_src emacs-lisp
+  (use-package emojify
+    :straight t
+    :hook (after-init . global-emojify-mode)
+    :config
+    (setq emojify-display-style 'unicode))
+#+end_src
+
+* Golang
+#+begin_src emacs-lisp
+  (use-package go-mode
+    :straight t
+    :config
+    (autoload 'go-mode "go-mode" nil t)
+    (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
+    (add-hook 'go-mode-hook #'lsp-deferred)
+    )
+#+end_src
+
+** Org-Babel
+#+begin_src emacs-lisp
+  (use-package ob-go
+    :straight t)
+#+end_src
+
+* TODO is it possible to store the ~stderr~ as part of the Org Babel ~RESULTS~?
