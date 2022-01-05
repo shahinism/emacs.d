@@ -443,12 +443,23 @@ sudo apt install sqlite3
     :config
     (setq dash-docs-enable-debugging nil)
 
-    (add-hook 'go-mode-hook (lambda () (setq-local counsel-dash-docsets "Go")))
-    (add-hook 'emacs-lisp-mode-hook (lambda () (setq-local counsel-dash-docsets "Emacs Lisp")))
-    (add-hook 'python-mode-hook (lambda () (setq-local counsel-dash-docsets "Python")))
-    (add-hook 'scala-mode-hook (lambda () (setq-local counsel-dash-docsets "Scala")))
-
+    ;; TODO can you turn lambdas into a function
+    (add-hook 'emacs-lisp-mode-hook (lambda () (setq-local counsel-dash-docsets '("Emacs Lisp"))))
+    (add-hook 'go-mode-hook (lambda () (setq-local counsel-dash-docsets '("Go"))))
+    (add-hook 'scala-mode-hook (lambda () (setq-local counsel-dash-docsets '("Scala"))))
+    (add-hook 'rust-mode-hook (lambda () (setq-local counsel-dash-docsets '("Rust"))))
+    (add-hook 'clojure-mode-hook (lambda () (setq-local counsel-dash-docsets '("Clojure"))))
+    (add-hook 'haskell-mode-hook (lambda () (setq-local counsel-dash-docsets '("Haskell"))))
+    (add-hook 'sh-mode-hook (lambda () (setq-local counsel-dash-docsets '("Bash"))))
+    (add-hook 'c-mode-hook (lambda () (setq-local counsel-dash-docsets '("C"))))
+    (add-hook 'js2-mode-hook (lambda () (setq-local counsel-dash-docsets '("JavaScript"))))
+    (add-hook 'js-mode-hook (lambda () (setq-local counsel-dash-docsets '("JavaScript"))))
+    (add-hook 'go-mode-hook (lambda () (setq-local counsel-dash-docsets '("Go"))))
+    (add-hook 'html-mode-hook (lambda () (setq-local counsel-dash-docsets '("HTML" "Javascript"))))
+    (add-hook 'python-mode-hook (lambda () (setq-local counsel-dash-docsets '("Python 3"))))
     (sa/leader-key-def
-      "." 'counsel-dash-at-point))
+      "l" '(:ignore t :which-key "lookup")
+      "lt" 'counsel-dash-at-point
+      "ls" 'counsel-dash))
 #+end_src
 
