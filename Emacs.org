@@ -430,3 +430,17 @@
 #+end_src
 
 * TODO is it possible to store the ~stderr~ as part of the Org Babel ~RESULTS~?
+
+* Dask
+
+#+begin_src sh
+sudo apt install sqlite3
+#+end_src
+
+#+begin_src emacs-lisp
+  (use-package counsel-dash
+    :straight t
+    :config
+    (setq dash-docs-enable-debugging nil))
+#+end_src
+
