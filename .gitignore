@@ -101,3 +101,5 @@ eln-cache
 .lsp-session-v1
 request
 org-roam.db
+TAGS
+projects
