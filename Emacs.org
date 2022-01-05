@@ -441,6 +441,14 @@ sudo apt install sqlite3
   (use-package counsel-dash
     :straight t
     :config
-    (setq dash-docs-enable-debugging nil))
+    (setq dash-docs-enable-debugging nil)
+
+    (add-hook 'go-mode-hook (lambda () (setq-local counsel-dash-docsets "Go")))
+    (add-hook 'emacs-lisp-mode-hook (lambda () (setq-local counsel-dash-docsets "Emacs Lisp")))
+    (add-hook 'python-mode-hook (lambda () (setq-local counsel-dash-docsets "Python")))
+    (add-hook 'scala-mode-hook (lambda () (setq-local counsel-dash-docsets "Scala")))
+
+    (sa/leader-key-def
+      "." 'counsel-dash-at-point))
 #+end_src
 
