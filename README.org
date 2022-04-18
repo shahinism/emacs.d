@@ -573,94 +573,16 @@
 *** Org-Mode
     #+begin_src emacs-lisp
       (use-package org
-        :straight org-plus-contrib
+        :straight t
         :config
         (require 'ob-tangle)
         (require 'org-tempo)
 
         (setq org-use-speed-commands t
               org-src-fontify-natively t
-              org-src-tab-acts-natively t
-              org-capture-inbox-file "~/org/inbox.org"
-              org-capture-web-file "~/org/web.org"
-              org-agenda-files '("~/org/agenda.org"))
-
-        (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
-        (require 'org-protocol))
+              org-src-tab-acts-natively t))
     #+end_src
-*** Org-Journal
-    #+begin_src emacs-lisp
-      (defun get-org-journal-date (date)
-        "Get org-journal's file for the DATE."
-        (let ((name (format-time-string org-journal-file-format date)))
-          (expand-file-name (concat (file-name-as-directory org-journal-dir) name))))
 
-      (defun get-org-journal-today ()
-        "Get today's journal file path."
-        (get-org-journal-date (current-time)))
-
-      (defun org-journal-today ()
-        "Get todays journal file path."
-        (interactive)
-        (find-file (get-org-journal-today)))
-
-      (use-package org-journal
-        :straight t
-        :after org
-        :config
-        (setq org-journal-dir "~/org/journal"
-              org-journal-date-prefix "#+TITLE: "
-              org-journal-file-format "%Y-%m-%d.org"
-              org-journal-date-format "%A, %d %B %Y")
-
-        (defhydra hydra-journal (:color blue)
-          ("t" org-journal-today "get today's journal file"))
-        )
-    #+end_src
-*** Org-Roam
-    #+begin_src emacs-lisp
-      (use-package org-roam
-        :straight t
-        :after org
-        :hook
-        (after-init . org-roam-mode)
-        :custom
-        (org-roam-directory "~/org/wiki")
-        :config
-
-        (defhydra hydra-roam (:color blue)
-          ("l" org-roam "roam")
-          ("f" org-roam-find-file "find roam file")
-          ("g" org-roam-graph-show "show graph")
-          ("i" org-roam-insert "insert roam link")
-          ("I" org-roam-insert-immediate "insert roam link immediately")
-          ))
-    #+end_src
-*** Org Capture Templates
-    #+begin_src emacs-lisp
-      (setq org-capture-templates `(("t" "Todo [inbox]" entry
-                                     (file+headline org-capture-inbox-file "Tasks")
-                                     "* TODO %i%?")
-                                    ("j" "Journal"
-                                     entry (file ,(get-org-journal-today))
-                                     "* %<%H:%M-%Z>: %?"
-                                     :empty-lines 1)
-                                    ("b" "Quick link bookmark" entry
-                                     (file+headline org-capture-web-file "Bookmarks")
-                                     "* %a %U"
-                                     :immediate-finish t)
-                                    ("B" "Link capture" entry
-                                     (file+headline org-capture-web-file "Bookmarks")
-                                     "* %a %U")
-                                    ("l" "Quick read later" entry
-                                     (file+headline org-capture-web-file "Read Later")
-                                     "* TODO %a %U"
-                                     :immediate-finish t)
-                                    ("L" "Read Later" entry
-                                     (file+headline org-capture-web-file "Read Later")
-                                     "* TODO %a %U")
-                                    ))
-    #+end_src
 *** Bullets
   #+begin_src emacs-lisp
     (use-package org-bullets      
@@ -669,25 +591,6 @@
       (add-hook 'org-mode-hook #'org-bullets-mode))
   #+end_src
   
-*** TODO Fix ~void symbol's function~ error on export
-    
-    Currently quickfix for this is:
-    #+begin_src emacs-lisp
-      (org-reload)
-    #+end_src
-** Web Tools
-   
-   #+begin_src emacs-lisp
-     (use-package org-web-tools
-       :straight t)
-   #+end_src
-** Sources
-   1. [[https://orgmode.org/manual/Structure-Templates.html][org-documents structured templates]]
-** Org Pomodoro
-   #+begin_src emacs-lisp
-     (use-package org-pomodoro
-       :straight t)
-   #+end_src
 * Programming
 ** [[https://github.com/bbatsov/projectile][Projectile]]
    #+begin_src emacs-lisp
