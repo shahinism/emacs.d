@@ -154,7 +154,11 @@
      (defun insert-forward ()
        "Move one character forward and exit modalka"
        (interactive)
-       (run-exit-modalka 'forward-char))
+       ;; If it's a new line character, then don't move forward and behave
+       ;; like normal insert.
+       (if (= (char-after) 10)
+          (disable-modalka)
+         (run-exit-modalka 'forward-char)))
 
      (defun insert-end-of-line ()
        "Move to the end of line and exit modalka"
