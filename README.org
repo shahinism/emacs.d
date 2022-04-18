@@ -239,12 +239,11 @@
         :prefix "SPC"
         "" nil
         ":" 'hydra-anzu/body
-        "J" 'hydra-journal/body
+        "J" ""
         "P" 'hydra-projectile-other-window/body
         "X" 'org-capture
         "bb" 'ivy-switch-buffer
         "br" 'crux-rename-file-and-buffer
-        "e" 'hydra-expand/body
         "ff" 'counsel-find-file
         "fi" 'find-literate-config
         "fr" 'counsel-recentf
@@ -254,7 +253,7 @@
         "j" 'dumb-jump-hydra/body
         "l" 'hydra-eglot/body
         "p" 'hydra-projectile/body
-        "or" 'hydra-roam/body
+        "or" ""
         "oa" 'org-agenda
         "w" 'hydra-window/body
         )
@@ -270,20 +269,20 @@
         "%" ""
         "^" ""
         "&" ""
-        "(" ""
-        ")" ""
-        "-" ""
+        "(" 'er/mark-inside-pairs
+        ;; ")" ""
+        ;; "-" ""
         "+" ""
         "\\" ""
         "|" ""
         "[" ""
         "]" ""
         "{" ""
-        "'" ""
-        ";" ""
+        "'" 'er/mark-inside-quotes
+        ";" 'counsel-projectile-switch-to-buffer
         "\"" ""
         ":" 'avy-goto-line
-        "/" 'swiper-isearch
+        "/" 'counsel-projectile-rg
         "." ""
         "," ""
         ">" ""
@@ -326,7 +325,7 @@
         "b" 'backward-word
         "c" ""
         "d" 'kill-hydra/body
-        "e" ""
+        "e" 'er/expand-region
         "f" 'avy-goto-char-in-line
         "g" nil
         "gg" 'beginning-of-buffer
@@ -363,6 +362,9 @@
        (modalka-define-kbd "9" "M-9")
        (general-define-key [escape] 'enable-modalka)
        )
+
+     (use-package expand-region
+       :straight t)
    #+end_src
 ** General
    
