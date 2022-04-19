@@ -282,7 +282,7 @@
         ";" 'counsel-projectile-switch-to-buffer
         "\"" ""
         ":" 'avy-goto-line
-        "/" 'counsel-projectile-rg
+        "/" 'counsel-projectile-ag
         "." ""
         "," ""
         ">" ""
@@ -677,7 +677,7 @@
        (smartparens-global-mode))
    #+end_src
    
-**‌ Company
+** Company
 
 #+begin_src emacs-lisp
   (use-package company
