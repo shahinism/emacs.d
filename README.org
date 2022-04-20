@@ -156,8 +156,10 @@
        (interactive)
        ;; If it's a new line character, then don't move forward and behave
        ;; like normal insert.
-       (if (= (char-after) 10)
-          (disable-modalka)
+       (message (string (point-max)))
+       (if (or (= (point) (point-max))   ;; if we are at the end of the buffer
+               (= (char-after) 10))      ;; or at the end of the line
+           (disable-modalka)
          (run-exit-modalka 'forward-char)))
 
      (defun insert-end-of-line ()
